@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/next": "^1.4.9",
     "@visx/geo": "^3.12.0",
     "@visx/responsive": "^3.12.0",
     "@visx/scale": "^3.12.0",

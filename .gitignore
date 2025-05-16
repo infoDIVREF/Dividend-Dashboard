@@ -1,41 +1,45 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ───────────────────────────────
+# ✅ Node & package managers
+node_modules/
+.pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# dependencies
-/node_modules
-/.pnp
+# ───────────────────────────────
+# ✅ Yarn PnP (opcional)
 .pnp.*
+/.pnp
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# ───────────────────────────────
+# ✅ Next.js build outputs
+.next/
+out/
+build/
 
-# next.js
-/.next/
-/out/
+# ───────────────────────────────
+# ✅ Coverage reports
+coverage/
 
-# production
-/build
+# ───────────────────────────────
+# ✅ Env files
+.env*
+next-env.d.ts
+*.tsbuildinfo
 
-# misc
+# ───────────────────────────────
+# ✅ OS & Editor files
 .DS_Store
 *.pem
+.vscode/
+.idea/
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ───────────────────────────────
+# ✅ Vercel / Netlify (usa uno u otro)
+.vercel/
+.netlify/
