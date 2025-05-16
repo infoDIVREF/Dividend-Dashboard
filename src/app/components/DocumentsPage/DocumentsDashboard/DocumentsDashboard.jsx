@@ -1,0 +1,67 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import axios from "axios";
+import DocsModal from "@/app/components/DocumentsPage/DocsModal/DocsModal";
+import DocumentsDashboardCard from "@/app/components/DocumentsPage/DocumentDashboardCard/DocumentsDashboardCard";
+import DocumentsUploadComponent from "@/app/components/DocumentsPage/DocumentsUploadComponent/DocumentsUploadComponent";
+
+export default function DocumentsDashboard() {
+  const { token, collaboratorId } = useAuth();
+  const [documents, setDocuments] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const fetchDocumentsData = async () => {
+    if (!token || !collaboratorId) return;
+    try {
+      const response = await axios.get(
+        `https://pre-dividend.dseos.com/api/invoicesByCategory/${collaboratorId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setDocuments(response.data.data);
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+    }
+  };
+
+  const openModal = (category) => {
+    setSelectedCategory(category);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedCategory("");
+  };
+
+  useEffect(() => {
+    fetchDocumentsData();
+  }, [token, collaboratorId]);
+
+  console.log("Documents data:", documents);
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {documents.map(({ category, pending, received }) => (
+          <DocumentsDashboardCard
+            key={category}
+            title={category}
+            totalPending={pending}
+            totalReceived={received}
+            openModal={openModal}
+          />
+        ))}
+        {isModalOpen && (
+          <DocsModal category={selectedCategory} onClose={closeModal} />
+        )}
+      </div>
+      <DocumentsUploadComponent fetchDocumentsData={fetchDocumentsData} />
+    </>
+  );
+}

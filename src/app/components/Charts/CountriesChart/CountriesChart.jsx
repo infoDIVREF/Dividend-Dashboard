@@ -1,0 +1,109 @@
+"use client";
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  CartesianGrid,
+} from "recharts";
+import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
+const isoToName = {
+  AL: "Albania",
+  AD: "Andorra",
+  AM: "Armenia",
+  AT: "Austria",
+  AZ: "Azerbaiyán",
+  BY: "Bielorrusia",
+  BE: "Bélgica",
+  BA: "Bosnia y Herzegovina",
+  BG: "Bulgaria",
+  HR: "Croacia",
+  CY: "Chipre",
+  CZ: "Chequia",
+  DK: "Dinamarca",
+  EE: "Estonia",
+  FI: "Finlandia",
+  FR: "Francia",
+  GE: "Georgia",
+  DE: "Alemania",
+  GR: "Grecia",
+  HU: "Hungría",
+  IS: "Islandia",
+  IE: "Irlanda",
+  IT: "Italia",
+  KZ: "Kazajistán",
+  XK: "Kosovo",
+  LV: "Letonia",
+  LI: "Liechtenstein",
+  LT: "Lituania",
+  LU: "Luxemburgo",
+  MT: "Malta",
+  MD: "Moldavia",
+  MC: "Mónaco",
+  ME: "Montenegro",
+  NL: "Países Bajos",
+  MK: "Macedonia del Norte",
+  NO: "Noruega",
+  PL: "Polonia",
+  PT: "Portugal",
+  RO: "Rumanía",
+  RU: "Rusia",
+  SM: "San Marino",
+  RS: "Serbia",
+  SK: "Eslovaquia",
+  SI: "Eslovenia",
+  ES: "España",
+  SE: "Suecia",
+  CH: "Suiza",
+  TR: "Turquía",
+  UA: "Ucrania",
+  GB: "Reino Unido",
+  VA: "Ciudad del Vaticano",
+};
+
+export function CountriesChart() {
+  const { data, loading, error } = useGetDataByCountry();
+
+  if (loading)
+    return <p className="text-sm text-gray-500">Cargando datos por país...</p>;
+  if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
+  if (!data.length)
+    return <p className="text-sm text-gray-400">No hay datos disponibles.</p>;
+
+  return (
+    <div className="h-96 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} layout="vertical" margin={{ left: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis type="number" />
+          <YAxis
+            dataKey="name"
+            type="category"
+            width={100}
+            tickFormatter={(iso) => isoToName[iso] || iso}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar
+            dataKey="enTramite"
+            stackId="a"
+            fill="#C9C9C9"
+            name="En trámite"
+          />
+          <Bar dataKey="enviado" stackId="a" fill="#4F84A6" name="Enviado" />
+          <Bar
+            dataKey="recuperado"
+            stackId="a"
+            fill="#244A76"
+            name="Recuperado"
+            radius={[0, 5, 5, 0]}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}

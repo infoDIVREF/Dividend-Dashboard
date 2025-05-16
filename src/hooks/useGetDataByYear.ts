@@ -1,0 +1,65 @@
+import { useEffect, useState } from "react";
+import { useFilters } from "@/contexts/FiltersContext";
+import { useAuth } from "@/hooks/useAuth";
+
+export function useGetDataByYear() {
+  const { selectedFilters } = useFilters();
+  const { token, collaboratorId } = useAuth();
+  const [data, setData] = useState([]); // ← array directamente usable en el gráfico
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!collaboratorId || selectedFilters.years.length === 0) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      const years = selectedFilters.years.join(",");
+
+      try {
+        const res = await fetch(
+          `https://pre-dividend.dseos.com/api/claims/total-by-year/${collaboratorId}?years=${years}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!res.ok) throw new Error("Error al obtener datos por año");
+
+        const json = await res.json();
+
+        const parsed = Object.entries(json.data.byYear).map(
+          ([year, values]) => ({
+            name: year,
+            // @ts-expect-error sorry dayan
+
+            enTramite: values.totalPendiente,
+            // @ts-expect-error sorry dayan
+
+            enviado: values.totalEnviado,
+            // @ts-expect-error sorry dayan
+
+            recuperado: values.totalRecuperado,
+          })
+        );
+        // @ts-expect-error sorry dayan
+
+        setData(parsed);
+      } catch (err) {
+        // @ts-expect-error sorry dayan
+
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedFilters.years, collaboratorId]);
+
+  return { data, loading, error };
+}
