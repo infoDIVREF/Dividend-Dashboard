@@ -4,7 +4,6 @@ import axios from "axios";
 
 export default function DocsModal({ category, onClose }) {
   const [documents, setDocuments] = useState([]);
-  console.log("DOCUMENTS EN MODAL", documents);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { token, collaboratorId } = useAuth();

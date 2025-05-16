@@ -98,7 +98,7 @@ export default function SideBar({ pageToShow }: { pageToShow: string }) {
           return (
             <button
               key={fund.id}
-              onClick={() => updateSelectedFilter("funds", fund)}
+              onClick={() => updateSelectedFilter("funds", fund as unknown)}
               className={`mt-0! border py-1 text-[15px] rounded ${
                 isSelectedFund
                   ? "bg-azul text-white"

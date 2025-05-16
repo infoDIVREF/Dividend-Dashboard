@@ -37,10 +37,7 @@ export default function GeoMercatorMap({ events = false }: GeoMercatorProps) {
   const centerY = height / 1.5;
   const scale = (width / 630) * 250;
 
-  const { mapData, isLoading, error } = useGetMapData();
-  console.log("MAP DATA", mapData);
-  console.log("IS LOADING", isLoading);
-  console.log("ERROR", error);
+  const { mapData } = useGetMapData();
 
   const recoveredValues = mapData.map((d) => d.totalRecovered);
   const minRecovered = Math.min(...recoveredValues);

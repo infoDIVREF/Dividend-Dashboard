@@ -35,7 +35,9 @@ interface FiltersContextType {
   error: string | null;
   clearSelectedFilters: (filters: Filters) => void;
   setSelectedFilters: (filters: Filters) => void;
-  updateSelectedFilter: (key: keyof Filters, value: string) => void;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateSelectedFilter: (key: keyof Filters, value: any) => void;
   reloadFilters: () => void;
 }
 
