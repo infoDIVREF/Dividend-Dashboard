@@ -30,7 +30,7 @@ export const useGetMapData = () => {
 
     try {
       const res = await fetch(
-        `https://pre-dividend.dseos.com/api/totalByCountry/${collaboratorId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/totalByCountry/${collaboratorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -16,7 +16,7 @@ export default function DocumentsDashboard() {
     if (!token || !collaboratorId) return;
     try {
       const response = await axios.get(
-        `https://pre-dividend.dseos.com/api/invoicesByCategory/${collaboratorId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/invoicesByCategory/${collaboratorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

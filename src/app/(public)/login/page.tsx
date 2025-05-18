@@ -15,7 +15,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    const res = await fetch("https://pre-dividend.dseos.com/api/auth/login", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

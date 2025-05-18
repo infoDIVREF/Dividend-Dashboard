@@ -14,7 +14,7 @@ export default function InvoicesTable() {
   const fetchInvoices = async () => {
     try {
       const response = await axios.get(
-        `https://pre-dividend.dseos.com/api/bills/getAllBills/${collaboratorId}?page=${currentPage}&per_page=10`,
+        `${process.env.NEXT_PUBLIC_API_URL}/bills/getAllBills/${collaboratorId}?page=${currentPage}&per_page=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ export default function InvoicesTable() {
               </td> */}
               <td className="text-start px-4 py-2">
                 <a
-                  href={`https://pre-dividend.dseos.com/api/bills/download/${invoice.id}`}
+                  href={`${process.env.NEXT_PUBLIC_API_URL}/bills/download/${invoice.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -11,7 +11,7 @@ export default function DocsModal({ category, onClose }) {
   const fetchDocuments = async () => {
     try {
       const response = await axios.get(
-        `https://pre-dividend.dseos.com/api/invoices/${collaboratorId}?page=${currentPage}&per_page=100&category=${category}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/invoices/${collaboratorId}?page=${currentPage}&per_page=10&category=${category}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

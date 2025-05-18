@@ -20,7 +20,7 @@ export function useGetDataByYear() {
 
       try {
         const res = await fetch(
-          `https://pre-dividend.dseos.com/api/claims/total-by-year/${collaboratorId}?years=${years}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-year/${collaboratorId}?years=${years}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
