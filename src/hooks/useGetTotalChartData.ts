@@ -35,7 +35,9 @@ export function useGetTotalChartData() {
 
       try {
         const res = await fetch(
-          `https://pre-dividend.dseos.com/api/claims/total/${collaboratorId}?${params.toString()}`,
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/claims/total/${collaboratorId}?${params.toString()}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

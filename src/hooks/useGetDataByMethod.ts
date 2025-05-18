@@ -20,7 +20,7 @@ export function useGetDataByMethod() {
 
       try {
         const res = await fetch(
-          `https://pre-dividend.dseos.com/api/claims/total-by-method/${collaboratorId}?methods=${methods}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-method/${collaboratorId}?methods=${methods}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

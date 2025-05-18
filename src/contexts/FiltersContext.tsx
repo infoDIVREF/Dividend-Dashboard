@@ -73,7 +73,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const response = await fetch(
-        `https://pre-dividend.dseos.com/api/filters/all/${collaboratorId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/filters/all/${collaboratorId}`,
         { headers }
       );
 
@@ -115,7 +115,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const response = await fetch(
-        `https://pre-dividend.dseos.com/api/filters/all/${collaboratorId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/filters/all/${collaboratorId}`,
         { headers }
       );
       const data = await response.json();
@@ -151,7 +151,9 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const response = await fetch(
-        `https://pre-dividend.dseos.com/api/filters/all/${collaboratorId}?${params.toString()}`,
+        `${
+          process.env.NEXT_PUBLIC_API_URL
+        }/filters/all/${collaboratorId}?${params.toString()}`,
         { headers }
       );
 

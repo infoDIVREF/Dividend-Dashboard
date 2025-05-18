@@ -18,7 +18,7 @@ export function useGetDataByFund() {
       const ids = selectedFilters.funds.map((f) => f.id).join(",");
       try {
         const res = await fetch(
-          `https://pre-dividend.dseos.com/api/claims/total-by-fund/${collaboratorId}?funds=${ids}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-fund/${collaboratorId}?funds=${ids}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -36,7 +36,7 @@ export default function UploadModal({ file, onClose, fetchDocumentsData }) {
 
     try {
       const response = await axios.post(
-        `https://pre-dividend.dseos.com/api/invoices/uploadFile/${collaboratorId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/invoices/uploadFile/${collaboratorId}`,
         formData,
         {
           headers: {

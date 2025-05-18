@@ -23,7 +23,7 @@ export function useGetDataByCountry() {
 
       try {
         const res = await fetch(
-          `https://pre-dividend.dseos.com/api/claims/total-by-country/${collaboratorId}?countries=${isoCodes}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-country/${collaboratorId}?countries=${isoCodes}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
