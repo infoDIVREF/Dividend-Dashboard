@@ -1,12 +1,12 @@
-// src/components/UserDropdown/UserDropdown.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function UserDropdown() {
   const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null); 
   const { user, collaboratorId, setCollaborator, logout } = useAuthContext();
   const router = useRouter();
 
@@ -21,8 +21,28 @@ export default function UserDropdown() {
     setOpen(false);
   };
 
+  // Detectar clics fuera
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
         className="w-[46px] h-[46px] flex items-center justify-center"
@@ -42,6 +62,7 @@ export default function UserDropdown() {
           />
         </svg>
       </button>
+
       {open && (
         <div className="absolute right-0 top-full mt-2 bg-white shadow-md rounded-md w-60 z-50 p-4 space-y-2">
           <ul className="space-y-1">

@@ -7,7 +7,7 @@ export default function DashboardHeader({ pageToShow, setPageToShow }) {
   }
 
   return (
-    <div className="w-full flex flex-row justify-between relative z-20 items-center">
+    <div className="w-full flex flex-row justify-between relative items-center">
       <h1
         className={`${
           pageToShow === "map" ? "invisible" : ""
