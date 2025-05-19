@@ -1,11 +1,47 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import html2canvas from "html2canvas";
 
 export default function ExportButton() {
-  const handleExport = () => {
-    // Aquí puedes agregar la lógica de exportación (por ejemplo, exportar datos a un archivo)
-    console.log("Exporting data...");
+  const handleExport = async () => {
+    const element = document.getElementById("dashboard-capture");
+    if (!element) return;
+
+    // Asegurarte de que las fuentes están cargadas
+    await document.fonts.ready;
+
+    // Crear wrapper con padding
+    const wrapper = document.createElement("div");
+    wrapper.style.padding = "20px";
+    wrapper.style.backgroundColor = "white"; // evita fondo transparente
+    wrapper.appendChild(element.cloneNode(true)); // Clonar para evitar glitches
+
+    document.body.appendChild(wrapper); // Añadir temporalmente al DOM
+
+    const canvas = await html2canvas(wrapper, {
+      useCORS: true,
+      scrollY: -window.scrollY,
+    });
+
+    const image = canvas.toDataURL("image/png");
+
+    const now = new Date();
+    const formattedDate = now
+      .toISOString()
+      .replace(/T/, "_")
+      .replace(/:/g, "-")
+      .replace(/\..+/, "");
+    const filename = `dashboard-${formattedDate}.png`;
+
+    // Eliminar wrapper temporal del DOM
+    document.body.removeChild(wrapper);
+
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = filename;
+    link.click();
   };
+
   return (
     <button
       onClick={handleExport}

@@ -15,16 +15,16 @@ export default function StatusButton({ label, icon, selected, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="min-w-[162px] h-[42px] px-5 gap-3  flex items-center rounded-[12.66px] text-sm font-semibold transition-all"
+      className="px-5 text-sm font-bold h-10 rounded-md flex items-center justify-start gap-3"
       style={{
         backgroundColor: bgColor,
         color: textColor,
       }}
     >
       {icon}
-
-      {/* Texto */}
-      <span className="uppercase tracking-wide">{label}</span>
+      <span className="uppercase tracking-wide flex items-center justify-center">
+        {label}
+      </span>
     </button>
   );
 }
