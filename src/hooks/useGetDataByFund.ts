@@ -10,7 +10,7 @@ export function useGetDataByFund() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!collaboratorId || selectedFilters.funds.length === 0) return;
+    if (!collaboratorId ) return;
 
     const fetchData = async () => {
       setLoading(true);
@@ -37,7 +37,8 @@ export function useGetDataByFund() {
     };
 
     fetchData();
-  }, [selectedFilters.funds, collaboratorId]);
+  }, [selectedFilters.funds, collaboratorId, token]);
+
 
   return { data, loading, error };
 }

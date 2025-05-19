@@ -3,7 +3,7 @@ import StatusFiltersComponent from "./StatusFiltersComponent/StatusFiltersCompon
 
 export default function GraphicsComponentHeader() {
   return (
-    <div className="flex">
+    <div className="flex justify-center items-center">
       <StatusFiltersComponent />
     </div>
   );

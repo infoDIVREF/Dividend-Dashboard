@@ -9,7 +9,7 @@ export default function Home() {
    */ const [pageToShow, setPageToShow] = useState<PageToShow>("graphics");
 
   return (
-    <div className="w-full h-[calc(100%-93px)] flex">
+    <div className="w-full flex">
       <SideBar pageToShow={pageToShow} />
       <Dashboard pageToShow={pageToShow} setPageToShow={setPageToShow} />
     </div>

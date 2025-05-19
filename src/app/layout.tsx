@@ -42,7 +42,7 @@ export default function RootLayout({
         <AuthProvider>
           <FiltersProvider>
             <NavBar />
-            <div className="mt-[93px] w-full">{children}</div>
+            <div className="mt-20 w-full">{children}</div>
           </FiltersProvider>
         </AuthProvider>
         {/* Botón sugerencia */}

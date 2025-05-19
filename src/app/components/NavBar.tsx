@@ -13,7 +13,7 @@ export default function NavBar() {
     pathname === "/login" || pathname === "/select-collaborator";
 
   return (
-    <div className="absolute h-[93px] w-[100vw] bg-blanco-roto flex flex-row justify-between items-center py-5 px-10 z-10">
+    <div className="h-20 w-full bg-blanco-roto flex flex-row justify-between items-center py-4 px-8 z-10 fixed">
       <div className="flex flex-row items-center">
         <Image src={DividendLogo} alt="Dividend-logo" />
         {!hideElements && (
