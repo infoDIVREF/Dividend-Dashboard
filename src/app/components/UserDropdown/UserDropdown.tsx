@@ -64,7 +64,7 @@ export default function UserDropdown() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 bg-white shadow-md rounded-md w-60 z-50 p-4 space-y-2">
+        <div className="absolute right-0 top-full bg-white shadow-md rounded-md w-60 z-50 p-4 space-y-2">
           <ul className="space-y-1">
             {user?.collaborators.map((collab) => (
               <li key={collab.id}>

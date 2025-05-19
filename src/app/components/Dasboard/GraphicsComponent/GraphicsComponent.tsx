@@ -9,41 +9,45 @@ import { TotalChart } from "../../Charts/TotalChart/TotalChart";
 
 export default function GraphicsComponent() {
   return (
-    <>
+    <div id="dashboard-capture" >
       <GraphicsComponentHeader />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Primera fila: cada una ocupa 6 columnas = 50% */}
-        <div className="bg-white rounded-xl shadow-md p-4 lg:col-span-6">
-          <h3 className="text-lg font-semibold mb-2">Por fondo</h3>
-          {/* Grafica de funds */}
-          <FundsChart />
+      <div className="flex flex-col gap-4 mt-8">
+        <div className="flex gap-4">
+          {/* Primera fila: cada una ocupa 6 columnas = 50% */}
+          <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
+            <h3 className="text-lg font-semibold mb-2">Por fondo</h3>
+            {/* Grafica de funds */}
+            <FundsChart />
+          </div>
+
+
+          <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
+            <h3 className="text-lg font-semibold mb-2">Por país</h3>
+            {/* Grafica de country */}
+            <CountriesChart />
+          </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-4 lg:col-span-6">
-          <h3 className="text-lg font-semibold mb-2">Por país</h3>
-          {/* Grafica de country */}
-          <CountriesChart />
-        </div>
+        <div className="flex gap-4">
+          <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+            <h3 className="text-lg font-semibold mb-2">Por año</h3>
+            {/* Grafica de year */}
+            <YearsChart />
+          </div>
 
-        {/* Segunda fila: tres tarjetas de 4 columnas = 33.33% */}
-        <div className="bg-white rounded-xl shadow-md p-4 lg:col-span-4">
-          <h3 className="text-lg font-semibold mb-2">Por año</h3>
-          {/* Grafica de year */}
-          <YearsChart />
-        </div>
+          <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+            <h3 className="text-lg font-semibold mb-2">Por vía</h3>
+            {/* Grafica de vía (DTTR, TJUE) */}
+            <MethodsChart />
+          </div>
 
-        <div className="bg-white rounded-xl shadow-md p-4 lg:col-span-4">
-          <h3 className="text-lg font-semibold mb-2">Por vía</h3>
-          {/* Grafica de vía (DTTR, TJUE) */}
-          <MethodsChart />
-        </div>
-
-        <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center lg:col-span-4">
-          {/*  Gráfica de total */}
-          <TotalChart />
+          <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
+            {/*  Gráfica de total */}
+            <TotalChart />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -62,7 +62,6 @@ export default function ClaimStatusStepper() {
       {/* Contenedor de los botones centrados */}
       {statuses.map((step, index) => (
         <div key={step.label} className="flex items-center">
-          {" "}
           {/* mx-2 para margen entre botones */}
           <StatusButton
             label={step.label}
@@ -83,7 +82,7 @@ export default function ClaimStatusStepper() {
                     ? statuses[index + 1].color // Color de la línea si está seleccionado
                     : statuses[index + 1].color, // Color constante
                 }}
-              ></div>
+              />
             </div>
           )}
         </div>

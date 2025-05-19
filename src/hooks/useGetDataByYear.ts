@@ -10,7 +10,7 @@ export function useGetDataByYear() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!collaboratorId || selectedFilters.years.length === 0) return;
+    if (!collaboratorId) return;
 
     const fetchData = async () => {
       setLoading(true);

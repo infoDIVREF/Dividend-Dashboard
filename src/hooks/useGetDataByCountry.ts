@@ -12,7 +12,7 @@ export function useGetDataByCountry() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!collaboratorId || selectedFilters.countries.length === 0) return;
+    if (!collaboratorId) return;
 
     const fetchData = async () => {
       setLoading(true);
