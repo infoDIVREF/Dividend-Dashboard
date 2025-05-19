@@ -59,7 +59,7 @@ export default function GeoMercatorMap({ events = false }: GeoMercatorProps) {
 
   return width < 10 ? null : (
     <svg
-      className="absolute top-[93px] left-0 z-10"
+      className="absolute top-20 left-0 z-10"
       width={width}
       height={height}
     >

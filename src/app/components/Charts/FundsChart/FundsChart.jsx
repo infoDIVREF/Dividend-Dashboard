@@ -32,7 +32,7 @@ export function FundsChart() {
     return <p className="text-sm text-gray-400">No hay datos disponibles.</p>;
 
   return (
-    <div className="h-64 w-full">
+    <div className="h-96 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
           <XAxis

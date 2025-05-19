@@ -18,7 +18,7 @@ export default function DashboardHeader({ pageToShow, setPageToShow }) {
       <div className="flex gap-4">
         <button
           onClick={() => togglePageToShow("graphics")}
-          className={`px-10 py-2 rounded-[16.5px] text-md font-semibold transition-all font-bricolage ${
+          className={`flex items-center justify-center gap-2 px-4 py-2 text-black rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 font-bricolage ${
             pageToShow === "graphics"
               ? "bg-blanco-roto text-negro" // Botón activo (color similar al azul oscuro)
               : "bg-transparent text-gris-claro border border-gris-claro " // Botón inactivo (gris claro)
@@ -28,10 +28,10 @@ export default function DashboardHeader({ pageToShow, setPageToShow }) {
         </button>
         <button
           onClick={() => togglePageToShow("map")}
-          className={`px-10 py-2 rounded-[16.5px] text-md font-semibold transition-all font-bricolage ${
+          className={`flex items-center justify-center gap-2 px-4 py-2 text-black rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 font-bricolage ${
             pageToShow === "map"
               ? "bg-blanco-roto text-negro" // Botón activo (color similar al azul oscuro)
-              : "bg-transparent text-gris-claro border border-gris-claro" // Botón inactivo (gris claro)
+              : "bg-transparent border border-gris-claro" // Botón inactivo (gris claro)
           }`}
         >
           Mapa
