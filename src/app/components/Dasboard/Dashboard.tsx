@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import GraphicsComponent from "./GraphicsComponent/GraphicsComponent";
 import MapComponent from "./AirBnbMapComponent/AirBnbMapComponent";
 
@@ -9,9 +9,18 @@ interface DashboardProps {
 }
 
 function Dashboard({ pageToShow }: DashboardProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+    if (pageToShow === "map") {
+      containerRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }, [pageToShow]);
+
 
   return (
     <div  
+      ref={containerRef}
       className={`
         relative w-full h-full 
         ${pageToShow === "graphics" ? "overflow-auto" : "overflow-hidden"}
