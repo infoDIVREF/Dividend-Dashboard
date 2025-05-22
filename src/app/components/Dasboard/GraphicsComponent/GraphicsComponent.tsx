@@ -11,10 +11,10 @@ import React from "react";
 
 function GraphicsComponent() {
   return (
-    <div id="dashboard-capture" >
+    <div>
       <GraphicsComponentHeader />
 
-      <div className="flex flex-col gap-4 mt-8">
+      <div id="dashboard-capture" className="flex flex-col gap-4 mt-8">
         <div className="flex gap-4">
           {/* Primera fila: cada una ocupa 6 columnas = 50% */}
           <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
