@@ -6,7 +6,7 @@ import { CountriesChart } from "../../Charts/CountriesChart/CountriesChart";
 import { YearsChart } from "../../Charts/YearsChart/YearsChart";
 import { MethodsChart } from "../../Charts/MethodsChart/MethodsChart";
 import { TotalChart } from "../../Charts/TotalChart/TotalChart";
-import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
+// import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
 
 export default function GraphicsComponent() {
   return (
