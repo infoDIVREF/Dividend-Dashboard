@@ -74,9 +74,9 @@ export default function SideBar({ pageToShow }: { pageToShow: string }) {
 
   return (
     <motion.div
-      className="flex flex-col h-full w-[30vw] bg-[#f6f7f9] overflow-scroll pl-[39px] pr-[29.6px] py-6 gap-5"
+      className={`flex flex-col h-full w-full bg-[#f6f7f9] gap-5 overflow-y-auto overflow-x-hidden p-5`}
       animate={{
-        width: pageToShow === "map" ? 0 : "30vw",
+        width: pageToShow === "map" ? 0 : "100%",
         opacity: pageToShow === "map" ? 0 : 1,
       }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -146,7 +146,7 @@ export default function SideBar({ pageToShow }: { pageToShow: string }) {
                   : "text-gris-claro-2 border border-gris-oscuro"
               }`}
             >
-              <div className="relative w-[20px] h-[20px] overflow-hidden rounded">
+              <div className="relative w-7 h-5 overflow-hidden rounded">
                 <Flag
                   code={country.isoCode}
                   style={{

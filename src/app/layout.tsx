@@ -37,12 +37,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} bg-blanco `}
+        className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} bg-blanco h-screen `}
       >
         <AuthProvider>
           <FiltersProvider>
-            <NavBar />
-            <div className="mt-20 w-full">{children}</div>
+              <NavBar />
+              <div className="pt-20 h-full">
+              {children}
+              </div>
           </FiltersProvider>
         </AuthProvider>
         {/* Botón sugerencia */}

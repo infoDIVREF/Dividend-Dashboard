@@ -7,13 +7,9 @@ export default function DashboardHeader({ pageToShow, setPageToShow }) {
   }
 
   return (
-    <div className="w-full flex flex-row justify-between relative items-center">
-      <h1
-        className={`${
-          pageToShow === "map" ? "invisible" : ""
-        } text-[32px] text-negro`}
-      >
-        Dashboard
+    <div className="w-full flex flex-row justify-between relative items-center h-20">
+      <h1 className={` text-[32px] text-negro`}>
+        {pageToShow === "graphics" ? "Dashboard" : "Mapa"}
       </h1>
       <div className="flex gap-4">
         <button

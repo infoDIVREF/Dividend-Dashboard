@@ -48,7 +48,7 @@ export default function ClaimStatusStepper() {
   const isSelected = (status) => selectedFilters.claimStatus.includes(status);
 
   return (
-    <div className="flex items-center justify-start w-full">
+    <div className="flex items-center justify-start w-full mt-4">
       {/* Línea inicial que se extiende al principio */}
       <div className="relative flex items-center h-[2px] w-[25%]">
         <div
