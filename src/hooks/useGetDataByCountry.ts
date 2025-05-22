@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetDataByCountry() {
   const { selectedFilters } = useFilters();
@@ -22,8 +23,8 @@ export function useGetDataByCountry() {
         .join(",");
 
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-country/${collaboratorId}?countries=${isoCodes}`,
+        const res = await axiosInstance.get(
+          `/claims/total-by-country/${collaboratorId}?countries=${isoCodes}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -32,12 +33,8 @@ export function useGetDataByCountry() {
           }
         );
 
-        if (!res.ok) throw new Error("Error al obtener datos por país");
-
-        const json = await res.json();
-
         // Transformamos el objeto byCountry en array
-        const parsed = Object.entries(json.data.byCountry).map(
+        const parsed = Object.entries(res.data.data.byCountry).map(
           ([isoCode, values]) => ({
             name: isoCode,
             // @ts-expect-error sorry dayan
@@ -59,7 +56,7 @@ export function useGetDataByCountry() {
     };
 
     fetchData();
-  }, [selectedFilters.countries, collaboratorId]);
+  }, [selectedFilters.countries, collaboratorId, token]);
 
   return { data, loading, error };
 }

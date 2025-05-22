@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetTotalChartData() {
   const { selectedFilters } = useFilters();
@@ -34,10 +35,8 @@ export function useGetTotalChartData() {
         );
 
       try {
-        const res = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/claims/total/${collaboratorId}?${params.toString()}`,
+        const res = await axiosInstance.get(
+          `/claims/total/${collaboratorId}?${params.toString()}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -45,9 +44,7 @@ export function useGetTotalChartData() {
             },
           }
         );
-        if (!res.ok) throw new Error("Error al obtener datos totales");
-        const json = await res.json();
-        setData(json);
+        setData(res.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
       } finally {
@@ -56,7 +53,7 @@ export function useGetTotalChartData() {
     };
 
     fetchData();
-  }, [selectedFilters, collaboratorId]);
+  }, [selectedFilters, collaboratorId, token]);
 
   return { data, loading, error };
 }

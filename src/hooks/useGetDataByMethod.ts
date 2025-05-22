@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetDataByMethod() {
   const { selectedFilters } = useFilters();
@@ -19,8 +20,8 @@ export function useGetDataByMethod() {
       const methods = selectedFilters.methods.join(",");
 
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-method/${collaboratorId}?methods=${methods}`,
+        const res = await axiosInstance.get(
+          `/claims/total-by-method/${collaboratorId}?methods=${methods}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -28,11 +29,8 @@ export function useGetDataByMethod() {
             },
           }
         );
-        if (!res.ok) throw new Error("Error al obtener datos por vía");
 
-        const json = await res.json();
-
-        const parsed = Object.entries(json.data.byMethod).map(
+        const parsed = Object.entries(res.data.data.byMethod).map(
           ([method, values]) => ({
             name: method,
             // @ts-expect-error sorry dayan
@@ -55,7 +53,7 @@ export function useGetDataByMethod() {
     };
 
     fetchData();
-  }, [selectedFilters.methods, collaboratorId]);
+  }, [selectedFilters.methods, collaboratorId, token]);
 
   return { data, loading, error };
 }
