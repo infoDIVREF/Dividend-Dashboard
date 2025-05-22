@@ -9,7 +9,7 @@ export default function DashboardHeader({
 }) {
   return (
     <div className="w-full flex flex-row justify-between relative items-center h-20">
-      <div className={`flex ${isSidebarOpen ? "gap-5" : ""}`}>
+      <div className={`flex ${!isSidebarOpen ? "gap-5" : ""}`}>
         <div className="flex items-center justify-center">
           {!isSidebarOpen && pageToShow !== "map" ? (
             <ToggleDashboardComponent toggleSidebar={toggleSidebar} />
