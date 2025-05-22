@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetDataByFund() {
   const { selectedFilters } = useFilters();
@@ -8,6 +9,7 @@ export function useGetDataByFund() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
 
   useEffect(() => {
     if (!collaboratorId ) return;
@@ -17,8 +19,8 @@ export function useGetDataByFund() {
       setError(null);
       const ids = selectedFilters.funds.map((f) => f.id).join(",");
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/claims/total-by-fund/${collaboratorId}?funds=${ids}`,
+        const res = await axiosInstance.get(
+          `/claims/total-by-fund/${collaboratorId}?funds=${ids}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -26,9 +28,7 @@ export function useGetDataByFund() {
             },
           }
         );
-        if (!res.ok) throw new Error("Error al obtener datos por fondo");
-        const json = await res.json();
-        setData(json);
+        setData(res.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
       } finally {

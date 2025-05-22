@@ -1,18 +1,22 @@
 // src/components/SideBar/Sidebar.tsx
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
 import SideBarHeader from "./SideBarHeader/SideBarHeader";
 //import ActiveFilters from "./ActiveFilters/ActiveFilters";
 import FilterSection from "./FiltersSection/FiltersSection";
 import { useFilters } from "@/contexts/FiltersContext";
-import ToggleSideBarComponent from "./ToggleSideBarComponent/ToggleSideBarComponent";
 import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
 import { RecoveredIcon } from "@/components/icons/ClaimStatusIcons";
 import { SentIcon } from "@/components/icons/ClaimStatusIcons";
 import Flag from "react-world-flags";
 
-export default function SideBar({ pageToShow }: { pageToShow: string }) {
+export default function SideBar({
+  toggleSidebar,
+}: {
+  pageToShow: string;
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  
+}) {
   const {
     initialFilters,
     selectedFilters,
@@ -73,19 +77,16 @@ export default function SideBar({ pageToShow }: { pageToShow: string }) {
   ];
 
   return (
-    <motion.div
-      className={`flex flex-col h-full w-full bg-[#f6f7f9] gap-5 overflow-y-auto overflow-x-hidden p-5`}
-      animate={{
-        width: pageToShow === "map" ? 0 : "100%",
-        opacity: pageToShow === "map" ? 0 : 1,
-      }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      style={{ pointerEvents: pageToShow === "map" ? "none" : "auto" }}
+    <div
+      className={`
+        flex flex-col h-full w-full
+        transition-all duration-300 ease-in-out
+        gap-5 overflow-y-auto overflow-x-hidden p-5 bg-[#f6f7f9]
+      `}
     >
-      <ToggleSideBarComponent />
-      <SideBarHeader onClear={handleClearFilters} />
-      {/* <ActiveFilters /> */}
+      <SideBarHeader onClear={handleClearFilters} toggleSidebar={toggleSidebar} selectedFilters={selectedFilters} />
 
+      {/* <ActiveFilters /> */}
       <FilterSection
         title="Nombre del Fondo"
         customClassName="grid grid-cols-1 gap-2"
@@ -198,6 +199,6 @@ export default function SideBar({ pageToShow }: { pageToShow: string }) {
           );
         })}
       </FilterSection>
-    </motion.div>
+    </div>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import axios from "axios";
 import DocsModal from "@/app/components/DocumentsPage/DocsModal/DocsModal";
 import DocumentsDashboardCard from "@/app/components/DocumentsPage/DocumentDashboardCard/DocumentsDashboardCard";
 import DocumentsUploadComponent from "@/app/components/DocumentsPage/DocumentsUploadComponent/DocumentsUploadComponent";
+import axiosInstance from "@/lib/axiosInstance";
 
 export default function DocumentsDashboard() {
   const { token, collaboratorId } = useAuth();
@@ -15,7 +15,7 @@ export default function DocumentsDashboard() {
   const fetchDocumentsData = async () => {
     if (!token || !collaboratorId) return;
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${process.env.NEXT_PUBLIC_API_URL}/invoicesByCategory/${collaboratorId}`,
         {
           headers: {

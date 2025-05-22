@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import UploadFileIcon from "@/../public/icons/UploadFileIcon"; // Asegúrate de importar correctamente el icono
 import { useAuth } from "@/hooks/useAuth"; // Asegúrate de que el hook useAuth esté correctamente implementado
 import { useFilters } from "@/contexts/FiltersContext";
+import axiosInstance from "@/lib/axiosInstance";
 
 export default function UploadModal({ file, onClose, fetchDocumentsData }) {
   const [fileDescription, setFileDescription] = useState("");
@@ -35,7 +35,7 @@ export default function UploadModal({ file, onClose, fetchDocumentsData }) {
     formData.append("fileDescription", fileDescription);
 
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${process.env.NEXT_PUBLIC_API_URL}/invoices/uploadFile/${collaboratorId}`,
         formData,
         {

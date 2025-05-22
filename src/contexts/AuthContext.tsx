@@ -1,6 +1,7 @@
 // contexts/AuthContext.tsx
 "use client";
 
+import { useAxiosInterceptor } from "@/hooks/useAxiosInterceptor";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface Collaborator {
@@ -32,6 +33,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [collaboratorId, setCollaboratorId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // redirige al usuario cuando la API devuelve un 401
+  useAxiosInterceptor();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");

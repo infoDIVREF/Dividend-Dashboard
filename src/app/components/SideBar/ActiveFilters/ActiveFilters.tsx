@@ -1,6 +1,4 @@
-// src/components/SideBar/ActiveFilters.tsx
-"use client";
-import React from "react";
+"use client";;
 
 export default function ActiveFilters() {
   // Aquí puedes mostrar filtros activos más adelante

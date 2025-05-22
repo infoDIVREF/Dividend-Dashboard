@@ -1,4 +1,3 @@
-import React from "react";
 import DocumentsHeader from "@/app/components/DocumentsPage/DocumentsHeader/DocumentsHeader";
 import DocumentsDashboard from "@/app/components/DocumentsPage/DocumentsDashboard/DocumentsDashboard";
 export default function page() {

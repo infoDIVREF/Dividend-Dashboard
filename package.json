@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",  
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,7 +16,6 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.12.1",
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.477.0",
     "motion": "^12.4.10",

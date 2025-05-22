@@ -22,8 +22,8 @@ export function YearsChart() {
     return <p className="text-sm text-gray-400">No hay datos disponibles.</p>;
 
   return (
-    <div className="h-64 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="h-80 w-full">
+      <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />

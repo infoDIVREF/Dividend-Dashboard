@@ -76,7 +76,7 @@ export function CountriesChart() {
 
   return (
     <div className="h-96 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data} layout="vertical" margin={{ left: 20 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" />

@@ -231,3 +231,5 @@ export function useFilters() {
     throw new Error("useFilters debe usarse dentro de FiltersProvider");
   return context;
 }
+
+export type { Filters };

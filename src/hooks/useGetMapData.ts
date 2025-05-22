@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { iso2to3 } from "@/utils/iso2to3";
+import axiosInstance from "@/lib/axiosInstance";
 
 export interface CountryMapData {
   isoCode: string;
@@ -29,8 +30,8 @@ export const useGetMapData = () => {
     setError(null);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/totalByCountry/${collaboratorId}`,
+      const res = await axiosInstance.get<ApiResponse>(
+        `/totalByCountry/${collaboratorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -40,17 +41,14 @@ export const useGetMapData = () => {
         }
       );
 
-      if (!res.ok) throw new Error("Error al obtener los datos del mapa");
-
-      const json: ApiResponse = await res.json();
-      if (json.status !== "success") {
+      if (res.data.status !== "success") {
         throw new Error("Respuesta inválida del servidor");
       }
 
       setMapData(
-        json.data.map((item) => ({
+        res.data.data.map((item) => ({
           ...item,
-          isoCode3: iso2to3[item.isoCode] || item.isoCode, // fallback si no existe
+          isoCode3: iso2to3[item.isoCode] || item.isoCode,
         }))
       );
     } catch (err) {
