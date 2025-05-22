@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: "Dividend Refund Dashboard",
   description: "Dashboard para visualizar recuperación de dividendos",
   icons: {
-    icon: "../../public/favicon-dividend.png",
+    icon: "/favicon-dividend.png",
   },
 };
 
