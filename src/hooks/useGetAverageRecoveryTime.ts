@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetAverageRecoveryTime() {
   const { selectedFilters } = useFilters();
@@ -35,10 +36,8 @@ export function useGetAverageRecoveryTime() {
         );
 
       try {
-        const response = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/claims/average-recovery-time/${collaboratorId}?${params.toString()}`,
+        const response = await axiosInstance.get(
+          `/claims/average-recovery-time/${collaboratorId}?${params.toString()}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,12 +46,7 @@ export function useGetAverageRecoveryTime() {
           }
         );
 
-        if (!response.ok) {
-          throw new Error("Error al cargar los datos de los gráficos");
-        }
-
-        const json = await response.json();
-        setData(json);
+        setData(response.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
       } finally {

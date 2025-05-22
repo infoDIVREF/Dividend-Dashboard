@@ -1,4 +1,3 @@
-import React from "react";
 import EyeIcon from "@/../public/icons/EyeIcon";
 import ClockIcon from "@/../public/icons/ClockIcon";
 export default function DocumentsDashboardCard({

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import UploadFileIcon from "@/../public/icons/UploadFileIcon";
 import UploadModal from "@/app/components/DocumentsPage/UploadModal/UploadModal";
@@ -17,8 +17,15 @@ export default function DocumentsUploadComponent({ fetchDocumentsData }) {
   // Configuración del hook useDropzone
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => openModal(acceptedFiles[0]),
-    multiple: false, // Permitir solo un archivo a la vez
-    accept: ".pdf,.docx,.txt,.jpg,.jpeg,.png", // Tipos de archivo permitidos
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
+      "text/plain": [".txt"],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+    },
   });
 
   return (

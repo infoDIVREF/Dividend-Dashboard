@@ -6,9 +6,10 @@ import { CountriesChart } from "../../Charts/CountriesChart/CountriesChart";
 import { YearsChart } from "../../Charts/YearsChart/YearsChart";
 import { MethodsChart } from "../../Charts/MethodsChart/MethodsChart";
 import { TotalChart } from "../../Charts/TotalChart/TotalChart";
+import React from "react";
 // import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
 
-export default function GraphicsComponent() {
+function GraphicsComponent() {
   return (
     <div id="dashboard-capture" >
       <GraphicsComponentHeader />
@@ -83,3 +84,5 @@ export default function GraphicsComponent() {
     </div>
   );
 }
+
+  export default React.memo(GraphicsComponent);

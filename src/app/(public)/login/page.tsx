@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 interface LoginFormInputs {
   email: string;
@@ -15,22 +16,21 @@ export default function LoginPage() {
   const router = useRouter();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const result = await axiosInstance.post("/auth/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
-    const result = await res.json();
+      const { token, user } = result.data; // 👈 adaptado a tu backend
 
-    if (result.status === "success") {
-      login(result.token, result.user);
+      login(token, user);
       router.push("/select-collaborator");
-    } else {
+    } catch (error) {
       alert("Credenciales incorrectas");
+      console.error("Error en login:", error);
     }
   };
 

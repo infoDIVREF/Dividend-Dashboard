@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 
 export default function DocsModal({ category, onClose }) {
   const [documents, setDocuments] = useState([]);
@@ -10,7 +10,7 @@ export default function DocsModal({ category, onClose }) {
 
   const fetchDocuments = async () => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${process.env.NEXT_PUBLIC_API_URL}/invoices/${collaboratorId}?page=${currentPage}&per_page=10&category=${category}`,
         {
           headers: {

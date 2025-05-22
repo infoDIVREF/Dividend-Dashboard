@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import axios from "axios";
 import FilePdfIcon from "@/../public/icons/FilePdfIcon";
+import axiosInstance from "@/lib/axiosInstance";
 
 export default function InvoicesTable() {
   const [invoices, setInvoices] = useState([]);
@@ -13,7 +13,7 @@ export default function InvoicesTable() {
   // Función para obtener las facturas
   const fetchInvoices = async () => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${process.env.NEXT_PUBLIC_API_URL}/bills/getAllBills/${collaboratorId}?page=${currentPage}&per_page=10`,
         {
           headers: {

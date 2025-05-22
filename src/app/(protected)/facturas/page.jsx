@@ -1,4 +1,3 @@
-import React from "react";
 import InvoicesHeader from "@/app/components/InvoicesPage/InvoicesHeader/InvoicesHeader";
 import InvoicesTable from "@/app/components/InvoicesPage/InvoicesTable/InvoicesTable";
 

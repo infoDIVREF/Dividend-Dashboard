@@ -54,29 +54,31 @@ export function TotalChart() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <ResponsiveContainer width={220} height={220}>
-        <RePieChart>
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            startAngle={90}
-            endAngle={-270}
-          >
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Pie>
-          <Tooltip
-            formatter={(value) => `${value.toLocaleString()} €`}
-            wrapperStyle={{ fontSize: "0.875rem" }}
-          />
-        </RePieChart>
-      </ResponsiveContainer>
+      <div className="h-80 w-full" style={{ width: 220, height: 220 }}>
+        <ResponsiveContainer height={"100%"} width={"100%"}>
+          <RePieChart>
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              startAngle={90}
+              endAngle={-270}
+            >
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip
+              formatter={(value) => `${value.toLocaleString()} €`}
+              wrapperStyle={{ fontSize: "0.875rem" }}
+            />
+          </RePieChart>
+        </ResponsiveContainer>
+      </div>
 
       {/* Texto porcentual por estado */}
       <div className="mt-4 text-center space-y-1">

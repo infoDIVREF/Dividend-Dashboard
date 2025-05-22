@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { scaleQuantize } from "@visx/scale";
 import { Mercator } from "@visx/geo";
 import * as topojson from "topojson-client";
