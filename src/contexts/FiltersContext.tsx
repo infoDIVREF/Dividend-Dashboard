@@ -59,7 +59,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   const [selectedFilters, setSelectedFilters] =
     useState<Filters>(defaultFilters);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   /* const fetchFilters = useCallback(async () => {

@@ -31,7 +31,7 @@ function GraphicsComponent() {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-2">
           <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
             <h3 className="text-lg font-semibold mb-4">Por año</h3>
             {/* Grafica de year */}
