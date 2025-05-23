@@ -19,7 +19,7 @@ export default function NavBar() {
             <Link
               href="/dashboard"
               className={`${
-                pathname === "/dashboard" ? "text-[#234a76] font-bold" : "text-black"
+                pathname === "/dashboard" ? "text-[#4e84a6] font-bold" : "text-black"
               }`}
             >
               Dashboard
@@ -27,7 +27,7 @@ export default function NavBar() {
             <Link
               href="/documentacion"
               className={`${
-                pathname === "/documentacion" ? "text-[#234a76] font-bold" : "text-black"
+                pathname === "/documentacion" ? "text-[#4e84a6] font-bold" : "text-black"
               }`}
             >
               Documentación
@@ -35,7 +35,7 @@ export default function NavBar() {
             <Link
               href="/facturas"
               className={`${
-                pathname === "/facturas" ? "text-[#234a76] font-bold" : "text-black"
+                pathname === "/facturas" ? "text-[#4e84a6] font-bold" : "text-black"
               }`}
             >
               Facturas
