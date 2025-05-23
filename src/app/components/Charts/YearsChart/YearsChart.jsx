@@ -12,6 +12,9 @@ import {
 } from "recharts";
 import { useGetDataByYear } from "@/hooks/useGetDataByYear";
 import { CustomLegend } from "../CustomLegend";
+import { RoundedBar } from "../RoundedBar";
+
+// Inline shape personalizado para aplicar border-radius solo si es la barra superior
 
 export function YearsChart() {
   const { data, loading, error } = useGetDataByYear();
@@ -39,14 +42,21 @@ export function YearsChart() {
             stackId="a"
             fill="#C9C9C9"
             name="En trámite"
+            shape={(props) => <RoundedBar {...props} dataKey="enTramite" />}
           />
-          <Bar dataKey="enviado" stackId="a" fill="#4F84A6" name="Enviado" />
+          <Bar
+            dataKey="enviado"
+            stackId="a"
+            fill="#4F84A6"
+            name="Enviado"
+            shape={(props) => <RoundedBar {...props} dataKey="enviado" />}
+          />
           <Bar
             dataKey="recuperado"
             stackId="a"
             fill="#244A76"
             name="Recuperado"
-            radius={[5, 5, 0, 0]}
+            shape={(props) => <RoundedBar {...props} dataKey="recuperado" />}
           />
         </BarChart>
       </ResponsiveContainer>

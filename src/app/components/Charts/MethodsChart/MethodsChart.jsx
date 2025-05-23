@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { useGetDataByMethod } from "@/hooks/useGetDataByMethod";
 import { CustomLegend } from "../CustomLegend";
+import { RoundedBar } from "../RoundedBar";
 
 export function MethodsChart() {
   const { data, loading, error } = useGetDataByMethod();
@@ -39,14 +40,22 @@ export function MethodsChart() {
             stackId="a"
             fill="#C9C9C9"
             name="En trámite"
+            shape={(props) => <RoundedBar {...props} dataKey="enTramite" />}
           />
-          <Bar dataKey="enviado" stackId="a" fill="#4F84A6" name="Enviado" />
+          <Bar
+            dataKey="enviado"
+            stackId="a"
+            fill="#4F84A6"
+            name="Enviado"
+            shape={(props) => <RoundedBar {...props} dataKey="enviado" />}
+          />
           <Bar
             dataKey="recuperado"
             stackId="a"
             fill="#244A76"
             name="Recuperado"
             radius={[5, 5, 0, 0]}
+            shape={(props) => <RoundedBar {...props} dataKey="recuperado" />}
           />
         </BarChart>
       </ResponsiveContainer>
