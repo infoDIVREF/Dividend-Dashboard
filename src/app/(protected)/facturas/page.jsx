@@ -3,7 +3,7 @@ import InvoicesTable from "@/app/components/InvoicesPage/InvoicesTable/InvoicesT
 
 export default function page() {
   return (
-    <div className="flex flex-col gap-12 py-[53px] px-[53px]">
+    <div className="flex flex-col gap-12 py-[53px] px-[53px] justify-center items-center">
       <InvoicesHeader />
       <InvoicesTable />
     </div>

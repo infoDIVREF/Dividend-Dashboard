@@ -1,7 +1,7 @@
 export default function InvoicesHeader() {
   return (
-    <div>
-      <h1 className="text-[35px] text-azul">Facturas</h1>
+    <div className="w-full">
+      <h1 className="text-[35px] text-azul text-start">Facturas</h1>
     </div>
   );
 }
