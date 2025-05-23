@@ -9,6 +9,7 @@ import {
   useCallback,
 } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import axiosInstance from "@/lib/axiosInstance";
 
 type Country = {
   name: string;
@@ -114,11 +115,12 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/filters/all/${collaboratorId}`,
+      const response = await axiosInstance.get(
+        `/filters/all/${collaboratorId}`,
         { headers }
       );
-      const data = await response.json();
+
+      const data = response.data;
       const loaded: Filters = {
         years: data.years,
         countries: data.countries,
@@ -150,14 +152,14 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
       params.append("fund", filters.funds.map((f) => f.id).join(","));
 
     try {
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_URL
-        }/filters/all/${collaboratorId}?${params.toString()}`,
+      const response = await axiosInstance.get(
+        `/filters/all/${collaboratorId}?${params.toString()}`,
         { headers }
       );
 
-      const data = await response.json();
+      console.log(response)
+
+      const data = response.data;
       const updatedFilters: Filters = {
         years: data.years,
         countries: data.countries,
@@ -165,7 +167,6 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         funds: data.funds,
         claimStatus: ["EN TRÁMITE", "ENVIADO", "RECUPERADO"],
       };
-
       setSelectedFilters(updatedFilters);
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
