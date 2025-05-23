@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { useGetTotalChartData } from "@/hooks/useGetTotalChartData";
 import { CustomLegend } from "../CustomLegend";
+import SkeletonChartCircle from "../YearsChart/SkeletonChartCircle";
 
 const COLORS = {
   pendiente: "#c9c9c9",
@@ -20,8 +21,7 @@ const COLORS = {
 export function TotalChart() {
   const { data, loading, error } = useGetTotalChartData();
 
-  if (loading)
-    return <p className="text-sm text-gray-500">Cargando datos totales...</p>;
+  if (loading) return <SkeletonChartCircle height="h-80" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
   const total = data?.data?.total;
@@ -95,7 +95,7 @@ export function TotalChart() {
               });
             })()}
             <Tooltip
-              formatter={(value) => `${value.toLocaleString()} €`}
+              formatter={(value) => value.toLocaleString("es-ES")}
               wrapperStyle={{ fontSize: "0.875rem" }}
             />
             {/* <Legend content={<CustomLegend />} /> */}
@@ -104,14 +104,14 @@ export function TotalChart() {
       </div>
 
       {/* Texto porcentual por estado */}
-      <div className="mt-4 text-center space-y-1">
+      <div className="mt-4 text-center mb-1">
         <p className="text-sm font-medium" style={{ color: COLORS.pendiente }}>
           {porcentajePendiente}% En trámite
         </p>
-        <p className="text-sm font-medium" style={{ color: COLORS.enviado }}>
+        <p className="text-sm font-semibold" style={{ color: COLORS.enviado }}>
           {porcentajeEnviado}% Enviado
         </p>
-        <p className="text-lg font-bold" style={{ color: COLORS.recuperado }}>
+        <p className="text-sm font-bold" style={{ color: COLORS.recuperado }}>
           {porcentajeRecuperado}% Recuperado
         </p>
       </div>

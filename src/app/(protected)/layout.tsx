@@ -16,15 +16,9 @@ export default function ProtectedLayout({
     if (!loading && !token) {
       router.replace("/login");
     }
-  }, [token, loading]);
+  }, [token, loading, router]);
+  
+  if (!token && !loading) return null;
 
-  if (loading || !token) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        Cargando...
-      </div>
-    );
-  }
-
-  return <>{children}</>;
+  return children
 }

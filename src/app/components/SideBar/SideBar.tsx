@@ -8,6 +8,7 @@ import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
 import { RecoveredIcon } from "@/components/icons/ClaimStatusIcons";
 import { SentIcon } from "@/components/icons/ClaimStatusIcons";
 import Flag from "react-world-flags";
+import SidebarSkeleton from "./SideBarSkeleton";
 
 export default function SideBar({
   toggleSidebar,
@@ -22,7 +23,12 @@ export default function SideBar({
     selectedFilters,
     updateSelectedFilter,
     clearSelectedFilters,
+    isLoading
   } = useFilters();
+
+  if (isLoading) {
+    return <SidebarSkeleton />;
+  }
 
   const handleClearFilters = () => {
     clearSelectedFilters({
@@ -79,7 +85,7 @@ export default function SideBar({
   return (
     <div
       className={`
-        flex flex-col h-full w-full
+        flex flex-col h-full w-full text-[13px]
         transition-all duration-300 ease-in-out
         gap-5 overflow-y-auto overflow-x-hidden p-5 bg-[#f6f7f9]
       `}
@@ -100,7 +106,7 @@ export default function SideBar({
             <button
               key={fund.id}
               onClick={() => updateSelectedFilter("funds", fund as unknown)}
-              className={`mt-0! border py-1 text-[15px] rounded ${
+              className={`mt-0! border py-1 rounded ${
                 isSelectedFund
                   ? "bg-azul text-white"
                   : "text-gris-claro-2 border border-gris-oscuro"
@@ -120,7 +126,7 @@ export default function SideBar({
           <button
             key={y}
             onClick={() => updateSelectedFilter("years", y)}
-            className={`mt-0! border py-1 text-[15px] rounded ${
+            className={`mt-0! border py-1 rounded ${
               selectedFilters?.years.includes(y)
                 ? "bg-azul text-white"
                 : "text-gris-claro-2 border border-gris-oscuro"
@@ -141,7 +147,7 @@ export default function SideBar({
             <button
               key={country.isoCode}
               onClick={() => updateSelectedFilter("countries", country)}
-              className={`mt-0! border pl-2 py-1 text-[15px] rounded flex items-center gap-2 ${
+              className={`mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
                 isSelectedCountry
                   ? "bg-azul text-white"
                   : "text-gris-claro-2 border border-gris-oscuro"
@@ -170,7 +176,7 @@ export default function SideBar({
           <button
             key={via}
             onClick={() => updateSelectedFilter("methods", via)}
-            className={`mt-0!  py-1 text-[15px] rounded border ${
+            className={`mt-0!  py-1 rounded border ${
               selectedFilters?.methods.includes(via)
                 ? "bg-azul text-white"
                 : "text-gris-claro-2 border border-gris-oscuro"
