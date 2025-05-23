@@ -10,6 +10,7 @@ import {
   Legend,
 } from "recharts";
 import { useGetDataByFund } from "@/hooks/useGetDataByFund";
+import { CustomLegend } from "../CustomLegend";
 
 export function FundsChart() {
   const { data, loading, error } = useGetDataByFund();
@@ -36,6 +37,7 @@ export function FundsChart() {
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={chartData}>
           <XAxis
+            fontSize={14}
             dataKey="name"
             interval={0}
             textAnchor="end"
@@ -44,9 +46,9 @@ export function FundsChart() {
               name.length > 5 ? name.slice(0, 3) + "…" : name
             }
           />{" "}
-          <YAxis />
+          <YAxis fontSize={14} />
           <Tooltip />
-          <Legend />
+          <Legend content={<CustomLegend />} />
           <Bar
             dataKey="enTramite"
             stackId="a"

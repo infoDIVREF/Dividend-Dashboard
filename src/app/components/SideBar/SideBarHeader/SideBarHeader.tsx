@@ -26,7 +26,7 @@ export default function SideBarHeader({
       </div>
       <button
         onClick={onClear}
-        className={`${!hasSelectedFilters ? "opacity-40 cursor-not-allowed" : "cursor-pointer" } bg-blanco-roto text-[16px] px-3 py-1 rounded shadow font-bricolage mt-5`}
+        className={`${!hasSelectedFilters ? "opacity-40 cursor-not-allowed" : "cursor-pointer" } bg-blanco-roto text-[16px] px-3 py-1 rounded shadow font-bricolage mt-5 self-end`}
         disabled={!hasSelectedFilters}
       >
         QUITAR FILTROS ✕

@@ -44,13 +44,16 @@ export default function LoginPage() {
         <input
           {...register("email")}
           placeholder="Email"
+          type="email"
           className="border w-full p-2 rounded"
+          autoComplete="email"
         />
         <input
           {...register("password")}
           placeholder="Contraseña"
           type="password"
           className="border w-full p-2 rounded"
+          autoComplete="current-password"
         />
         <button
           type="submit"

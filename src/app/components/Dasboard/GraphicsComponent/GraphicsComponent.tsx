@@ -18,14 +18,14 @@ function GraphicsComponent() {
         <div className="flex gap-4">
           {/* Primera fila: cada una ocupa 6 columnas = 50% */}
           <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Por fondo</h3>
+            <h3 className="text-lg font-semibold mb-4">Por fondo</h3>
             {/* Grafica de funds */}
             <FundsChart />
           </div>
 
 
           <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Por país</h3>
+            <h3 className="text-lg font-semibold mb-4">Por país</h3>
             {/* Grafica de country */}
             <CountriesChart />
           </div>
@@ -33,18 +33,19 @@ function GraphicsComponent() {
 
         <div className="flex gap-4">
           <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Por año</h3>
+            <h3 className="text-lg font-semibold mb-4">Por año</h3>
             {/* Grafica de year */}
             <YearsChart />
           </div>
 
           <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Por vía</h3>
+            <h3 className="text-lg font-semibold mb-4">Por vía</h3>
             {/* Grafica de vía (DTTR, TJUE) */}
             <MethodsChart />
           </div>
 
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
+            <h3 className="text-lg font-semibold mb-4 self-start">Total</h3>
             {/*  Gráfica de total */}
             <TotalChart />
           </div>
@@ -72,11 +73,11 @@ function GraphicsComponent() {
         </div>
         <div className="flex gap-4 mb-1">
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Vía DDTR</h3>
+            <h3 className="text-lg font-semibold mb-4">Vía DDTR</h3>
             <AverageRecoveryTime />
           </div>
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-2">Vía TJUE</h3>
+            <h3 className="text-lg font-semibold mb-4">Vía TJUE</h3>
             <AverageRecoveryTime />
           </div>
         </div> */}

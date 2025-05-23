@@ -11,6 +11,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { useGetDataByMethod } from "@/hooks/useGetDataByMethod";
+import { CustomLegend } from "../CustomLegend";
 
 export function MethodsChart() {
   const { data, loading, error } = useGetDataByMethod();
@@ -26,10 +27,13 @@ export function MethodsChart() {
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+          <XAxis fontSize={14} dataKey="name" />
+          <YAxis fontSize={14} />
           <Tooltip />
-          <Legend />
+          <Legend
+            wrapperStyle={{ paddingTop: 10 }}
+            content={<CustomLegend />}
+          />
           <Bar
             dataKey="enTramite"
             stackId="a"
