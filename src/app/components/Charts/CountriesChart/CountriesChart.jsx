@@ -11,6 +11,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
+import { CustomLegend } from "../CustomLegend";
 const isoToName = {
   AL: "Albania",
   AD: "Andorra",
@@ -22,6 +23,7 @@ const isoToName = {
   BA: "Bosnia y Herzegovina",
   BG: "Bulgaria",
   HR: "Croacia",
+  CA: "Canadá",
   CY: "Chipre",
   CZ: "Chequia",
   DK: "Dinamarca",
@@ -77,17 +79,21 @@ export function CountriesChart() {
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
-        <BarChart data={data} layout="vertical" margin={{ left: 20 }}>
+        <BarChart data={data} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis type="number" />
+          <XAxis fontSize={14} type="number" />
           <YAxis
+            fontSize={14}
             dataKey="name"
             type="category"
-            width={100}
+            width={70}
             tickFormatter={(iso) => isoToName[iso] || iso}
           />
           <Tooltip />
-          <Legend />
+          <Legend
+            wrapperStyle={{ paddingTop: 30 }}
+            content={<CustomLegend />}
+          />
           <Bar
             dataKey="enTramite"
             stackId="a"
