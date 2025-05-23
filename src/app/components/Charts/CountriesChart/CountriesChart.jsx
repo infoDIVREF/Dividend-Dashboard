@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
 import { CustomLegend } from "../CustomLegend";
+import { RoundedBar } from "../RoundedBar";
 const isoToName = {
   AL: "Albania",
   AD: "Andorra",
@@ -99,14 +100,27 @@ export function CountriesChart() {
             stackId="a"
             fill="#C9C9C9"
             name="En trámite"
+            shape={(props) => (
+              <RoundedBar {...props} dataKey="enTramite" horizontal />
+            )}
           />
-          <Bar dataKey="enviado" stackId="a" fill="#4F84A6" name="Enviado" />
+          <Bar
+            dataKey="enviado"
+            stackId="a"
+            fill="#4F84A6"
+            name="Enviado"
+            shape={(props) => (
+              <RoundedBar {...props} dataKey="enviado" horizontal />
+            )}
+          />
           <Bar
             dataKey="recuperado"
             stackId="a"
             fill="#244A76"
             name="Recuperado"
-            radius={[0, 5, 5, 0]}
+            shape={(props) => (
+              <RoundedBar {...props} dataKey="recuperado" horizontal />
+            )}
           />
         </BarChart>
       </ResponsiveContainer>

@@ -11,7 +11,7 @@ export const CustomLegend = (props: LegendProps) => {
           className="flex items-center space-x-1 truncate"
         >
             <span
-                className="w-4 h-3"
+                className="w-4 h-3 rounded-sm"
                 style={{ backgroundColor: entry.color }}
             />
             <span style={{ color: entry.color }} className="truncate">
