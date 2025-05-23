@@ -10,6 +10,7 @@ interface DashboardProps {
 
 function Dashboard({ pageToShow }: DashboardProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    
 
     useEffect(() => {
     if (pageToShow === "map") {

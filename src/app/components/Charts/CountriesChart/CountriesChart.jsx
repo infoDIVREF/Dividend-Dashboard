@@ -13,6 +13,7 @@ import {
 import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
 import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
+import SkeletonChartHorizontal from "../SkeletonChartHorizontal";
 const isoToName = {
   AL: "Albania",
   AD: "Andorra",
@@ -71,26 +72,27 @@ const isoToName = {
 export function CountriesChart() {
   const { data, loading, error } = useGetDataByCountry();
 
-  if (loading)
-    return <p className="text-sm text-gray-500">Cargando datos por país...</p>;
+  if (loading) return <SkeletonChartHorizontal height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
-  if (!data.length)
-    return <p className="text-sm text-gray-400">No hay datos disponibles.</p>;
 
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis fontSize={14} type="number" />
+          <XAxis
+            fontSize={12}
+            type="number"
+            tickFormatter={(value) => value.toLocaleString("es-ES")}
+          />
           <YAxis
-            fontSize={14}
+            fontSize={12}
             dataKey="name"
             type="category"
             width={70}
             tickFormatter={(iso) => isoToName[iso] || iso}
           />
-          <Tooltip />
+          <Tooltip formatter={(value) => value.toLocaleString("es-ES")} />
           <Legend
             wrapperStyle={{ paddingTop: 30 }}
             content={<CustomLegend />}
@@ -100,6 +102,7 @@ export function CountriesChart() {
             stackId="a"
             fill="#C9C9C9"
             name="En trámite"
+            activeBar={{ fill: "#9d9d9d" }}
             shape={(props) => (
               <RoundedBar {...props} dataKey="enTramite" horizontal />
             )}
@@ -109,6 +112,7 @@ export function CountriesChart() {
             stackId="a"
             fill="#4F84A6"
             name="Enviado"
+            activeBar={{ fill: "#417191" }}
             shape={(props) => (
               <RoundedBar {...props} dataKey="enviado" horizontal />
             )}
@@ -118,6 +122,7 @@ export function CountriesChart() {
             stackId="a"
             fill="#244A76"
             name="Recuperado"
+            activeBar={{ fill: "#1f436c" }}
             shape={(props) => (
               <RoundedBar {...props} dataKey="recuperado" horizontal />
             )}

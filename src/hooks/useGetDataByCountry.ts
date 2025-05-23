@@ -9,7 +9,7 @@ export function useGetDataByCountry() {
   const { selectedFilters } = useFilters();
   const { token, collaboratorId } = useAuth();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
