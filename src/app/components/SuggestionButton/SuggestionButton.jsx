@@ -12,13 +12,15 @@ export default function SuggestionButton() {
   return (
     <a href="mailto:info@dividendrefund.com?subject=Sugerencia%20de%20mejora">
       <button
-        className="flex bg-[#F86338] items-center gap-2 text-white text-sm font-medium px-4 py-2 rounded-full shadow-md hover:bg-[#d44f2b] transition-colors"
+        className="group flex bg-[#F86338] items-center text-white text-sm font-medium px-4 py-2 rounded-full shadow-md hover:bg-[#d44f2b] transition-colors"
         onClick={() => {
           console.log("Sugerencia clicada");
         }}
       >
         <ChatIcon />
-        Déjanos tu sugerencia
+        <span className="overflow-hidden max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-2 transition-all duration-500 whitespace-nowrap">
+          Déjanos tu sugerencia
+        </span>
       </button>
     </a>
   );

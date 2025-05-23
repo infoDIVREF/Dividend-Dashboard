@@ -6,6 +6,7 @@ import { FiltersProvider } from "@/contexts/FiltersContext";
 
 import NavBar from "./components/NavBar/NavBar"; // Asumiendo que tienes un componente NavBar
 import "./globals.css";
+import { InterceptorInitializer } from "@/components/InterceptorInitializer";
 
 const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} bg-blanco h-screen `}
       >
         <AuthProvider>
+          <InterceptorInitializer />
           <FiltersProvider>
               <NavBar />
               <div className="pt-20 h-full">

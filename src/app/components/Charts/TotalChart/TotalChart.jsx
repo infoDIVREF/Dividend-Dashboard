@@ -6,13 +6,15 @@ import {
   Cell,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from "recharts";
 import { useGetTotalChartData } from "@/hooks/useGetTotalChartData";
+import { CustomLegend } from "../CustomLegend";
 
 const COLORS = {
-  pendiente: "#D1D5DB",
-  enviado: "#60A5FA",
-  recuperado: "#1D3557",
+  pendiente: "#c9c9c9",
+  enviado: "#5b83a3",
+  recuperado: "#2d4973",
 };
 
 export function TotalChart() {
@@ -53,29 +55,50 @@ export function TotalChart() {
   const porcentajeRecuperado = Math.round((totalRecuperado / totalSum) * 100);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-between h-full">
       <div className="h-80 w-full" style={{ width: 220, height: 220 }}>
         <ResponsiveContainer height={"100%"} width={"100%"}>
           <RePieChart>
-            <Pie
-              data={chartData}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              startAngle={90}
-              endAngle={-270}
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
+            {(() => {
+              let startAngle = 90;
+              return chartData.map((entry) => {
+                const angle = (entry.value / totalSum) * 360;
+                const endAngle = startAngle - angle;
+
+                const outerRadius =
+                  entry.name === "Recuperado"
+                    ? 105
+                    : entry.name === "Enviado"
+                    ? 100
+                    : 90;
+
+                const pie = (
+                  <Pie
+                    key={entry.name}
+                    data={[entry]}
+                    dataKey="value"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={outerRadius}
+                    startAngle={startAngle}
+                    endAngle={endAngle}
+                    isAnimationActive={false}
+                    cornerRadius={5}
+                  >
+                    <Cell fill={entry.color} />
+                  </Pie>
+                );
+
+                startAngle = endAngle; // avanzar al siguiente segmento
+                return pie;
+              });
+            })()}
             <Tooltip
               formatter={(value) => `${value.toLocaleString()} €`}
               wrapperStyle={{ fontSize: "0.875rem" }}
             />
+            {/* <Legend content={<CustomLegend />} /> */}
           </RePieChart>
         </ResponsiveContainer>
       </div>
