@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import axiosInstance from "@/lib/axiosInstance";
+import { CircleCheck } from "lucide-react";
 
 export default function DocsModal({ category, onClose }) {
   const [documents, setDocuments] = useState([]);
@@ -91,7 +92,7 @@ export default function DocsModal({ category, onClose }) {
                 <td className="px-4 py-2">{doc.upload_date || "N/A"}</td>
                 <td className="px-4 py-2">
                   {doc.status === "completed" ? (
-                    <span className="text-azul text-xl">✅</span>
+                    <CircleCheck size={26} strokeWidth={1} />
                   ) : (
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold uppercase font-bricolage ${
