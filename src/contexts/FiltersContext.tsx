@@ -157,8 +157,6 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         { headers }
       );
 
-      console.log(response)
-
       const data = response.data;
       const updatedFilters: Filters = {
         years: data.years,
