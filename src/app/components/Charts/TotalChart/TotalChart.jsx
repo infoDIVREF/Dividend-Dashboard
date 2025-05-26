@@ -11,7 +11,7 @@ import {
 import { useGetTotalChartData } from "@/hooks/useGetTotalChartData";
 import { CustomLegend } from "../CustomLegend";
 import SkeletonChartCircle from "../YearsChart/SkeletonChartCircle";
-
+import { useFilters } from "@/contexts/FiltersContext";
 const COLORS = {
   pendiente: "#c9c9c9",
   enviado: "#5b83a3",
@@ -20,6 +20,7 @@ const COLORS = {
 
 export function TotalChart() {
   const { data, loading, error } = useGetTotalChartData();
+  const { claimStatus, updateClaimStatus } = useFilters();
 
   if (loading) return <SkeletonChartCircle height="h-80" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -61,7 +62,17 @@ export function TotalChart() {
           <RePieChart>
             {(() => {
               let startAngle = 90;
-              return chartData.map((entry) => {
+              const filteredChartData = chartData.filter((entry) => {
+                return (
+                  (entry.name === "En trámite" &&
+                    claimStatus.includes("EN TRÁMITE")) ||
+                  (entry.name === "Enviado" &&
+                    claimStatus.includes("ENVIADO")) ||
+                  (entry.name === "Recuperado" &&
+                    claimStatus.includes("RECUPERADO"))
+                );
+              });
+              return filteredChartData.map((entry) => {
                 const angle = (entry.value / totalSum) * 360;
                 const endAngle = startAngle - angle;
 
@@ -105,15 +116,27 @@ export function TotalChart() {
 
       {/* Texto porcentual por estado */}
       <div className="mt-4 text-center mb-1">
-        <p className="text-sm font-medium" style={{ color: COLORS.pendiente }}>
-          {porcentajePendiente}% En trámite
-        </p>
-        <p className="text-sm font-semibold" style={{ color: COLORS.enviado }}>
-          {porcentajeEnviado}% Enviado
-        </p>
-        <p className="text-sm font-bold" style={{ color: COLORS.recuperado }}>
-          {porcentajeRecuperado}% Recuperado
-        </p>
+        {claimStatus.includes("EN TRÁMITE") && (
+          <p
+            className="text-sm font-medium"
+            style={{ color: COLORS.pendiente }}
+          >
+            {porcentajePendiente}% En trámite
+          </p>
+        )}
+        {claimStatus.includes("ENVIADO") && (
+          <p
+            className="text-sm font-semibold"
+            style={{ color: COLORS.enviado }}
+          >
+            {porcentajeEnviado}% Enviado
+          </p>
+        )}
+        {claimStatus.includes("RECUPERADO") && (
+          <p className="text-sm font-bold" style={{ color: COLORS.recuperado }}>
+            {porcentajeRecuperado}% Recuperado
+          </p>
+        )}
       </div>
     </div>
   );

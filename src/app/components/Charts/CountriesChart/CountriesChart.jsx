@@ -13,6 +13,7 @@ import {
 import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
 import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
+import { useFilters } from "@/contexts/FiltersContext";
 import SkeletonChartHorizontal from "../SkeletonChartHorizontal";
 const isoToName = {
   AL: "Albania",
@@ -71,6 +72,7 @@ const isoToName = {
 
 export function CountriesChart() {
   const { data, loading, error } = useGetDataByCountry();
+  const { claimStatus, updateClaimStatus } = useFilters();
 
   if (loading) return <SkeletonChartHorizontal height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -97,36 +99,42 @@ export function CountriesChart() {
             wrapperStyle={{ paddingTop: 30 }}
             content={<CustomLegend />}
           />
-          <Bar
-            dataKey="enTramite"
-            stackId="a"
-            fill="#C9C9C9"
-            name="En trámite"
-            activeBar={{ fill: "#9d9d9d" }}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="enTramite" horizontal />
-            )}
-          />
-          <Bar
-            dataKey="enviado"
-            stackId="a"
-            fill="#4F84A6"
-            name="Enviado"
-            activeBar={{ fill: "#417191" }}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="enviado" horizontal />
-            )}
-          />
-          <Bar
-            dataKey="recuperado"
-            stackId="a"
-            fill="#244A76"
-            name="Recuperado"
-            activeBar={{ fill: "#1f436c" }}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="recuperado" horizontal />
-            )}
-          />
+          {claimStatus.includes("EN TRÁMITE") && (
+            <Bar
+              dataKey="enTramite"
+              stackId="a"
+              fill="#C9C9C9"
+              name="En trámite"
+              activeBar={{ fill: "#9d9d9d" }}
+              shape={(props) => (
+                <RoundedBar {...props} dataKey="enTramite" horizontal />
+              )}
+            />
+          )}
+          {claimStatus.includes("ENVIADO") && (
+            <Bar
+              dataKey="enviado"
+              stackId="a"
+              fill="#4F84A6"
+              name="Enviado"
+              activeBar={{ fill: "#417191" }}
+              shape={(props) => (
+                <RoundedBar {...props} dataKey="enviado" horizontal />
+              )}
+            />
+          )}
+          {claimStatus.includes("RECUPERADO") && (
+            <Bar
+              dataKey="recuperado"
+              stackId="a"
+              fill="#244A76"
+              name="Recuperado"
+              activeBar={{ fill: "#1f436c" }}
+              shape={(props) => (
+                <RoundedBar {...props} dataKey="recuperado" horizontal />
+              )}
+            />
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>

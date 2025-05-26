@@ -16,14 +16,15 @@ export default function SideBar({
   pageToShow: string;
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
-  
 }) {
   const {
     initialFilters,
     selectedFilters,
     updateSelectedFilter,
     clearSelectedFilters,
-    isLoading
+    isLoading,
+    claimStatus,
+    updateClaimStatus,
   } = useFilters();
 
   if (isLoading) {
@@ -90,7 +91,11 @@ export default function SideBar({
         gap-5 overflow-y-auto overflow-x-hidden p-5 bg-[#f6f7f9]
       `}
     >
-      <SideBarHeader onClear={handleClearFilters} toggleSidebar={toggleSidebar} selectedFilters={selectedFilters} />
+      <SideBarHeader
+        onClear={handleClearFilters}
+        toggleSidebar={toggleSidebar}
+        selectedFilters={selectedFilters}
+      />
 
       {/* <ActiveFilters /> */}
       <FilterSection
@@ -105,7 +110,8 @@ export default function SideBar({
           return (
             <button
               key={fund.id}
-              onClick={() => updateSelectedFilter("funds", fund as unknown)}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onClick={() => updateSelectedFilter("funds", fund as any)}
               className={`mt-0! border py-1 rounded ${
                 isSelectedFund
                   ? "bg-azul text-white"
@@ -146,7 +152,8 @@ export default function SideBar({
           return (
             <button
               key={country.isoCode}
-              onClick={() => updateSelectedFilter("countries", country)}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onClick={() => updateSelectedFilter("countries", country as any)}
               className={`mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
                 isSelectedCountry
                   ? "bg-azul text-white"
@@ -189,13 +196,13 @@ export default function SideBar({
 
       <FilterSection title="Estado" customClassName="grid grid-cols-3 gap-2">
         {statuses.map(({ label, icon, color }) => {
-          const isSelected = selectedFilters?.claimStatus.includes(label);
+          const isSelected = claimStatus.includes(label);
           return (
             <button
               key={label}
-              onClick={() => updateSelectedFilter("claimStatus", label)}
+              onClick={() => updateClaimStatus(label)}
               className={`flex items-center justify-center gap-2 rounded border px-3 py-2 transition-all
-              ${isSelected ? "text-white" : "text-black border border-black"}`}
+        ${isSelected ? "text-white" : "text-black border border-black"}`}
               style={{
                 backgroundColor: isSelected ? color : "transparent",
               }}
