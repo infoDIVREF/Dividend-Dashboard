@@ -23,7 +23,6 @@ function GraphicsComponent() {
             <FundsChart />
           </div>
 
-
           <div className="bg-white rounded-xl shadow-md p-4 col-span-1 flex-1 border">
             <h3 className="text-lg font-semibold mb-4">Por país</h3>
             {/* Grafica de country */}
@@ -50,7 +49,7 @@ function GraphicsComponent() {
             <TotalChart />
           </div>
         </div>
-         {/* Gráfica de tiempos de devolución
+        {/* Gráfica de tiempos de devolución
         <div className="flex gap-5 mt-6">
           <h3 className="text-2xl">Tiempos de recuperación</h3>
           <div className="flex gap-5 text-lg">
@@ -86,4 +85,4 @@ function GraphicsComponent() {
   );
 }
 
-  export default React.memo(GraphicsComponent);
+export default React.memo(GraphicsComponent);
