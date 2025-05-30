@@ -8,8 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  CartesianGrid,
 } from "recharts";
+import Flag from "react-world-flags";
 import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
 import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
@@ -77,24 +77,61 @@ export function CountriesChart() {
   if (loading) return <SkeletonChartHorizontal height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
+  const sortedData = [...(data || [])].sort((a, b) => {
+    const totalA = a.recuperado + a.enviado + a.enTramite;
+    const totalB = b.recuperado + b.enviado + b.enTramite;
+    return totalB - totalA; // orden descendente
+  });
+
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
-        <BarChart data={data} layout="vertical">
-          <CartesianGrid strokeDasharray="3 3" />
+        <BarChart data={sortedData} layout="vertical">
           <XAxis
             fontSize={12}
             type="number"
             tickFormatter={(value) => value.toLocaleString("es-ES")}
+            axisLine={false}
+            tickLine={false}
           />
           <YAxis
             fontSize={12}
             dataKey="name"
             type="category"
-            width={70}
+            width={100}
             tickFormatter={(iso) => isoToName[iso] || iso}
+            axisLine={false}
+            tickLine={false}
+            tick={({ x, y, payload }) => {
+              const iso = payload.value;
+              const countryName = isoToName[iso] || iso;
+
+              return (
+                <g transform={`translate(${x - 85},${y + 0})`}>
+                  <foreignObject x={0} y={-12} width={100} height={24}>
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 6 }}
+                    >
+                      <Flag code={iso} style={{ width: 16, height: 12 }} />
+                      <span
+                        style={{
+                          fontSize: 12,
+                          fontFamily: "Bricolage Grotesque, sans-serif",
+                          color: "#374151" /* gray-700 */,
+                        }}
+                      >
+                        {countryName}
+                      </span>
+                    </div>
+                  </foreignObject>
+                </g>
+              );
+            }}
           />
-          <Tooltip formatter={(value) => value.toLocaleString("es-ES")} />
+          <Tooltip
+            cursor={{ fill: "transparent" }}
+            formatter={(value) => value.toLocaleString("es-ES")}
+          />
           <Legend
             wrapperStyle={{ paddingTop: 30 }}
             content={<CustomLegend />}
@@ -105,10 +142,10 @@ export function CountriesChart() {
               stackId="a"
               fill="#C9C9C9"
               name="En trámite"
-              activeBar={{ fill: "#9d9d9d" }}
               shape={(props) => (
                 <RoundedBar {...props} dataKey="enTramite" horizontal />
               )}
+              barSize={10}
             />
           )}
           {claimStatus.includes("ENVIADO") && (
@@ -117,7 +154,6 @@ export function CountriesChart() {
               stackId="a"
               fill="#4F84A6"
               name="Enviado"
-              activeBar={{ fill: "#417191" }}
               shape={(props) => (
                 <RoundedBar {...props} dataKey="enviado" horizontal />
               )}
@@ -129,7 +165,6 @@ export function CountriesChart() {
               stackId="a"
               fill="#244A76"
               name="Recuperado"
-              activeBar={{ fill: "#1f436c" }}
               shape={(props) => (
                 <RoundedBar {...props} dataKey="recuperado" horizontal />
               )}

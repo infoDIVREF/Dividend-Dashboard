@@ -27,13 +27,22 @@ export function MethodsChart() {
     <div className="h-80 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis fontSize={12} dataKey="name" />
+          <XAxis
+            fontSize={12}
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+          />
           <YAxis
             fontSize={12}
             tickFormatter={(value) => value.toLocaleString("es-ES")}
+            axisLine={false}
+            tickLine={false}
           />
-          <Tooltip formatter={(value) => value.toLocaleString("es-ES")} />
+          <Tooltip
+            cursor={{ fill: "transparent" }}
+            formatter={(value) => value.toLocaleString("es-ES")}
+          />
           <Legend
             wrapperStyle={{ paddingTop: 10 }}
             content={<CustomLegend />}
@@ -44,7 +53,6 @@ export function MethodsChart() {
               stackId="a"
               fill="#C9C9C9"
               name="En trámite"
-              activeBar={{ fill: "#9d9d9d" }}
               shape={(props) => <RoundedBar {...props} dataKey="enTramite" />}
             />
           )}
@@ -54,7 +62,6 @@ export function MethodsChart() {
               stackId="a"
               fill="#4F84A6"
               name="Enviado"
-              activeBar={{ fill: "#417191" }}
               shape={(props) => <RoundedBar {...props} dataKey="enviado" />}
             />
           )}
@@ -64,7 +71,6 @@ export function MethodsChart() {
               stackId="a"
               fill="#244A76"
               name="Recuperado"
-              activeBar={{ fill: "#1f436c" }}
               shape={(props) => <RoundedBar {...props} dataKey="recuperado" />}
             />
           )}
