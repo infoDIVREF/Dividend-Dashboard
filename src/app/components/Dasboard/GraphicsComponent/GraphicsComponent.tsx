@@ -44,7 +44,6 @@ function GraphicsComponent() {
           </div>
 
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-4 self-start">Total</h3>
             {/*  Gráfica de total */}
             <TotalChart />
           </div>
