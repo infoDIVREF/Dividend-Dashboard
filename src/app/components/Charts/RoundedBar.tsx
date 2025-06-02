@@ -10,6 +10,8 @@ type RoundedBarProps = BarProps & {
   payload: Record<string, number>;
   horizontal?: boolean; // ← clave aquí
 };
+const THRESHOLD = 0.005; // 0.5% del total como mínimo para considerarse visible
+const MIN_PIXEL_WIDTH = 2; // puedes ajustar a 1, 2, 3...
 
 export const RoundedBar = ({
   x,
@@ -19,23 +21,28 @@ export const RoundedBar = ({
   fill,
   payload,
   dataKey,
-  horizontal = false, // ← default: vertical
+  horizontal = false,
 }: RoundedBarProps) => {
   const keys = ["enTramite", "enviado", "recuperado"];
   const index = keys.indexOf(dataKey);
 
-  const isTopBar = keys.slice(index + 1).every((key) => !payload[key]);
-  const radius = 5;
+  const total = keys.reduce((sum, key) => sum + (payload[key] || 0), 0);
+  const hasRightBar = keys
+    .slice(index + 1)
+    .some((key) => (payload[key] || 0) / total > THRESHOLD);
 
-  if (!isTopBar) {
-    return <rect x={x} y={y} width={width} height={height} fill={fill} />;
+  const isTopBar = !hasRightBar;
+
+  // 🔒 Ocultar si el ancho es muy pequeño (ej. 1px)
+  if (width < MIN_PIXEL_WIDTH) {
+    return null;
   }
 
+  const radius = 5;
   const r = Math.min(radius, width / 2, height / 2);
 
   const path = horizontal
-    ? // Gráfico horizontal: redondear top-right y bottom-right
-      `
+    ? `
         M${x},${y}
         H${x + width - r}
         Q${x + width},${y} ${x + width},${y + r}
@@ -44,8 +51,7 @@ export const RoundedBar = ({
         H${x}
         Z
       `
-    : // Gráfico vertical: redondear top-left y top-right
-      `
+    : `
         M${x},${y + height}
         V${y + r}
         Q${x},${y} ${x + r},${y}
@@ -55,5 +61,9 @@ export const RoundedBar = ({
         Z
       `;
 
-  return <path d={path} fill={fill} />;
+  return isTopBar ? (
+    <path d={path} fill={fill} />
+  ) : (
+    <rect x={x} y={y} width={width} height={height} fill={fill} />
+  );
 };

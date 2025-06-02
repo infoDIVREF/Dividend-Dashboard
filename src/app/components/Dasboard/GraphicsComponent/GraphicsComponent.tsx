@@ -6,6 +6,8 @@ import { CountriesChart } from "../../Charts/CountriesChart/CountriesChart";
 import { YearsChart } from "../../Charts/YearsChart/YearsChart";
 import { MethodsChart } from "../../Charts/MethodsChart/MethodsChart";
 import { TotalChart } from "../../Charts/TotalChart/TotalChart";
+import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
+
 import React from "react";
 // import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
 
@@ -29,7 +31,6 @@ function GraphicsComponent() {
             <CountriesChart />
           </div>
         </div>
-
         <div className="flex gap-4 mb-2">
           <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
             <h3 className="text-lg font-semibold mb-4">Por año</h3>
@@ -44,12 +45,12 @@ function GraphicsComponent() {
           </div>
 
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-4 self-start">Total</h3>
             {/*  Gráfica de total */}
             <TotalChart />
           </div>
         </div>
-        {/* Gráfica de tiempos de devolución
+        {/*  <AverageRecoveryTime /> */}
+        Gráfica de tiempos de devolución
         <div className="flex gap-5 mt-6">
           <h3 className="text-2xl">Tiempos de recuperación</h3>
           <div className="flex gap-5 text-lg">
@@ -68,18 +69,17 @@ function GraphicsComponent() {
               <span>Máximos</span>
             </div>
           </div>
-
         </div>
         <div className="flex gap-4 mb-1">
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
             <h3 className="text-lg font-semibold mb-4">Vía DDTR</h3>
-            <AverageRecoveryTime />
+            <AverageRecoveryTime method="DTTR" />
           </div>
           <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
             <h3 className="text-lg font-semibold mb-4">Vía TJUE</h3>
-            <AverageRecoveryTime />
+            <AverageRecoveryTime method="TJUE" />
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

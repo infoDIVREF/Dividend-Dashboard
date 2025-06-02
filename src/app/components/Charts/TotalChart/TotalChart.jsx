@@ -56,7 +56,7 @@ export function TotalChart() {
   const porcentajeRecuperado = Math.round((totalRecuperado / totalSum) * 100);
 
   return (
-    <div className="flex flex-col items-center justify-between h-full">
+    <div className="flex flex-col items-center justify-center h-full">
       <div className="h-80 w-full" style={{ width: 220, height: 220 }}>
         <ResponsiveContainer height={"100%"} width={"100%"}>
           <RePieChart>
@@ -109,33 +109,42 @@ export function TotalChart() {
               formatter={(value) => value.toLocaleString("es-ES")}
               wrapperStyle={{ fontSize: "0.875rem" }}
             />
-            {/* <Legend content={<CustomLegend />} /> */}
           </RePieChart>
         </ResponsiveContainer>
       </div>
 
       {/* Texto porcentual por estado */}
-      <div className="mt-4 text-center mb-1">
+      <div className="font-bricolage relative mt-4 text-center mb-1">
         {claimStatus.includes("EN TRÁMITE") && (
-          <p
-            className="text-sm font-medium"
-            style={{ color: COLORS.pendiente }}
+          <div
+            className="absolute flex flex-col items-center text-sm font-medium"
+            style={{ color: COLORS.pendiente, top: "-280px", left: "80px" }}
           >
-            {porcentajePendiente}% En trámite
-          </p>
+            <p className="text-[1.5rem]">{porcentajePendiente}%</p>
+            <p className="whitespace-nowrap">En trámite</p>
+          </div>
         )}
         {claimStatus.includes("ENVIADO") && (
-          <p
-            className="text-sm font-semibold"
-            style={{ color: COLORS.enviado }}
+          <div
+            className="absolute flex flex-col items-center text-sm font-semibold"
+            style={{ color: COLORS.enviado, top: "0", left: "-30px" }}
           >
-            {porcentajeEnviado}% Enviado
-          </p>
+            <p className="text-[1.5rem]">{porcentajeEnviado}%</p>
+            <p className=" text-sm font-semibold">Enviado</p>
+          </div>
         )}
         {claimStatus.includes("RECUPERADO") && (
-          <p className="text-sm font-bold" style={{ color: COLORS.recuperado }}>
-            {porcentajeRecuperado}% Recuperado
-          </p>
+          <div
+            className="absolute flex flex-col items-center text-sm font-bold"
+            style={{
+              top: "-280px",
+              left: "-130px",
+              color: COLORS.recuperado,
+            }}
+          >
+            <p className="text-[1.5rem]">{porcentajeRecuperado}% </p>
+            <p>Recuperado</p>
+          </div>
         )}
       </div>
     </div>

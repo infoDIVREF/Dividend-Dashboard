@@ -46,6 +46,7 @@ export default function DocsModal({ category, onClose }) {
       fetchDocuments();
     }
   }, [category, currentPage]);
+  console.log(documents);
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 z-50 flex justify-center items-center">
@@ -80,9 +81,7 @@ export default function DocsModal({ category, onClose }) {
                 >
                   {doc.fileName || "N/A"}
                 </td>
-                <td className="px-4 py-2">
-                  {doc.fileType || "Tipo de archivo"}
-                </td>
+                <td className="px-4 py-2">{doc.type || "Tipo de archivo"}</td>
                 <td
                   className="px-4 py-2 truncate max-w-[150px]"
                   title={doc.uploaded_by}

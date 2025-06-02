@@ -9,18 +9,16 @@ interface DashboardProps {
 }
 
 function Dashboard({ pageToShow }: DashboardProps) {
-    const containerRef = useRef<HTMLDivElement>(null);
-    
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+  useEffect(() => {
     if (pageToShow === "map") {
       containerRef.current?.scrollTo({ top: 0, behavior: "auto" });
     }
   }, [pageToShow]);
 
-
   return (
-    <div  
+    <div
       ref={containerRef}
       className={`
         relative w-full h-full 
@@ -30,7 +28,11 @@ function Dashboard({ pageToShow }: DashboardProps) {
       <div
         className={`
           absolute inset-0 transition-opacity duration-300
-          ${pageToShow === "graphics" ? "opacity-100 z-10" : "opacity-0 -z-10 pointer-events-none"}
+          ${
+            pageToShow === "graphics"
+              ? "opacity-100 z-10"
+              : "opacity-0 -z-10 pointer-events-none"
+          }
         `}
       >
         <GraphicsComponent />
@@ -39,13 +41,16 @@ function Dashboard({ pageToShow }: DashboardProps) {
       <div
         className={`
           absolute inset-0 transition-opacity duration-300
-          ${pageToShow === "map" ? "opacity-100 z-10 overflow-hidden" : "opacity-0 -z-10 pointer-events-none"}
+          ${
+            pageToShow === "map"
+              ? "opacity-100 z-10 overflow-hidden"
+              : "opacity-0 -z-10 pointer-events-none"
+          }
         `}
       >
         <MapComponent />
       </div>
-    </div>  
-
+    </div>
   );
 }
 
