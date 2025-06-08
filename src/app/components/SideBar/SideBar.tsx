@@ -179,17 +179,17 @@ export default function SideBar({
       </FilterSection>
 
       <FilterSection title="Vía" customClassName="grid grid-cols-2 gap-2">
-        {["DTTR", "TJUE"].map((via) => (
+        {["DTTR", "TJUE"].map((method) => (
           <button
-            key={via}
-            onClick={() => updateSelectedFilter("methods", via)}
+            key={method}
+            onClick={() => updateSelectedFilter("methods", method)}
             className={`mt-0!  py-1 rounded border ${
-              selectedFilters?.methods.includes(via)
+              selectedFilters?.methods.includes(method)
                 ? "bg-azul text-white"
                 : "text-gris-claro-2 border border-gris-oscuro"
             }`}
           >
-            {via}
+            {method}
           </button>
         ))}
       </FilterSection>

@@ -50,7 +50,6 @@ function GraphicsComponent() {
           </div>
         </div>
         {/*  <AverageRecoveryTime /> */}
-        Gráfica de tiempos de devolución
         <div className="flex gap-5 mt-6">
           <h3 className="text-2xl">Tiempos de recuperación</h3>
           <div className="flex gap-5 text-lg">

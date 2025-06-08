@@ -45,10 +45,8 @@ export default function RootLayout({
         <AuthProvider>
           <InterceptorInitializer />
           <FiltersProvider>
-              <NavBar />
-              <div className="pt-20 h-full">
-              {children}
-              </div>
+            <NavBar />
+            <div className="pt-20 h-full">{children}</div>
           </FiltersProvider>
         </AuthProvider>
         {/* Botón sugerencia */}
