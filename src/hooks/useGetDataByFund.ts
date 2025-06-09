@@ -6,13 +6,13 @@ import axiosInstance from "@/lib/axiosInstance";
 export function useGetDataByFund() {
   const { selectedFilters } = useFilters();
   const { token, collaboratorId } = useAuth();
-  const [data, setData] = useState([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
 
   useEffect(() => {
-    if (!collaboratorId ) return;
+    if (!collaboratorId) return;
 
     const fetchData = async () => {
       setLoading(true);
@@ -39,6 +39,8 @@ export function useGetDataByFund() {
     fetchData();
   }, [selectedFilters.funds, collaboratorId, token]);
 
+  let fundsObjectLength = Object.keys(data?.byFund || {}).length;
+  fundsObjectLength = 150;
 
-  return { data, loading, error };
+  return { data, loading, error, fundsObjectLength };
 }
