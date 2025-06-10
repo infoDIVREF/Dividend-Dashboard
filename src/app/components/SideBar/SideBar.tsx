@@ -88,7 +88,7 @@ export default function SideBar({
       className={`
         flex flex-col h-full w-full text-[13px]
         transition-all duration-300 ease-in-out
-        gap-5 overflow-y-auto overflow-x-hidden p-5 bg-[#f6f7f9]
+        gap-5 overflow-y-auto overflow-x-hidden p-5 pt-3 bg-[#f6f7f9]
       `}
     >
       <SideBarHeader

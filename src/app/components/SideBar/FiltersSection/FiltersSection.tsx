@@ -17,7 +17,9 @@ export default function FilterSection({
 
   return (
     <div className={`border-b pb-[1.25rem] border-gris`}>
-      <h3 className="text-base font-bricolage font-bold mb-2">{title}</h3>
+      <h3 className="text-[15px] text-base font-bricolage font-bold mb-2">
+        {title}
+      </h3>
       <div className={`${customClassName}`}>{children}</div>
     </div>
   );

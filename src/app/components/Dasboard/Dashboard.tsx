@@ -6,9 +6,10 @@ type PageToShow = "map" | "graphics";
 
 interface DashboardProps {
   pageToShow: PageToShow;
+  isSidebarOpen: boolean;
 }
 
-function Dashboard({ pageToShow }: DashboardProps) {
+function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function Dashboard({ pageToShow }: DashboardProps) {
           }
         `}
       >
-        <GraphicsComponent />
+        <GraphicsComponent isSidebarOpen={isSidebarOpen} />
       </div>
 
       <div

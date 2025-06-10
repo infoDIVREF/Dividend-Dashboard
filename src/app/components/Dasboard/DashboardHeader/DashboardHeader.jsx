@@ -17,7 +17,7 @@ export default function DashboardHeader({
             ""
           )}
         </div>
-        <h1 className={` text-[32px] text-negro`}>
+        <h1 className={` text-[24px] text-negro`}>
           {pageToShow === "graphics" ? "Dashboard" : "Mapa"}
         </h1>
       </div>
