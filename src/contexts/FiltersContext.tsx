@@ -98,31 +98,35 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   }, [collaboratorId]);
 
   // Actualizar filtros seleccionados por el usuario
-  const updateFiltersBySelection = async (filters: Filters) => {
+  const updateFiltersBySelection = async (
+    filters: Filters,
+    filterType: keyof Filters
+  ) => {
     if (!collaboratorId) return;
     setIsLoading(true);
     const params = new URLSearchParams();
-    if (filters.years.length) params.append("year", filters.years.join(","));
-    if (filters.countries.length)
+    if (filterType === "years" && filters.years.length)
+      params.append("year", filters.years.join(","));
+    if (filterType === "countries" && filters.countries.length)
       params.append(
         "country",
         filters.countries.map((c) => c.isoCode).join(",")
       );
-    if (filters.methods.length)
+    if (filterType === "methods" && filters.methods.length)
       params.append("method", filters.methods.join(","));
-    if (filters.funds.length)
+    if (filterType === "funds" && filters.funds.length)
       params.append("fund", filters.funds.map((f) => f.id).join(","));
-
     try {
       const response = await axiosInstance.get(
         `/filters/all/${collaboratorId}?${params.toString()}`,
         { headers }
       );
+
       const data = response.data;
       const updatedFilters: Filters = {
         years: data.years,
         countries: data.countries,
-        methods: ["DTTR", "TJUE"],
+        methods: data.methods,
         funds: data.funds,
         claimStatus: claimStatus,
       };
@@ -139,19 +143,101 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   }, [loadInitialFilters]);
 
   // Función para actualizar los filtros seleccionados
-  const updateSelectedFilter = (key: keyof Filters, value: string) => {
-    const current = new Set<string>(selectedFilters[key] as string[]);
-    if (current.has(value)) {
-      current.delete(value);
-    } else {
-      current.add(value);
+  const updateSelectedFilter = (
+    key: keyof Filters,
+    value: string | Fund | Country
+  ) => {
+    const current = new Set<string | Fund | Country>(
+      selectedFilters[key] as (string | Fund | Country)[]
+    );
+
+    //FUNDS LISTO
+    if (key === "funds") {
+      const fundValue = value as Fund;
+
+      const valueExists = selectedFilters.funds.some(
+        (item) => item.id === fundValue.id
+      );
+
+      let updatedFunds: Fund[];
+      if (valueExists) {
+        updatedFunds = selectedFilters.funds.filter(
+          (item) => item.id !== fundValue.id
+        );
+      } else {
+        updatedFunds = [...selectedFilters.funds, fundValue];
+      }
+
+      const updatedFilters: Filters = {
+        ...selectedFilters,
+        funds: updatedFunds,
+      };
+
+      setSelectedFilters(updatedFilters);
+      updateFiltersBySelection(updatedFilters, key);
+      return;
+    }
+
+    //YEARS LISTO
+    if (key === "years") {
+      if (current.has(value)) {
+        current.delete(value);
+      } else {
+        current.add(value);
+      }
+      const updatedYears: Filters = {
+        ...selectedFilters,
+        [key]: Array.from(current) as string[],
+      };
+      setSelectedFilters(updatedYears);
+      updateFiltersBySelection(updatedYears, key);
+      return;
+    }
+
+    if (key === "countries") {
+      const countryValue = value as Country;
+
+      const valueExists = selectedFilters.countries.some(
+        (item) => item.isoCode === countryValue.isoCode
+      );
+
+      let updatedCountries: Country[];
+
+      if (valueExists) {
+        // Eliminar país
+        updatedCountries = selectedFilters.countries.filter(
+          (item) => item.isoCode !== countryValue.isoCode
+        );
+      } else {
+        // Añadir país
+        updatedCountries = [...selectedFilters.countries, countryValue];
+      }
+
+      const updatedFilters: Filters = {
+        ...selectedFilters,
+        countries: updatedCountries,
+      };
+
+      setSelectedFilters(updatedFilters);
+      updateFiltersBySelection(updatedFilters, key); // 👈 ahora sí con el objeto correcto
+
+      return;
+    }
+
+    //METHODS LISTO
+    if (key === "methods") {
+      if (current.has(value)) {
+        current.delete(value);
+      } else {
+        current.add(value);
+      }
     }
     const updatedFilters: Filters = {
       ...selectedFilters,
       [key]: Array.from(current),
     };
     setSelectedFilters(updatedFilters);
-    updateFiltersBySelection(updatedFilters);
+    updateFiltersBySelection(updatedFilters, key);
   };
 
   // Función específica para actualizar el claimStatus

@@ -112,7 +112,17 @@ export function CountriesChart() {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 6 }}
                     >
-                      <Flag code={iso} style={{ width: 16, height: 12 }} />
+                      <div className="relative w-7 h-5 overflow-hidden rounded">
+                        <Flag
+                          code={iso}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                        <div className="absolute inset-0 pointer-events-none rounded" />
+                      </div>
                       <span
                         style={{
                           fontSize: 12,
