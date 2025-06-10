@@ -19,6 +19,7 @@ module.exports = {
         "gris-claro": "#C9C9C9",
         "gris-claro-2": "#8a8a8b",
         "gris-claro-3": "#f4f5fa",
+        "gris-claro-4": "#F3F4F8",
         "gris-oscuro": "#424242",
         negro: "#2A2A2A",
         "exportButton-green": "#3B9B81",

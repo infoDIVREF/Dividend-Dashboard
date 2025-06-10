@@ -1,5 +1,4 @@
-import { ChevronsRight } from 'lucide-react';
-
+import { ChevronsRight } from "lucide-react";
 
 export default function ToggleDashboardComponent({
   toggleSidebar,
@@ -7,9 +6,12 @@ export default function ToggleDashboardComponent({
   toggleSidebar: () => void;
 }) {
   return (
-      <button onClick={toggleSidebar} className="flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all ease-in-out duration-300 w-32 font-bricolage bg-blanco-roto text-negro">
-        Filtros
-        <ChevronsRight size={26} strokeWidth={1} />
-      </button>
+    <button
+      onClick={toggleSidebar}
+      className="flex items-center justify-center gap-2 px-2 py-1 rounded-[15px] transition-all ease-in-out duration-300 w-32 font-bricolage font-semibold bg-gris-claro-4 text-negro"
+    >
+      Filtros
+      <ChevronsRight size={26} strokeWidth={1.5} />
+    </button>
   );
 }

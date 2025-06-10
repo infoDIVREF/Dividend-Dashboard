@@ -38,9 +38,8 @@ export function useGetDataByFund() {
 
     fetchData();
   }, [selectedFilters.funds, collaboratorId, token]);
+  const fundsObjectLength = Object.keys(data?.data?.byFund || {}).length;
 
-  let fundsObjectLength = Object.keys(data?.byFund || {}).length;
-  fundsObjectLength = 150;
-
+  /*  const fundsObjectLength = 8; */
   return { data, loading, error, fundsObjectLength };
 }

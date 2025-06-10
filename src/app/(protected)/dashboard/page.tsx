@@ -36,7 +36,7 @@ export default function Home() {
         className={`
           flex flex-col transition-all duration-300 ease-in-out
           ${!isSidebarOpen || pageToShow === "map" ? "w-full" : "w-[80vw]"}
-          px-5
+          px-[54px] pt-[67px]
         `}
       >
         <DashboardHeader
@@ -45,7 +45,7 @@ export default function Home() {
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
         />
-        <Dashboard pageToShow={pageToShow} />
+        <Dashboard pageToShow={pageToShow} isSidebarOpen={isSidebarOpen} />
       </div>
     </div>
   );

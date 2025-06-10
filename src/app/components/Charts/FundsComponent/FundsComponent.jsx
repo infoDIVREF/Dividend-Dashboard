@@ -41,10 +41,10 @@ function splitIntoBalancedChunks(data, maxPerChunk) {
 
 export function FundsComponent() {
   const [showAll, setShowAll] = useState(false);
-  const { /* data, */ loading, error, fundsObjectLength } = useGetDataByFund();
-  //let data = mockFunds15;
-  //let data = mockFunds40;
-  let data = mockFunds150;
+  const { data, loading, error, fundsObjectLength } = useGetDataByFund();
+  /* let data = mockFunds15;
+  let data = mockFunds40;
+  let data = mockFunds150; */
   const { claimStatus } = useFilters();
 
   if (loading) return <SkeletonChartVertical height="h-96" />;

@@ -42,13 +42,17 @@ const statuses = [
   },
 ];
 
-export default function ClaimStatusStepper() {
+export default function ClaimStatusStepper({ isSidebarOpen }) {
   const { claimStatus, updateClaimStatus } = useFilters();
 
   const isSelected = (status) => claimStatus.includes(status);
 
   return (
-    <div className="flex items-center justify-start w-full mt-4">
+    <div
+      className={`flex items-center transition-all duration-300 w-full mt-4 ${
+        isSidebarOpen ? "pl-0 justify-start" : "pl-[8%] justify-start"
+      }`}
+    >
       {/* Línea inicial que se extiende al principio */}
       <div className="relative flex items-center h-[2px] w-[25%]">
         <div

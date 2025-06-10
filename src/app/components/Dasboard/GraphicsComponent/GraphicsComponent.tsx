@@ -6,19 +6,23 @@ import { CountriesChart } from "../../Charts/CountriesChart/CountriesChart";
 import { YearsChart } from "../../Charts/YearsChart/YearsChart";
 import { MethodsChart } from "../../Charts/MethodsChart/MethodsChart";
 import { TotalChart } from "../../Charts/TotalChart/TotalChart";
-import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
+import { AverageRecoveryTimeComponent } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTimeComponent";
 import { useGetDataByFund } from "@/hooks/useGetDataByFund";
 
 import React from "react";
 // import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
 
-function GraphicsComponent() {
+type GraphicsComponentProps = {
+  isSidebarOpen: boolean;
+};
+
+function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
   const { fundsObjectLength } = useGetDataByFund();
   const isWideFundsChart = fundsObjectLength > 7;
 
   return (
     <div>
-      <GraphicsComponentHeader />
+      <GraphicsComponentHeader isSidebarOpen={isSidebarOpen} />
 
       <div id="dashboard-capture" className="flex flex-col gap-4 mt-8">
         {/* 🔷 Fila 1: Por fondo (siempre) */}
@@ -86,34 +90,7 @@ function GraphicsComponent() {
         )}
 
         {/* 🔷 Fila final: tiempos de recuperación */}
-        <div className="flex gap-5 mt-6">
-          <h3 className="text-2xl">Tiempos de recuperación</h3>
-          <div className="flex gap-5 text-lg">
-            <div className="flex items-center gap-2">
-              <div className="bg-[#3fb1f8] rounded-2xl w-10 h-5" />
-              <span>Mínimos</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-[#244a76] rounded-2xl w-10 h-5" />
-              <span>Medios</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-[#8ed3e4] rounded-2xl w-10 h-5" />
-              <span>Máximos</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex gap-4 mb-1">
-          <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-4">Vía DDTR</h3>
-            <AverageRecoveryTime method="DTTR" />
-          </div>
-          <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-            <h3 className="text-lg font-semibold mb-4">Vía TJUE</h3>
-            <AverageRecoveryTime method="TJUE" />
-          </div>
-        </div>
+        <AverageRecoveryTimeComponent />
       </div>
     </div>
   );

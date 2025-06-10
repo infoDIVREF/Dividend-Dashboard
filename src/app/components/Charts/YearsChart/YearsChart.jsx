@@ -26,7 +26,7 @@ export function YearsChart() {
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
   return (
-    <div className="h-80 w-full">
+    <div className="h-96 w-full mb-6">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
           <XAxis fontSize={12} dataKey="name" />
@@ -41,8 +41,8 @@ export function YearsChart() {
             formatter={(value) => value.toLocaleString("es-ES")}
           />
           <Legend
-            wrapperStyle={{ paddingTop: 10 }}
             content={<CustomLegend />}
+            wrapperStyle={{ paddingTop: 30 }}
           />
           {claimStatus.includes("EN TRÁMITE") && (
             <Bar
