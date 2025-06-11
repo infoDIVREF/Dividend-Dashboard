@@ -27,9 +27,9 @@ export default function SideBar({
     updateClaimStatus,
   } = useFilters();
 
-  if (isLoading) {
+  /* if (isLoading) {
     return <SidebarSkeleton />;
-  }
+  } */
 
   const handleClearFilters = () => {
     clearSelectedFilters({
