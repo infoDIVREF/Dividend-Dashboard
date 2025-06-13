@@ -25,10 +25,6 @@ export default function SideBar({
     updateClaimStatus,
   } = useFilters();
 
-  /* if (isLoading) {
-    return <SidebarSkeleton />;
-  } */
-
   const handleClearFilters = () => {
     clearSelectedFilters(initialFilters);
   };
@@ -95,12 +91,15 @@ export default function SideBar({
       <FilterSection
         title={
           allFundsSelected ? (
-            <button className="cursor-not-allowed text-gray-500">
+            <button className="cursor-not-allowed text-gray-400 border-[1px] border-gray-400 p-1 px-3 rounded-sm">
               Selecciona un fondo
             </button>
           ) : (
-            <button onClick={handleClearFilters} className="text-blue-500">
-              Seleccionar todos los fondos
+            <button
+              onClick={handleClearFilters}
+              className="text-gray-600 border-[1px] border-gray-600 p-1 px-3 rounded-sm no-wrap"
+            >
+              Seleccionar todo
             </button>
           )
         }

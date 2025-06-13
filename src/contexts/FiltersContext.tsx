@@ -160,22 +160,30 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         (item) => item.id === fundValue.id
       );
 
-      // 🛑 If there's only one fund selected and it's the one being removed → do nothing
-      if (
-        valueExists &&
-        selectedFilters.funds.length === 1 &&
-        selectedFilters.funds[0].id === fundValue.id
-      ) {
-        return; // no-op
-      }
+      const allFundsSelected =
+        selectedFilters.funds.length === initialFilters.funds.length;
 
       let updatedFunds: Fund[];
-      if (valueExists) {
-        updatedFunds = selectedFilters.funds.filter(
-          (item) => item.id !== fundValue.id
-        );
+
+      if (allFundsSelected) {
+        // ✅ First click: switch to only the clicked fund
+        updatedFunds = [fundValue];
       } else {
-        updatedFunds = [...selectedFilters.funds, fundValue];
+        if (valueExists) {
+          // 🛑 Don't allow removing the last selected fund
+          if (
+            selectedFilters.funds.length === 1 &&
+            selectedFilters.funds[0].id === fundValue.id
+          ) {
+            return; // no-op
+          }
+
+          updatedFunds = selectedFilters.funds.filter(
+            (item) => item.id !== fundValue.id
+          );
+        } else {
+          updatedFunds = [...selectedFilters.funds, fundValue];
+        }
       }
 
       const updatedFilters: Filters = {
