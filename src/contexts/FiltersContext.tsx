@@ -283,8 +283,8 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   };
 
   const clearSelectedFilters = () => {
-    setSelectedFilters(defaultFilters);
-    setClaimStatus(defaultFilters.claimStatus); // Reseteamos también el claimStatus
+    setSelectedFilters(initialFilters);
+    setClaimStatus(initialFilters.claimStatus); // Reseteamos también el claimStatus
   };
 
   return (

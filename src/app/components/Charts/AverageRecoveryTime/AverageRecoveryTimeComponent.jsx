@@ -91,7 +91,6 @@ export function AverageRecoveryTimeComponent() {
   const filteredData = mockData.filter((item) =>
     selectedCountryCodes.has(item.country)
   );
-  console.log("FILTERED DATA", filteredData);
   return (
     <>
       <div className="flex gap-5 mt-6">

@@ -8,7 +8,6 @@ import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
 import { RecoveredIcon } from "@/components/icons/ClaimStatusIcons";
 import { SentIcon } from "@/components/icons/ClaimStatusIcons";
 import Flag from "react-world-flags";
-import SidebarSkeleton from "./SideBarSkeleton";
 
 export default function SideBar({
   toggleSidebar,
@@ -22,7 +21,6 @@ export default function SideBar({
     selectedFilters,
     updateSelectedFilter,
     clearSelectedFilters,
-    isLoading,
     claimStatus,
     updateClaimStatus,
   } = useFilters();
@@ -32,14 +30,10 @@ export default function SideBar({
   } */
 
   const handleClearFilters = () => {
-    clearSelectedFilters({
-      years: [],
-      countries: [],
-      methods: [],
-      funds: [],
-      claimStatus: [],
-    });
+    clearSelectedFilters(initialFilters);
   };
+  const allFundsSelected =
+    selectedFilters.funds.length === initialFilters.funds.length;
 
   const statuses = [
     {
@@ -99,7 +93,17 @@ export default function SideBar({
 
       {/* <ActiveFilters /> */}
       <FilterSection
-        title="Nombre del Fondo"
+        title={
+          allFundsSelected ? (
+            <button className="cursor-not-allowed text-gray-500">
+              Selecciona un fondo
+            </button>
+          ) : (
+            <button onClick={handleClearFilters} className="text-blue-500">
+              Seleccionar todos los fondos
+            </button>
+          )
+        }
         customClassName="grid grid-cols-1 gap-2"
       >
         {initialFilters.funds?.map((fund) => {
