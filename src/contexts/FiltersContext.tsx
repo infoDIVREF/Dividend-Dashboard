@@ -90,6 +90,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         claimStatus: ["EN TRÁMITE", "ENVIADO", "RECUPERADO"],
       };
       setInitialFilters(loaded);
+      setSelectedFilters(loaded);
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
     } finally {
@@ -159,6 +160,15 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         (item) => item.id === fundValue.id
       );
 
+      // 🛑 If there's only one fund selected and it's the one being removed → do nothing
+      if (
+        valueExists &&
+        selectedFilters.funds.length === 1 &&
+        selectedFilters.funds[0].id === fundValue.id
+      ) {
+        return; // no-op
+      }
+
       let updatedFunds: Fund[];
       if (valueExists) {
         updatedFunds = selectedFilters.funds.filter(
@@ -178,19 +188,25 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    //YEARS LISTO
     if (key === "years") {
+      // Prevent removing the last selected year
+      if (current.has(value) && current.size === 1) {
+        return; // 🛑 no-op if trying to remove the only year
+      }
+
       if (current.has(value)) {
         current.delete(value);
       } else {
         current.add(value);
       }
+
       const updatedYears: Filters = {
         ...selectedFilters,
         [key]: Array.from(current) as string[],
       };
+
       setSelectedFilters(updatedYears);
-      updateFiltersBySelection(updatedYears, key);
+      // updateFiltersBySelection(updatedYears, key); // optional
       return;
     }
 
@@ -201,15 +217,24 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         (item) => item.isoCode === countryValue.isoCode
       );
 
+      // 🛑 Prevent removing the only selected country
+      if (
+        valueExists &&
+        selectedFilters.countries.length === 1 &&
+        selectedFilters.countries[0].isoCode === countryValue.isoCode
+      ) {
+        return; // no-op
+      }
+
       let updatedCountries: Country[];
 
       if (valueExists) {
-        // Eliminar país
+        // Remove country
         updatedCountries = selectedFilters.countries.filter(
           (item) => item.isoCode !== countryValue.isoCode
         );
       } else {
-        // Añadir país
+        // Add country
         updatedCountries = [...selectedFilters.countries, countryValue];
       }
 
@@ -219,13 +244,15 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
       };
 
       setSelectedFilters(updatedFilters);
-      updateFiltersBySelection(updatedFilters, key); // 👈 ahora sí con el objeto correcto
-
+      // updateFiltersBySelection(updatedFilters, key);
       return;
     }
 
     //METHODS LISTO
     if (key === "methods") {
+      if (current.has(value) && current.size === 1) {
+        return; // no-op
+      }
       if (current.has(value)) {
         current.delete(value);
       } else {
@@ -237,7 +264,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
       [key]: Array.from(current),
     };
     setSelectedFilters(updatedFilters);
-    updateFiltersBySelection(updatedFilters, key);
+    //  updateFiltersBySelection(updatedFilters, key);
   };
 
   // Función específica para actualizar el claimStatus
@@ -256,8 +283,8 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   };
 
   const clearSelectedFilters = () => {
-    setSelectedFilters(defaultFilters);
-    setClaimStatus(defaultFilters.claimStatus); // Reseteamos también el claimStatus
+    setSelectedFilters(initialFilters);
+    setClaimStatus(initialFilters.claimStatus); // Reseteamos también el claimStatus
   };
 
   return (

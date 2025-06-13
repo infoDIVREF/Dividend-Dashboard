@@ -2,7 +2,7 @@
 import React from "react";
 
 interface FilterSectionProps {
-  title: string;
+  title: string | React.ReactNode;
   children: React.ReactNode;
   customClassName?: string; // Nuevo prop para clases personalizadas
 }

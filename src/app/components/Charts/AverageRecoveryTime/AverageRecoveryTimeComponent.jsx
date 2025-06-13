@@ -1,9 +1,15 @@
 import React from "react";
 import { AverageRecoveryTimeCard } from "./AverageRecoveryTimeCard";
 import { useGetAverageRecoveryTime } from "@/hooks/useGetAverageRecoveryTime";
+import { useFilters } from "@/contexts/FiltersContext";
 
 export function AverageRecoveryTimeComponent() {
   const { data, loading, error } = useGetAverageRecoveryTime();
+
+  const {
+    selectedFilters: { countries: selectedCountries },
+  } = useFilters();
+
   const mockData = [
     {
       country: "DE",
@@ -76,6 +82,15 @@ export function AverageRecoveryTimeComponent() {
       maximumRecoveryTime: 19,
     },
   ];
+
+  // Filter the mockData to keep only countries that are present in selectedCountries
+  const selectedCountryCodes = new Set(
+    selectedCountries.map((country) => country.isoCode)
+  );
+
+  const filteredData = mockData.filter((item) =>
+    selectedCountryCodes.has(item.country)
+  );
   return (
     <>
       <div className="flex gap-5 mt-6">
@@ -103,7 +118,7 @@ export function AverageRecoveryTimeComponent() {
           </h3>
           <AverageRecoveryTimeCard
             method="DTTR"
-            data={mockData.filter((item) => item.method === "DTTR")}
+            data={filteredData.filter((item) => item.method === "DTTR")}
           />
         </div>
         <div className="bg-white rounded-xl shadow-md p-4 flex flex-col flex-1 border">
@@ -112,7 +127,7 @@ export function AverageRecoveryTimeComponent() {
           </h3>
           <AverageRecoveryTimeCard
             method="TJUE"
-            data={mockData.filter((item) => item.method === "TJUE")}
+            data={filteredData.filter((item) => item.method === "TJUE")}
           />
         </div>
       </div>

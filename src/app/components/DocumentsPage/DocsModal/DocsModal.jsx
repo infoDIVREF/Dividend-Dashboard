@@ -46,7 +46,6 @@ export default function DocsModal({ category, onClose }) {
       fetchDocuments();
     }
   }, [category, currentPage]);
-  console.log(documents);
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 z-50 flex justify-center items-center">
