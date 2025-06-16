@@ -1,7 +1,5 @@
-// src/components/SideBar/Sidebar.tsx
 "use client";
 import SideBarHeader from "./SideBarHeader/SideBarHeader";
-//import ActiveFilters from "./ActiveFilters/ActiveFilters";
 import FilterSection from "./FiltersSection/FiltersSection";
 import { useFilters } from "@/contexts/FiltersContext";
 import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
@@ -81,13 +79,8 @@ export default function SideBar({
         gap-5 overflow-y-auto overflow-x-hidden p-5 pt-3 bg-[#f6f7f9]
       `}
     >
-      <SideBarHeader
-        onClear={handleClearFilters}
-        toggleSidebar={toggleSidebar}
-        selectedFilters={selectedFilters}
-      />
+      <SideBarHeader toggleSidebar={toggleSidebar} />
 
-      {/* <ActiveFilters /> */}
       <FilterSection
         title={
           allFundsSelected ? (
@@ -182,7 +175,7 @@ export default function SideBar({
       </FilterSection>
 
       <FilterSection title="Vía" customClassName="grid grid-cols-2 gap-2">
-        {["DTTR", "TJUE"].map((method) => (
+        {initialFilters.methods?.map((method) => (
           <button
             key={method}
             onClick={() => updateSelectedFilter("methods", method)}

@@ -124,14 +124,24 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
       );
 
       const data = response.data;
-      const updatedFilters: Filters = {
+      const updatedSelectedFilters: Filters = {
         years: data.years,
         countries: data.countries,
         methods: data.methods,
         funds: data.funds,
         claimStatus: claimStatus,
       };
-      setSelectedFilters(updatedFilters);
+      const updatedInitialFilters: Filters = {
+        years: data.years,
+        countries: data.countries,
+        methods: data.methods,
+        funds: initialFilters.funds,
+        claimStatus: claimStatus,
+      };
+      setSelectedFilters(updatedSelectedFilters);
+      // COMENTAR LA LÍNEA DE ABAJO PARA RECUPERAR EL COMPORTAMIENTO PREVIO.
+      // setInitialFilters(updatedFilters);
+      setInitialFilters(updatedInitialFilters);
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
     } finally {
@@ -291,8 +301,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   };
 
   const clearSelectedFilters = () => {
-    setSelectedFilters(initialFilters);
-    setClaimStatus(initialFilters.claimStatus); // Reseteamos también el claimStatus
+    loadInitialFilters();
   };
 
   return (
