@@ -48,11 +48,10 @@ export default function RootLayout({
             <NavBar />
             <div className="pt-20 h-full">{children}</div>
           </FiltersProvider>
+          <div className="fixed bottom-10 right-8 z-50">
+            <SuggestionButton />
+          </div>
         </AuthProvider>
-        {/* Botón sugerencia */}
-        <div className="fixed bottom-10 right-8 z-50">
-          <SuggestionButton />
-        </div>
       </body>
     </html>
   );

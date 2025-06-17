@@ -86,7 +86,11 @@ export function CountriesChart() {
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
-        <BarChart data={sortedData} layout="vertical">
+        <BarChart
+          data={sortedData}
+          layout="vertical"
+          barCategoryGap={8} // en píxeles o porcentaje ("10%")
+        >
           <XAxis
             fontSize={12}
             type="number"
@@ -155,7 +159,6 @@ export function CountriesChart() {
               shape={(props) => (
                 <RoundedBar {...props} dataKey="enTramite" horizontal />
               )}
-              barSize={10}
             />
           )}
           {claimStatus.includes("ENVIADO") && (
