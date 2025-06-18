@@ -27,10 +27,6 @@ export default function SuggestionButton() {
     (c) => c.id === collaboratorId
   );
 
-  console.log("collaboratorId", collaboratorId);
-  console.log("user", user);
-  console.log("loading", loading);
-
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 

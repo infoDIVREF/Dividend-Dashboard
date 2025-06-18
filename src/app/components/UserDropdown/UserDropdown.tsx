@@ -6,7 +6,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function UserDropdown() {
   const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null); 
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, collaboratorId, setCollaborator, logout } = useAuthContext();
   const router = useRouter();
 
@@ -42,7 +42,7 @@ export default function UserDropdown() {
   }, [open]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
         className="w-[46px] h-[46px] flex items-center justify-center"
@@ -64,7 +64,7 @@ export default function UserDropdown() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full bg-white shadow-md rounded-md w-60 z-50 p-4 space-y-2">
+        <div className="absolute z-50 right-[54px] top-[67px] bg-white shadow-md rounded-md w-60  p-4 space-y-2">
           <ul className="space-y-1">
             {user?.collaborators.map((collab) => (
               <li key={collab.id}>

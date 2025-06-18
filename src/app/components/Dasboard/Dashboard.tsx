@@ -31,7 +31,7 @@ function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
           absolute inset-0 transition-opacity duration-300 px-[54px] pt-40
           ${
             pageToShow === "graphics"
-              ? "opacity-100 z-10"
+              ? "opacity-100"
               : "opacity-0 -z-10 pointer-events-none"
           }
         `}
@@ -44,7 +44,7 @@ function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
           absolute inset-0 transition-opacity duration-300
           ${
             pageToShow === "map"
-              ? "opacity-100 z-10 overflow-hidden"
+              ? "opacity-100 overflow-hidden"
               : "opacity-0 -z-10 pointer-events-none"
           }
         `}

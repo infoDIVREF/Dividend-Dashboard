@@ -39,7 +39,6 @@ export default function GeoMercatorMap({
     };
   } | null>(null);
   const { mapData } = useGetMapData();
-  console.log("MAP DATA", mapData);
 
   if (width < 10 || height < 10) return null;
 
@@ -47,11 +46,11 @@ export default function GeoMercatorMap({
   const centerY = height / 1.5;
   const scale = (width / 630) * 250;
 
-  const recoveredValues = mapData.map((d) => d.totalRecovered);
-  const minRecovered = Math.min(...recoveredValues);
-  const maxRecovered = Math.max(...recoveredValues);
+  const rangeRecovered = ["#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa"];
+  const rangePending = ["#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa"];
+  const rangeSent = ["#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa"];
 
-  const color = scaleQuantize({
+  /*  const color = scaleQuantize({
     domain: [minRecovered, maxRecovered],
     range: [
       "#eff6ff",
@@ -63,62 +62,124 @@ export default function GeoMercatorMap({
       "#2563eb",
       "#1d4ed8",
     ],
+  }); */
+
+  const valuesRecovered = mapData
+    .map((d) => d.totalRecovered)
+    .filter((v) => v > 0);
+  const valuesPending = mapData.map((d) => d.totalPending).filter((v) => v > 0);
+  const valuesSent = mapData.map((d) => d.totalSent); // asumimos que siempre hay algo
+
+  const scaleRecovered = scaleQuantize({
+    domain: [Math.min(...valuesRecovered), Math.max(...valuesRecovered)],
+    range: rangeRecovered,
   });
+
+  const scalePending = scaleQuantize({
+    domain: [Math.min(...valuesPending), Math.max(...valuesPending)],
+    range: rangePending,
+  });
+
+  const scaleSent = scaleQuantize({
+    domain: [Math.min(...valuesSent), Math.max(...valuesSent)],
+    range: rangeSent,
+  });
+
+  const translateX = centerX - 90;
+  const translateY = centerY + height * 0.64; // en lugar de +460
 
   return (
     <>
-      <svg className="w-full h-full  rounded-md">
+      <svg className="w-full h-full rounded-md">
         <rect x={0} y={0} fill={background} rx={14} />
         <Mercator<FeatureShape>
           data={europe.features}
           scale={scale}
-          translate={[centerX - 70, centerY + 460]}
+          translate={[translateX, translateY]}
         >
           {(mercator) => (
-            <g>
-              {mercator.features.map(({ feature, path }, i) => {
+            <g className="m-2">
+              {[
+                ...mercator.features.filter(
+                  ({ feature }) => feature.id !== hoveredFeature
+                ),
+                ...mercator.features.filter(
+                  ({ feature }) => feature.id === hoveredFeature
+                ),
+              ].map(({ feature, path }, i) => {
                 const isHovered = hoveredFeature === feature.id;
                 const matchedData = mapData.find(
                   (c) => c.isoCode3 === feature.id
                 );
-                const recovered = matchedData?.totalRecovered ?? 0;
+
+                let colorValue = 0;
+                let fillColor = "#f3f4f6";
+                //    let valueType: "recovered" | "pending" | "sent" | null = null;
+
+                if (matchedData) {
+                  if (matchedData.totalRecovered > 0) {
+                    colorValue = matchedData.totalRecovered;
+                    fillColor = scaleRecovered(colorValue);
+                    // valueType = "recovered";
+                  } else if (matchedData.totalPending > 0) {
+                    colorValue = matchedData.totalPending;
+                    fillColor = scalePending(colorValue);
+                    //   valueType = "pending";
+                  } else {
+                    colorValue = matchedData.totalSent;
+                    fillColor = scaleSent(colorValue);
+                    //    valueType = "sent";
+                  }
+                }
                 const isInData = !!matchedData;
 
                 return (
-                  <path
-                    key={`map-feature-${i}`}
-                    d={path || ""}
-                    fill={color(recovered)}
-                    stroke={isInData ? "#4b5563" : "#e5e7eb"}
-                    strokeWidth={isHovered ? 2 : isInData ? 1.5 : 0.3}
-                    onMouseEnter={(event) => {
-                      setHoveredFeature(feature.id);
-                      if (matchedData) {
-                        const { clientX, clientY } = event;
-                        setHoverData({
-                          x: clientX,
-                          y: clientY,
-                          data: {
-                            country: matchedData.country,
-                            totalPending: matchedData.totalPending,
-                            totalRecovered: matchedData.totalRecovered,
-                            totalSent: matchedData.totalSent,
-                          },
-                        });
+                  <g key={`map-group-${i}`}>
+                    <path
+                      d={path || ""}
+                      fill={fillColor}
+                      stroke="#ffffff"
+                      strokeWidth={2.5}
+                      transform={
+                        isInData
+                          ? isHovered
+                            ? "scale(1.0199)"
+                            : "scale(1)"
+                          : "scale(1)"
                       }
-                    }}
-                    onMouseLeave={() => {
-                      setHoveredFeature(null);
-                      setHoverData(null);
-                    }}
-                    onClick={() => {
-                      if (events) {
-                        alert(
-                          `Clicked: ${feature.properties.name} (${feature.id})`
-                        );
-                      }
-                    }}
-                  />
+                      style={{
+                        transformOrigin: "center",
+                        transition: "transform 0.2s ease",
+                      }}
+                      onMouseEnter={(event) => {
+                        setHoveredFeature(feature.id);
+                        if (matchedData) {
+                          const { clientX, clientY } = event;
+                          setHoverData({
+                            x: clientX,
+                            y: clientY,
+                            data: {
+                              country: matchedData.country,
+                              totalPending: matchedData.totalPending,
+                              totalRecovered: matchedData.totalRecovered,
+                              totalSent: matchedData.totalSent,
+                            },
+                          });
+                        }
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredFeature(null);
+                        setHoverData(null);
+                      }}
+                      onClick={() => {
+                        if (events) {
+                          alert(
+                            `Clicked: ${feature.properties.name} (${feature.id})`
+                          );
+                        }
+                      }}
+                    />
+                  </g>
                 );
               })}
             </g>

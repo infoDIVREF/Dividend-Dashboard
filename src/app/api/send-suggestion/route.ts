@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
         pass: process.env.EMAIL_PASS,
       },
     });
-    console.log("TRANSPORTER IN ROUTE", transporter);
-    console.log("CONTENT IN ROUTE", message, subject);
 
     await transporter.sendMail({
       from: `"Dashboard-Recupera Feedback" <${process.env.EMAIL_USER}>`,

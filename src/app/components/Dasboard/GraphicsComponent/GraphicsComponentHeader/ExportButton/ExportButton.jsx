@@ -13,12 +13,26 @@ export default function ExportButton() {
 
     await document.fonts.ready;
 
-    // Crear wrapper con padding
+    // Creamos wrapper para html2canvas
     const wrapper = document.createElement("div");
     wrapper.style.padding = "20px";
     wrapper.style.backgroundColor = "white";
-    wrapper.appendChild(element.cloneNode(true));
 
+    // Clonamos el dashboard
+    const cloned = element.cloneNode(true);
+
+    // ⛔ Reemplazamos banderas por cuadrados grises
+    cloned.querySelectorAll(".flag-image").forEach((el) => {
+      const placeholder = document.createElement("div");
+      placeholder.style.width = "28px";
+      placeholder.style.height = "20px";
+      placeholder.style.backgroundColor = "##FFFFFF";
+      placeholder.style.borderRadius = "4px";
+
+      el.parentNode?.replaceChild(placeholder, el);
+    });
+
+    wrapper.appendChild(cloned);
     document.body.appendChild(wrapper);
 
     try {
@@ -53,7 +67,7 @@ export default function ExportButton() {
     <button
       onClick={handleExport}
       disabled={isLoading}
-      className={`bg-exportButton-green flex items-center  gap-2 px-4 py-2 text-white rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 ${
+      className={`bg-exportButton-green flex items-center  gap-2 px-4 py-2 text-white rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 pointer-events-auto ${
         isLoading
           ? "opacity-50 cursor-not-allowed justify-center"
           : "justify-between "
