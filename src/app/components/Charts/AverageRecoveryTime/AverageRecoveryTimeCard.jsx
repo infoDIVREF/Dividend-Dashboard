@@ -128,6 +128,7 @@ export function AverageRecoveryTimeCard({ method, data }) {
                             height: "100%",
                             objectFit: "cover",
                           }}
+                          className="flag-image"
                         />
                         <div className="absolute inset-0 pointer-events-none rounded" />
                       </div>
