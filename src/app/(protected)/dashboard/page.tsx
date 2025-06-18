@@ -30,21 +30,20 @@ export default function Home() {
           toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
         />
       </div>
+      <DashboardHeader
+        pageToShow={pageToShow}
+        setPageToShow={setPageToShow}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+      />
 
-      {/* Contenido principal que se adapta al espacio restante */}
       <div
         className={`
           flex flex-col transition-all duration-300 ease-in-out
           ${!isSidebarOpen || pageToShow === "map" ? "w-full" : "w-[80vw]"}
-          px-[54px] pt-[67px]
+          
         `}
       >
-        <DashboardHeader
-          pageToShow={pageToShow}
-          setPageToShow={setPageToShow}
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
-        />
         <Dashboard pageToShow={pageToShow} isSidebarOpen={isSidebarOpen} />
       </div>
     </div>
