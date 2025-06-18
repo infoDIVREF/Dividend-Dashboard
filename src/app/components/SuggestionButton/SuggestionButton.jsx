@@ -8,7 +8,21 @@ import { useAuth } from "@/hooks/useAuth";
 export default function SuggestionButton() {
   const pathname = usePathname();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState(null);
+  const [statusMessage, setStatusMessage] = useState("");
+
   const { user, collaboratorId, loading } = useAuth();
+  const hide =
+    pathname === "/login" ||
+    pathname === "/select-collaborator" ||
+    loading || // 👈 Añadido
+    !user || // 👈 Añadido
+    !collaboratorId;
+
+  if (hide) return null;
+
+  if (hide) return null;
   const selectedCollaborator = user?.collaborators.find(
     (c) => c.id === collaboratorId
   );
@@ -16,10 +30,6 @@ export default function SuggestionButton() {
   console.log("collaboratorId", collaboratorId);
   console.log("user", user);
   console.log("loading", loading);
-
-  const hide = pathname === "/login" || pathname === "/select-collaborator";
-
-  if (hide) return null;
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -31,10 +41,6 @@ export default function SuggestionButton() {
       openModal();
     }
   };
-
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState(null); // "success" or "error"
-  const [statusMessage, setStatusMessage] = useState("");
 
   const subject = `Sugerencia de mejora de ${
     selectedCollaborator?.name ?? "Colaborador"
@@ -73,7 +79,7 @@ export default function SuggestionButton() {
 
   return (
     <>
-      <button
+      <a
         className="group flex bg-[#F86338] items-center text-white text-sm font-medium px-4 py-2 rounded-full shadow-md hover:bg-[#d44f2b] transition-colors"
         onClick={toggleModal}
       >
@@ -81,7 +87,7 @@ export default function SuggestionButton() {
         <span className="overflow-hidden max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-2 transition-all duration-500 whitespace-nowrap">
           Déjanos tu sugerencia
         </span>
-      </button>
+      </a>
       <Modal
         isOpen={modalIsOpen}
         // onRequestClose={closeModal}

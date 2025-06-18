@@ -70,6 +70,16 @@ const isoToName = {
 export function AverageRecoveryTimeCard({ method, data }) {
   const barSize = Math.max(8, 25 - data.length);
 
+  const maxValue = Math.max(
+    ...data.flatMap((d) => [
+      d.minimumRecoveryTime,
+      d.averageRecoveryTime,
+      d.maximumRecoveryTime,
+    ])
+  );
+
+  const roundedMax = Math.ceil(maxValue / 5) * 5;
+
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
@@ -78,26 +88,23 @@ export function AverageRecoveryTimeCard({ method, data }) {
           data={data}
           margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
           barCategoryGap={30}
-          barGap={40}
         >
           <XAxis
             type="number"
-            domain={[0, 60]}
+            domain={[0, roundedMax]}
             tickFormatter={(v) => `${v} meses`}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             type="category"
-            // --- UPDATED: Use 'country' as dataKey ---
             dataKey="country"
             width={110}
             axisLine={false}
             tickLine={false}
             tick={({ x, y, payload }) => {
-              // --- UPDATED: The value is now the ISO code ---
               const isoCode = payload.value;
-              const name = isoToName[isoCode] || isoCode; // Fallback to code if name not found
+              const name = isoToName[isoCode] || isoCode;
 
               return (
                 <g transform={`translate(${x - 90},${y - 12})`}>
@@ -133,22 +140,24 @@ export function AverageRecoveryTimeCard({ method, data }) {
             }}
           />
           <Tooltip cursor={{ fill: "transparent" }} />
-          {/* --- UPDATED: Use new data keys --- */}
           <Bar
             dataKey="minimumRecoveryTime"
-            stackId="a"
             fill="#60C6FF"
             barSize={barSize}
+            shape={(props) => (
+              <RoundedBar {...props} dataKey="recuperado" horizontal />
+            )}
           />
           <Bar
             dataKey="averageRecoveryTime"
-            stackId="a"
             fill="#1E3558"
             barSize={barSize}
+            shape={(props) => (
+              <RoundedBar {...props} dataKey="recuperado" horizontal />
+            )}
           />
           <Bar
             dataKey="maximumRecoveryTime"
-            stackId="a"
             fill="#A7E3F2"
             barSize={barSize}
             shape={(props) => (
