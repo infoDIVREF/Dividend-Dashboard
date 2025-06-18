@@ -8,9 +8,7 @@ import { MethodsChart } from "../../Charts/MethodsChart/MethodsChart";
 import { TotalChart } from "../../Charts/TotalChart/TotalChart";
 import { AverageRecoveryTimeComponent } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTimeComponent";
 import { useGetDataByFund } from "@/hooks/useGetDataByFund";
-
 import React from "react";
-// import { AverageRecoveryTime } from "@/app/components/Charts/AverageRecoveryTime/AverageRecoveryTime";
 
 type GraphicsComponentProps = {
   isSidebarOpen: boolean;
@@ -44,36 +42,33 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
           )}
         </div>
 
-        {/* 🔷 Fila 2: País + Año (si fondo es ancho) | Año + Vía + Total (si fondo es normal) */}
-        {isWideFundsChart ? (
-          <div className="flex gap-4">
+        {/* 🔷 Fila 2: País (si fondo es ancho) + Año (siempre) + Vía + Total */}
+        <div className="flex gap-4 mb-2">
+          {isWideFundsChart && (
             <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
               <h3 className="text-lg font-semibold mb-4">Por país</h3>
               <CountriesChart />
             </div>
+          )}
 
-            <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por año</h3>
-              <YearsChart />
-            </div>
+          <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+            <h3 className="text-lg font-semibold mb-4">Por año</h3>
+            <YearsChart />
           </div>
-        ) : (
-          <div className="flex gap-4 mb-2">
-            <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por año</h3>
-              <YearsChart />
-            </div>
 
-            <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por vía</h3>
-              <MethodsChart />
-            </div>
+          {!isWideFundsChart && (
+            <>
+              <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+                <h3 className="text-lg font-semibold mb-4">Por vía</h3>
+                <MethodsChart />
+              </div>
 
-            <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
-              <TotalChart />
-            </div>
-          </div>
-        )}
+              <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
+                <TotalChart />
+              </div>
+            </>
+          )}
+        </div>
 
         {/* 🔷 Fila 3: Vía + Total (solo si fondo es ancho) */}
         {isWideFundsChart && (
