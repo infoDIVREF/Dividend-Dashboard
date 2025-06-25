@@ -88,13 +88,20 @@ export function AverageRecoveryTimeComponent() {
     selectedCountries.map((country) => country.isoCode)
   );
 
-  const filteredData = mockData.filter((item) =>
+  const filteredData = data?.data?.filter((item) =>
     selectedCountryCodes.has(item.country)
   );
+
+  /* const filteredData = mockData.filter((item) =>
+    selectedCountryCodes.has(item.country)
+  ); */
+
+  if (loading) return <p>Cargando datos...</p>;
+  if (error || !data) return <p>Hubo un error al cargar los datos.</p>;
   return (
     <>
       <div className="flex gap-5 mt-6">
-        <h3 className="text-[18px]">Tiempos de recuperación</h3>
+        <h3 className="text-lg  font-semibold">Tiempos de recuperación</h3>
         <div className="flex gap-5 text-[17px]">
           <div className="flex items-center gap-2">
             <div className="bg-[#3fb1f8] rounded-2xl w-10 h-6" />
@@ -116,9 +123,10 @@ export function AverageRecoveryTimeComponent() {
           <h3 className="text-lg font-semibold mb-4 translate-y-2 translate-x-4">
             Vía DDTR
           </h3>
+
           <AverageRecoveryTimeCard
             method="DTTR"
-            data={filteredData.filter((item) => item.method === "DTTR")}
+            data={filteredData?.filter((item) => item.method === "DTTR")}
           />
         </div>
         <div className="bg-white rounded-xl shadow-md p-4 flex flex-col flex-1 border">
@@ -127,7 +135,7 @@ export function AverageRecoveryTimeComponent() {
           </h3>
           <AverageRecoveryTimeCard
             method="TJUE"
-            data={filteredData.filter((item) => item.method === "TJUE")}
+            data={filteredData?.filter((item) => item.method === "TJUE")}
           />
         </div>
       </div>

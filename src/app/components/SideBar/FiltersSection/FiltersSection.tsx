@@ -16,7 +16,7 @@ export default function FilterSection({
     return null;
 
   return (
-    <div className={`border-b pb-[1.25rem] border-gris`}>
+    <div className={` pb-[1.25rem] `}>
       <h3 className="text-[15px] text-base font-bricolage font-bold mb-2">
         {title}
       </h3>
