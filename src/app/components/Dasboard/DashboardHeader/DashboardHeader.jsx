@@ -11,7 +11,7 @@ export default function DashboardHeader({
     <div
       className={`${
         isSidebarOpen ? "w-[80vw]" : "w-[100vw]"
-      }  flex flex-row justify-between absolute right-0 items-center h-40 pt-[67px] px-[54px] z-10 ${
+      }  flex flex-row justify-between absolute right-0 items-center h-30 pt-[47px] pb-[27px] px-[54px] z-10 ${
         pageToShow === "map" ? "" : "bg-blanco"
       }`}
       style={{ pointerEvents: "none" }}
@@ -35,7 +35,7 @@ export default function DashboardHeader({
           className={`flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 font-bricolage ${
             pageToShow === "graphics"
               ? "bg-blanco-roto text-negro"
-              : "bg-transparent border border-gris-claro"
+              : "bg-blanco border border-gris-claro"
           }`}
         >
           Gráficos
@@ -46,7 +46,7 @@ export default function DashboardHeader({
           className={`flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all ease-in-out duration-300 w-32 min-w-32 font-bricolage ${
             pageToShow === "map"
               ? "bg-blanco-roto text-negro"
-              : "bg-transparent border border-gris-claro"
+              : "bg-blanco border border-gris-claro"
           }`}
         >
           Mapa

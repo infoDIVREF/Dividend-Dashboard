@@ -9,69 +9,20 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { RoundedBar } from "../RoundedBar";
+import { RoundedBarMiddle } from "./RoundedBarMiddle";
+import { RoundedBarEnd } from "./RoundedBarEnd";
+import { RoundedBarStart } from "./RoundedBarStart";
+import { CustomTooltip } from "./CustomTooltip";
 import Flag from "react-world-flags";
+import { isoToName } from "@/consts/isoToName";
 
 // --- NEW: Map from ISO code back to name for display ---
-const isoToName = {
-  AL: "Albania",
-  AD: "Andorra",
-  AM: "Armenia",
-  AT: "Austria",
-  AZ: "Azerbaiyán",
-  BY: "Bielorrusia",
-  BE: "Bélgica",
-  BA: "Bosnia y Herzegovina",
-  BG: "Bulgaria",
-  HR: "Croacia",
-  CA: "Canadá",
-  CY: "Chipre",
-  CZ: "Chequia",
-  DK: "Dinamarca",
-  EE: "Estonia",
-  FI: "Finlandia",
-  FR: "Francia",
-  GE: "Georgia",
-  DE: "Alemania",
-  GR: "Grecia",
-  HU: "Hungría",
-  IS: "Islandia",
-  IE: "Irlanda",
-  IT: "Italia",
-  KZ: "Kazajistán",
-  XK: "Kosovo",
-  LV: "Letonia",
-  LI: "Liechtenstein",
-  LT: "Lituania",
-  LU: "Luxemburgo",
-  MT: "Malta",
-  MD: "Moldavia",
-  MC: "Mónaco",
-  ME: "Montenegro",
-  NL: "Países Bajos",
-  MK: "Macedonia del Norte",
-  NO: "Noruega",
-  PL: "Polonia",
-  PT: "Portugal",
-  RO: "Rumanía",
-  RU: "Rusia",
-  SM: "San Marino",
-  RS: "Serbia",
-  SK: "Eslovaquia",
-  SI: "Eslovenia",
-  ES: "España",
-  SE: "Suecia",
-  CH: "Suiza",
-  TR: "Turquía",
-  UA: "Ucrania",
-  GB: "Reino Unido",
-  VA: "Ciudad del Vaticano",
-};
 
 export function AverageRecoveryTimeCard({ method, data }) {
-  const barSize = Math.max(8, 25 - data.length);
+  const barSize = Math.max(8, 20 - data?.length);
 
   const maxValue = Math.max(
-    ...data.flatMap((d) => [
+    ...data?.flatMap((d) => [
       d.minimumRecoveryTime,
       d.averageRecoveryTime,
       d.maximumRecoveryTime,
@@ -80,12 +31,28 @@ export function AverageRecoveryTimeCard({ method, data }) {
 
   const roundedMax = Math.ceil(maxValue / 5) * 5;
 
+  const cleanedData = data.filter(
+    (d) =>
+      d.minimumRecoveryTime > 0 &&
+      d.averageRecoveryTime > 0 &&
+      d.maximumRecoveryTime > 0 &&
+      d.minimumRecoveryTime < d.averageRecoveryTime &&
+      d.averageRecoveryTime < d.maximumRecoveryTime
+  );
+
+  const transformedData = cleanedData.map((d) => ({
+    ...d,
+    original: { ...d }, // solo ese país
+    averageRecoveryTime: d.averageRecoveryTime - d.minimumRecoveryTime,
+    maximumRecoveryTime: d.maximumRecoveryTime - d.averageRecoveryTime,
+  }));
+
   return (
     <div className="h-96 w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart
           layout="vertical"
-          data={data}
+          data={transformedData}
           margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
           barCategoryGap={30}
         >
@@ -140,30 +107,32 @@ export function AverageRecoveryTimeCard({ method, data }) {
               );
             }}
           />
-          <Tooltip cursor={{ fill: "transparent" }} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{ fill: "transparent" }}
+          />
           <Bar
             dataKey="minimumRecoveryTime"
             fill="#60C6FF"
+            stackId="a"
             barSize={barSize}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="recuperado" horizontal />
-            )}
+            shape={<RoundedBarStart />}
           />
+
           <Bar
             dataKey="averageRecoveryTime"
             fill="#1E3558"
+            stackId="a"
             barSize={barSize}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="recuperado" horizontal />
-            )}
+            shape={<RoundedBarMiddle />}
           />
+
           <Bar
             dataKey="maximumRecoveryTime"
             fill="#A7E3F2"
+            stackId="a"
             barSize={barSize}
-            shape={(props) => (
-              <RoundedBar {...props} dataKey="recuperado" horizontal />
-            )}
+            shape={<RoundedBarEnd />}
           />
         </BarChart>
       </ResponsiveContainer>

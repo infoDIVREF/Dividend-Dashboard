@@ -62,7 +62,7 @@ export const RoundedBar = ({
       `;
 
   return isTopBar ? (
-    <path d={path} fill={fill} />
+    <path className="z-20" d={path} fill={fill} />
   ) : (
     <rect x={x} y={y} width={width} height={height} fill={fill} />
   );

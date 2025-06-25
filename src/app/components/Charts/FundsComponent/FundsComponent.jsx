@@ -43,9 +43,10 @@ export function FundsComponent() {
   const [showAll, setShowAll] = useState(false);
   const { data, loading, error, fundsObjectLength } = useGetDataByFund();
   /* let data = mockFunds15;
-  let data = mockFunds40;
-  let data = mockFunds150; */
+  let data = mockFunds40; */
+  //let data = mockFunds150;
   const { claimStatus } = useFilters();
+  /* const fundsObjectLength = 150; */
 
   if (loading) return <SkeletonChartVertical height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -164,7 +165,7 @@ export function FundsComponent() {
       {fundsObjectLength > 15 && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="absolute bottom-2 right-3 z-10 bg-white px-3 py-1 rounded-full text-normal font-medium flex items-center gap-1 hover:bg-gray-100"
+          className="absolute text-white bottom-[0.2rem] right-3 z-0 bg-[#F86338] px-3 py-1 rounded-full text-normal font-medium flex items-center gap-1 hover:bg-[#d44f2b] transition-colors"
         >
           <span>{showAll ? "Ver menos" : "Ver más"}</span>
           <svg
