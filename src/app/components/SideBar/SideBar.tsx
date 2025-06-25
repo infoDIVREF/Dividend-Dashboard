@@ -101,7 +101,7 @@ export default function SideBar({
         )}
       </div>
 
-      <div className="flex-1 flex flex-col gap-3 overflow-hidden">
+      <div className="flex-1 flex flex-col gap-3 overflow-hidden mt-[-15px]">
         <CollapsibleFilterSection
           id="funds"
           isOpen={openSection === "funds"}
