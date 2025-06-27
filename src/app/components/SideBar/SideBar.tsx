@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+//import { useState } from "react";
 import SideBarHeader from "./SideBarHeader/SideBarHeader";
 import FilterSection from "./FiltersSection/FiltersSection";
 import { useFilters } from "@/contexts/FiltersContext";
@@ -7,7 +7,6 @@ import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
 import { RecoveredIcon } from "@/components/icons/ClaimStatusIcons";
 import { SentIcon } from "@/components/icons/ClaimStatusIcons";
 import Flag from "react-world-flags";
-import CollapsibleFilterSection from "./FiltersSection/CollapsibleFiltersSection";
 
 export default function SideBar({
   toggleSidebar,
@@ -16,8 +15,6 @@ export default function SideBar({
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
 }) {
-  const [openSection, setOpenSection] = useState<string | null>("funds");
-
   const {
     initialFilters,
     selectedFilters,
@@ -29,7 +26,7 @@ export default function SideBar({
 
   const handleClearFilters = () => {
     clearSelectedFilters(initialFilters);
-    setOpenSection("funds");
+    // setOpenSection("funds");
   };
   const allFundsSelected =
     selectedFilters.funds.length === initialFilters.funds.length;
@@ -42,8 +39,8 @@ export default function SideBar({
           selected={selected}
           selectedColor={"#FAFBFE"}
           unselectedColor={"#424242"}
-          width={20}
-          height={20}
+          width={16}
+          height={16}
         />
       ),
       color: "#C9C9C9",
@@ -55,8 +52,8 @@ export default function SideBar({
           selected={selected}
           selectedColor={"#FAFBFE"}
           unselectedColor={"#424242"}
-          width={20}
-          height={20}
+          width={16}
+          height={16}
         />
       ),
       color: "#4F84A6",
@@ -68,8 +65,8 @@ export default function SideBar({
           selected={selected}
           selectedColor={"#FAFBFE"}
           unselectedColor={"#424242"}
-          width={20}
-          height={20}
+          width={16}
+          height={16}
         />
       ),
       color: "#244A76",
@@ -79,130 +76,122 @@ export default function SideBar({
   return (
     <div
       className="
-    flex flex-col h-full justify-between w-full text-[13px]
+    flex flex-col h-full justify-between w-full text-[11.5px]
     transition-all duration-300 ease-in-out
-    gap-5 overflow-hidden p-5 pt-3 bg-[#f6f7f9]
+    gap-5 p-3 pt-2 bg-[#f6f7f9] overflow-auto
   "
-      style={{ height: "calc(100vh - 80px)" }} // 👈 clave
+      style={{ height: "calc(100vh - 80px)" }}
     >
       <div className="flex flex-col gap-4 shrink-0">
         <SideBarHeader toggleSidebar={toggleSidebar} />
-        {allFundsSelected ? (
-          <button className=" cursor-not-allowed text-gray-400 border-[1px] border-gray-400 p-1 px-3 rounded-sm">
-            Selecciona un fondo
-          </button>
-        ) : (
-          <button
-            onClick={handleClearFilters}
-            className="border-[1px] p-1 px-3 rounded-sm no-wrap bg-azul text-white"
-          >
-            Seleccionar todo
-          </button>
-        )}
       </div>
 
-      <div className="flex-1 flex flex-col gap-3 overflow-hidden mt-[-15px]">
-        <CollapsibleFilterSection
-          id="funds"
-          isOpen={openSection === "funds"}
-          onToggle={() =>
-            setOpenSection(openSection === "funds" ? null : "funds")
-          }
-          title={"Fondos"}
-        >
-          <FilterSection title="" customClassName="grid grid-cols-1 gap-2">
-            {initialFilters.funds?.map((fund) => {
-              const isSelectedFund = selectedFilters?.funds.some(
-                (selectedFund) => selectedFund.id === fund.id
-              );
-
-              return (
-                <button
-                  key={fund.id}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onClick={() => updateSelectedFilter("funds", fund)}
-                  className={`mt-0! border py-1 rounded ${
-                    isSelectedFund
-                      ? "bg-azul text-white"
-                      : "text-gris-claro-2 border border-gris-oscuro"
-                  }`}
-                >
-                  {fund.name.toUpperCase()}
-                </button>
-              );
-            })}
-          </FilterSection>
-        </CollapsibleFilterSection>
-
-        <CollapsibleFilterSection
-          title="Año dividendo"
-          id="years"
-          isOpen={openSection === "years"}
-          onToggle={() =>
-            setOpenSection(openSection === "years" ? null : "years")
-          }
-        >
-          <FilterSection title="" customClassName="grid grid-cols-4 gap-2">
-            {initialFilters.years?.map((y) => (
+      <div className="flex-1 flex flex-col overflow-hidden mt-[-15px]">
+        <FilterSection
+          title={
+            allFundsSelected ? (
               <button
-                key={y}
-                onClick={() => updateSelectedFilter("years", y)}
-                className={`mt-0! border py-1 rounded ${
-                  selectedFilters?.years.includes(y)
+                className="cursor-not-allowed text-gray-400 border-[1px] border-gray-400 py-0.5 px-2
+                 rounded-sm"
+              >
+                Selecciona un fondo
+              </button>
+            ) : (
+              <button
+                onClick={handleClearFilters}
+                className="text-gray-600 border-[1px] border-gray-600 py-0.5 px-2 rounded-sm no-wrap"
+              >
+                Seleccionar todo
+              </button>
+            )
+          }
+          customClassName="grid grid-cols-1 gap-[2px] flex-1 overflow-y-auto"
+          wrapperCustomClassName="pb-[0.75rem]"
+        >
+          {initialFilters.funds?.map((fund) => {
+            const isSelectedFund = selectedFilters?.funds.some(
+              (selectedFund) => selectedFund.id === fund.id
+            );
+
+            return (
+              <button
+                key={fund.id}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onClick={() => updateSelectedFilter("funds", fund as any)}
+                className={`mt-0! border py-1 rounded h-7 ${
+                  isSelectedFund
                     ? "bg-azul text-white"
                     : "text-gris-claro-2 border border-gris-oscuro"
                 }`}
               >
-                {y}
+                {fund.name.toUpperCase()}
               </button>
-            ))}
-          </FilterSection>
-        </CollapsibleFilterSection>
+            );
+          })}
+        </FilterSection>
 
-        <CollapsibleFilterSection
-          title="País"
-          id="countries"
-          isOpen={openSection === "countries"}
-          onToggle={() =>
-            setOpenSection(openSection === "countries" ? null : "countries")
-          }
+        <FilterSection
+          title="Año dividendo"
+          customClassName="grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto"
+          wrapperCustomClassName="pb-[0.75rem]"
         >
-          <FilterSection title="" customClassName="grid grid-cols-2 gap-2">
-            {initialFilters.countries?.map((country) => {
-              const isSelectedCountry = selectedFilters?.countries.some(
-                (selectedCountry) => selectedCountry.isoCode === country.isoCode
-              );
+          {initialFilters.years?.map((y) => (
+            <button
+              key={y}
+              onClick={() => updateSelectedFilter("years", y)}
+              className={`mt-0! border py-1 rounded ${
+                selectedFilters?.years.includes(y)
+                  ? "bg-azul text-white"
+                  : "text-gris-claro-2 border border-gris-oscuro"
+              }`}
+            >
+              {y}
+            </button>
+          ))}
+        </FilterSection>
 
-              return (
-                <button
-                  key={country.isoCode}
+        <FilterSection
+          title="País"
+          customClassName="grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto"
+          wrapperCustomClassName="pb-[0.75rem]"
+        >
+          {initialFilters.countries?.map((country) => {
+            const isSelectedCountry = selectedFilters?.countries.some(
+              (selectedCountry) => selectedCountry.isoCode === country.isoCode
+            );
+
+            return (
+              <button
+                key={country.isoCode}
+                onClick={() =>
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
-                  onClick={() => updateSelectedFilter("countries", country)}
-                  className={`mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
-                    isSelectedCountry
-                      ? "bg-azul text-white"
-                      : "text-gris-claro-2 border border-gris-oscuro"
-                  }`}
-                >
-                  <div className="relative w-7 h-5 overflow-hidden rounded">
-                    <Flag
-                      code={country.isoCode}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        opacity: isSelectedCountry ? 1 : 0.5,
-                      }}
-                    />
-                  </div>
-                  {country.name}
-                </button>
-              );
-            })}
-          </FilterSection>
-        </CollapsibleFilterSection>
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  updateSelectedFilter("countries", country as any)
+                }
+                className={`mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
+                  isSelectedCountry
+                    ? "bg-azul text-white"
+                    : "text-gris-claro-2 border border-gris-oscuro"
+                }`}
+              >
+                <div className="relative w-7 h-5 overflow-hidden rounded">
+                  <Flag
+                    code={country.isoCode}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      opacity: isSelectedCountry ? 1 : 0.5,
+                    }}
+                  />
+                  <div className="absolute inset-0 pointer-events-none rounded" />
+                </div>
+                {country.name}
+              </button>
+            );
+          })}
+        </FilterSection>
       </div>
 
       <div className="shrink-0">
@@ -230,7 +219,9 @@ export default function SideBar({
                 key={label}
                 onClick={() => updateClaimStatus(label)}
                 className={`flex items-center justify-center gap-2 rounded border px-3 py-2 transition-all
-        ${isSelected ? "text-white" : "text-black border border-black"}`}
+                  ${
+                    isSelected ? "text-white" : "text-black border border-black"
+                  }`}
                 style={{
                   backgroundColor: isSelected ? color : "transparent",
                 }}
