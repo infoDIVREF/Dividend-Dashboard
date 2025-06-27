@@ -19,7 +19,7 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
   const isWideFundsChart = fundsObjectLength > 7;
 
   return (
-    <div>
+    <div className="pb-8">
       <GraphicsComponentHeader isSidebarOpen={isSidebarOpen} />
 
       <div id="dashboard-capture" className="flex flex-col gap-4 mt-8">
