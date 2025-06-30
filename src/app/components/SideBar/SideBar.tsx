@@ -1,12 +1,14 @@
 "use client";
-//import { useState } from "react";
+//import { useState, useEffect } from 'react';
 import SideBarHeader from "./SideBarHeader/SideBarHeader";
 import FilterSection from "./FiltersSection/FiltersSection";
 import { useFilters } from "@/contexts/FiltersContext";
 import { InProgressIcon } from "@/components/icons/ClaimStatusIcons";
 import { RecoveredIcon } from "@/components/icons/ClaimStatusIcons";
 import { SentIcon } from "@/components/icons/ClaimStatusIcons";
+import { useState, useEffect } from "react";
 import Flag from "react-world-flags";
+import React from "react";
 
 export default function SideBar({
   toggleSidebar,
@@ -24,9 +26,24 @@ export default function SideBar({
     updateClaimStatus,
   } = useFilters();
 
+  const [screenSize, setScreenSize] = useState<"small" | "medium" | "large">(
+    "medium"
+  );
+  console.log(screenSize);
+
+  useEffect(() => {
+    const height = window.innerHeight;
+    if (height < 702) {
+      setScreenSize("small");
+    } else if (height < 768) {
+      setScreenSize("medium");
+    } else {
+      setScreenSize("large");
+    }
+  }, []);
+
   const handleClearFilters = () => {
     clearSelectedFilters(initialFilters);
-    // setOpenSection("funds");
   };
   const allFundsSelected =
     selectedFilters.funds.length === initialFilters.funds.length;
@@ -105,7 +122,12 @@ export default function SideBar({
               </button>
             )
           }
-          customClassName="grid grid-cols-1 gap-[2px] flex-1 overflow-y-auto"
+          customClassName={`
+            grid grid-cols-1 gap-[2px] flex-1 overflow-y-auto
+            ${screenSize === "small" ? "max-h-[150px]" : ""}
+            ${screenSize === "medium" ? "max-h-[209px]" : ""}
+            ${screenSize === "large" ? "max-h-[209px]" : ""}
+          `}
           wrapperCustomClassName="pb-[0.75rem]"
         >
           {initialFilters.funds?.map((fund) => {
@@ -132,14 +154,18 @@ export default function SideBar({
 
         <FilterSection
           title="Año dividendo"
-          customClassName="grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto"
+          customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto max-h-[56px] ${
+            screenSize === "small" ? "max-h-[56px]" : ""
+          }
+            ${screenSize === "medium" ? "max-h-[88px]" : ""}
+            ${screenSize === "large" ? "max-h-[88px]" : ""}`}
           wrapperCustomClassName="pb-[0.75rem]"
         >
           {initialFilters.years?.map((y) => (
             <button
               key={y}
               onClick={() => updateSelectedFilter("years", y)}
-              className={`mt-0! border py-1 rounded ${
+              className={`mt-0! border py-1 rounded  ${
                 selectedFilters?.years.includes(y)
                   ? "bg-azul text-white"
                   : "text-gris-claro-2 border border-gris-oscuro"
@@ -152,7 +178,11 @@ export default function SideBar({
 
         <FilterSection
           title="País"
-          customClassName="grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto"
+          customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto max-h-[64px] ${
+            screenSize === "small" ? "max-h-[64px]" : ""
+          }
+            ${screenSize === "medium" ? "max-h-[88px]" : ""}
+            ${screenSize === "large" ? "max-h-[95px]" : ""}`}
           wrapperCustomClassName="pb-[0.75rem]"
         >
           {initialFilters.countries?.map((country) => {
