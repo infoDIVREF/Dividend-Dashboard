@@ -107,19 +107,30 @@ export default function SideBar({
         <FilterSection
           title={
             allFundsSelected ? (
-              <button
-                className="cursor-not-allowed text-gray-400 border-[1px] border-gray-400 py-0.5 px-2
-                 rounded-sm"
-              >
-                Selecciona un fondo
-              </button>
+              <div className="flex items-center justify-between">
+                <button className="cursor-not-allowed text-gray-400 border border-gray-400 py-0.5 px-2 rounded-sm">
+                  Selecciona un fondo
+                </button>
+                <div className="h-[25.5px] flex flex-col justify-end">
+                  <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque]">
+                    Total: {initialFilters?.funds.length} fondos
+                  </p>
+                </div>
+              </div>
             ) : (
-              <button
-                onClick={handleClearFilters}
-                className="text-gray-600 border-[1px] border-gray-600 py-0.5 px-2 rounded-sm no-wrap"
-              >
-                Seleccionar todo
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={handleClearFilters}
+                  className="text-gray-600 border-[1px] border-gray-600 py-0.5 px-2 rounded-sm no-wrap"
+                >
+                  Seleccionar todo
+                </button>
+                <div className="h-[25.5px] flex flex-col justify-end">
+                  <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque]">
+                    Total: {initialFilters?.funds.length} fondos
+                  </p>
+                </div>
+              </div>
             )
           }
           customClassName={`
@@ -153,7 +164,14 @@ export default function SideBar({
         </FilterSection>
 
         <FilterSection
-          title="Año dividendo"
+          title={
+            <div className="flex items-center justify-between">
+              <p>Año dividendo</p>
+              <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque]">
+                Total: {initialFilters?.years.length} años
+              </p>
+            </div>
+          }
           customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto max-h-[56px] ${
             screenSize === "small" ? "max-h-[56px]" : ""
           }
@@ -177,7 +195,14 @@ export default function SideBar({
         </FilterSection>
 
         <FilterSection
-          title="País"
+          title={
+            <div className="flex items-center justify-between">
+              <p>País</p>
+              <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque]">
+                Total: {initialFilters?.countries.length} países
+              </p>
+            </div>
+          }
           customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto max-h-[64px] ${
             screenSize === "small" ? "max-h-[64px]" : ""
           }
