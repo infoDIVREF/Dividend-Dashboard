@@ -30,13 +30,17 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
               isWideFundsChart ? "w-full" : "flex-1"
             }`}
           >
-            <h3 className="text-lg font-semibold mb-4">Por fondo</h3>
+            <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+              Por fondo
+            </h3>
             <FundsComponent />
           </div>
 
           {!isWideFundsChart && (
             <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por país</h3>
+              <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+                Por país
+              </h3>
               <CountriesChart />
             </div>
           )}
@@ -46,20 +50,26 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
         <div className="flex gap-4 mb-2">
           {isWideFundsChart && (
             <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por país</h3>
+              <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+                Por país
+              </h3>
               <CountriesChart />
             </div>
           )}
 
           <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-            <h3 className="text-lg font-semibold mb-4">Por año</h3>
+            <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+              Por año
+            </h3>
             <YearsChart />
           </div>
 
           {!isWideFundsChart && (
             <>
               <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-                <h3 className="text-lg font-semibold mb-4">Por vía</h3>
+                <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+                  Por vía
+                </h3>
                 <MethodsChart />
               </div>
 
@@ -74,7 +84,9 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
         {isWideFundsChart && (
           <div className="flex gap-4 mb-2">
             <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
-              <h3 className="text-lg font-semibold mb-4">Por vía</h3>
+              <h3 className="leading-7 text-[1rem] font-semibold mb-4">
+                Por vía
+              </h3>
               <MethodsChart />
             </div>
 

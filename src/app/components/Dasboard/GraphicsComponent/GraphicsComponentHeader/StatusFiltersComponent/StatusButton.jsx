@@ -8,14 +8,12 @@ export default function StatusButton({ label, icon, selected, onClick }) {
   const color = colors[label] || "#D1D5DB";
 
   const bgColor = selected ? color : "#FFFFFF";
-  const borderColor = selected ? color : "#D1D5DB";
   const textColor = selected ? "#FFFFFF" : "#6B7280"; // gray-500
-  const iconColor = selected ? "#FFFFFF" : "#9CA3AF"; // gray-400
 
   return (
     <button
       onClick={onClick}
-      className="px-5 text-sm font-bold h-10 rounded-md flex items-center justify-start gap-3"
+      className="px-7 text-[12px] leading-5 font-bold h-10 rounded-md flex items-center justify-start gap-3"
       style={{
         backgroundColor: bgColor,
         color: textColor,

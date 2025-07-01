@@ -14,16 +14,16 @@ export function AverageRecoveryTimeComponent() {
     {
       country: "DE",
       method: "TJUE",
-      averageRecoveryTime: 15,
-      minimumRecoveryTime: 10,
-      maximumRecoveryTime: 20,
+      averageRecoveryTime: 0,
+      minimumRecoveryTime: 0,
+      maximumRecoveryTime: 0,
     },
     {
       country: "BE",
       method: "DTTR",
-      averageRecoveryTime: 14,
-      minimumRecoveryTime: 8,
-      maximumRecoveryTime: 18,
+      averageRecoveryTime: 0,
+      minimumRecoveryTime: 0,
+      maximumRecoveryTime: 0,
     },
     {
       country: "CA",
@@ -101,7 +101,9 @@ export function AverageRecoveryTimeComponent() {
   return (
     <>
       <div className="flex gap-5 mt-6">
-        <h3 className="text-lg  font-semibold">Tiempos de recuperación</h3>
+        <h3 className="leading-7 text-[1rem]  font-semibold">
+          Tiempos de recuperación
+        </h3>
         <div className="flex gap-5 text-[17px]">
           <div className="flex items-center gap-2">
             <div className="bg-[#3fb1f8] rounded-2xl w-10 h-6" />
@@ -120,7 +122,7 @@ export function AverageRecoveryTimeComponent() {
 
       <div className="flex gap-4 mb-1">
         <div className="bg-white rounded-xl shadow-md p-4 flex flex-col flex-1 border">
-          <h3 className="text-lg font-semibold mb-4 translate-y-2 translate-x-4">
+          <h3 className="leading-7 text-[1rem] font-semibold mb-4 translate-y-2 translate-x-4">
             Vía DDTR
           </h3>
 
@@ -130,7 +132,7 @@ export function AverageRecoveryTimeComponent() {
           />
         </div>
         <div className="bg-white rounded-xl shadow-md p-4 flex flex-col flex-1 border">
-          <h3 className="text-lg font-semibold mb-4 translate-y-2 translate-x-4">
+          <h3 className="leading-7 text-[1rem] font-semibold mb-4 translate-y-2 translate-x-4">
             Vía TJUE
           </h3>
           <AverageRecoveryTimeCard
