@@ -29,7 +29,6 @@ export default function SideBar({
   const [screenSize, setScreenSize] = useState<"small" | "medium" | "large">(
     "medium"
   );
-  console.log(screenSize);
 
   useEffect(() => {
     const height = window.innerHeight;
@@ -103,7 +102,7 @@ export default function SideBar({
         <SideBarHeader toggleSidebar={toggleSidebar} />
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden mt-[-15px]">
+      <div className="flex-1 flex flex-col justify-between overflow-auto mt-[-15px]">
         <FilterSection
           title={
             allFundsSelected ? (
@@ -172,11 +171,16 @@ export default function SideBar({
               </p>
             </div>
           }
-          customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto max-h-[56px] ${
+          /* customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto max-h-[56px] ${
             screenSize === "small" ? "max-h-[56px]" : ""
           }
             ${screenSize === "medium" ? "max-h-[88px]" : ""}
-            ${screenSize === "large" ? "max-h-[88px]" : ""}`}
+            ${screenSize === "large" ? "max-h-[88px]" : ""}`} */
+          customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto  ${
+            screenSize === "small" ? "" : ""
+          }
+              ${screenSize === "medium" ? "" : ""}
+              ${screenSize === "large" ? "" : ""}`}
           wrapperCustomClassName="pb-[0.75rem]"
         >
           {initialFilters.years?.map((y) => (
@@ -203,11 +207,16 @@ export default function SideBar({
               </p>
             </div>
           }
-          customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto max-h-[64px] ${
+          /* customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto max-h-[64px] ${
             screenSize === "small" ? "max-h-[64px]" : ""
           }
             ${screenSize === "medium" ? "max-h-[88px]" : ""}
-            ${screenSize === "large" ? "max-h-[95px]" : ""}`}
+            ${screenSize === "large" ? "max-h-[95px]" : ""}`} */
+          customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto  ${
+            screenSize === "small" ? "" : ""
+          }
+              ${screenSize === "medium" ? "" : ""}
+              ${screenSize === "large" ? "" : ""}`}
           wrapperCustomClassName="pb-[0.75rem]"
         >
           {initialFilters.countries?.map((country) => {
