@@ -65,7 +65,11 @@ export default function DocumentsDashboard() {
               />
             ))}
         {isModalOpen && (
-          <DocsModal category={selectedCategory} onClose={closeModal} />
+          <DocsModal
+            fetchDocumentsData={fetchDocumentsData}
+            category={selectedCategory}
+            onClose={closeModal}
+          />
         )}
       </div>
       <DocumentsUploadComponent fetchDocumentsData={fetchDocumentsData} />

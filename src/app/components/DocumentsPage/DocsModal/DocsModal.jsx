@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import axiosInstance from "@/lib/axiosInstance";
 import { CircleCheck } from "lucide-react";
+import DocumentsUploadComponent from "@/app/components/DocumentsPage/DocumentsUploadComponent/DocumentsUploadComponent";
 
-export default function DocsModal({ category, onClose }) {
+export default function DocsModal({ category, onClose, fetchDocumentsData }) {
   const [documents, setDocuments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -51,7 +52,7 @@ export default function DocsModal({ category, onClose }) {
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 z-50 flex justify-center items-center">
       <div
         ref={modalRef}
-        className="min-h-[80vh] max-h-[80vh] bg-white rounded-xl w-3/4 overflow-scroll flex flex-col justify-between shadow-2xl"
+        className="min-h-[80vh] max-h-[80vh] bg-white rounded-xl w-3/4 overflow-auto flex flex-col justify-between shadow-2xl p-0"
       >
         <table className="min-w-full table-auto border-collapse rounded-xl">
           <thead className="bg-azul sticky top-0 z-10">
@@ -111,6 +112,9 @@ export default function DocsModal({ category, onClose }) {
             ))}
           </tbody>
         </table>
+        <div className="px-6 py-3">
+          <DocumentsUploadComponent fetchDocumentsData={fetchDocumentsData} />
+        </div>
 
         <div className="w-full bg-white flex items-center justify-between px-6 py-4 sticky bottom-0 z-10 text-sm">
           <button

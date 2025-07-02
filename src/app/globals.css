@@ -114,3 +114,45 @@ a {
     @apply bg-background text-foreground;
   }
 }
+
+/* Scrollbar global */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #244a76 rgb(250 251 254);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #244a76;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #244a76;
+  border-radius: 10px;
+  border: 3px solid #244a76;
+  min-height: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(250 251 254);
+}
+
+/* Flechas scrollbar (botones arriba y abajo) */
+::-webkit-scrollbar-button:vertical:decrement {
+  background-color: #244a76;
+  display: block; /* asegurar que se muestren */
+  height: 12px;
+  border-radius: 4px 4px 0 0;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+  background-color: #244a76;
+  display: block; /* asegurar que se muestren */
+  height: 12px;
+  border-radius: 0 0 4px 4px;
+}
