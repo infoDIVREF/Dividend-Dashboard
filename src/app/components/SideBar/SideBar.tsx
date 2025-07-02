@@ -29,7 +29,6 @@ export default function SideBar({
   const [screenSize, setScreenSize] = useState<"small" | "medium" | "large">(
     "medium"
   );
-  console.log(screenSize);
 
   useEffect(() => {
     const height = window.innerHeight;
