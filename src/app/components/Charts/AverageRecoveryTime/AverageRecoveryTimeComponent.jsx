@@ -4,11 +4,11 @@ import { useGetAverageRecoveryTime } from "@/hooks/useGetAverageRecoveryTime";
 import { useFilters } from "@/contexts/FiltersContext";
 
 export function AverageRecoveryTimeComponent() {
-  const { data, loading, error } = useGetAverageRecoveryTime();
-
   const {
     selectedFilters: { countries: selectedCountries },
   } = useFilters();
+
+  const { data, loading, error } = useGetAverageRecoveryTime();
 
   const mockData = [
     {

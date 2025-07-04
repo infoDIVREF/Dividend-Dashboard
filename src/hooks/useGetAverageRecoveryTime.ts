@@ -6,22 +6,18 @@ import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetAverageRecoveryTime() {
   const { selectedFilters } = useFilters();
-  const { token, collaboratorId } = useAuth();
+  const { token } = useAuth();
 
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!collaboratorId) return;
-
     const fetchAverageRecoveryTime = async () => {
       setIsLoading(true);
       setError(null);
 
       const params = new URLSearchParams();
-      if (selectedFilters.years.length)
-        params.append("years", selectedFilters.years.join(","));
       if (selectedFilters.countries.length)
         params.append(
           "countries",
@@ -29,15 +25,10 @@ export function useGetAverageRecoveryTime() {
         );
       if (selectedFilters.methods.length)
         params.append("methods", selectedFilters.methods.join(","));
-      if (selectedFilters.funds.length)
-        params.append(
-          "funds",
-          selectedFilters.funds.map((f) => f.id).join(",")
-        );
 
       try {
         const response = await axiosInstance.get(
-          `/claims/average-recovery-time/${collaboratorId}?${params.toString()}`,
+          `/claims/average-recovery-time-static?${params.toString()}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -55,7 +46,7 @@ export function useGetAverageRecoveryTime() {
     };
 
     fetchAverageRecoveryTime();
-  }, [selectedFilters, collaboratorId, token]);
+  }, [selectedFilters, token]);
 
   return { data, isLoading, error };
 }
