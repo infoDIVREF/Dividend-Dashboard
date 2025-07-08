@@ -6,13 +6,14 @@ import axiosInstance from "@/lib/axiosInstance";
 
 export function useGetAverageRecoveryTime() {
   const { selectedFilters } = useFilters();
-  const { token } = useAuth();
+  const { token, collaboratorId } = useAuth();
 
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!collaboratorId) return;
     const fetchAverageRecoveryTime = async () => {
       setIsLoading(true);
       setError(null);
