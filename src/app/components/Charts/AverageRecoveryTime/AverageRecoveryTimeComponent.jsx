@@ -27,7 +27,7 @@ export function AverageRecoveryTimeComponent() {
         <h3 className="leading-7 text-[1rem]  font-semibold">
           Tiempos de recuperación
         </h3>
-        <div className="flex gap-5 text-[12px]">
+        <div className="flex gap-5 text-[14px]">
           <div className="flex items-center gap-2">
             <div className="bg-[#3fb1f8] rounded-2xl w-10 h-6" />
             <span>Mínimos</span>

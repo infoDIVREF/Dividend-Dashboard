@@ -62,6 +62,7 @@ export function AverageRecoveryTimeCard({ method, data }) {
             tickFormatter={(v) => `${v} meses`}
             axisLine={false}
             tickLine={false}
+            tick={{ fontSize: 14 }}
           />
           <YAxis
             type="category"
