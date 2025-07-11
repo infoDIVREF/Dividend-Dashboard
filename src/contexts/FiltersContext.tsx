@@ -71,7 +71,6 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
     Accept: "application/json",
   };
 
-  // Cargar filtros iniciales
   const loadInitialFilters = useCallback(async () => {
     if (!collaboratorId) return;
     setIsLoading(true);
@@ -82,13 +81,24 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         { headers }
       );
       const data = response.data;
+
+      // Filtrando los últimos 4 años
+      const currentYear = new Date().getFullYear();
+      const filteredYears = data.years
+        .map((year: string) => parseInt(year))
+        .filter((year: number) => year <= currentYear) // Solo años hasta el actual
+        .sort((a: number, b: number) => b - a) // Orden descendente
+        .slice(0, 8) // Los 4 últimos años
+        .map((year: number) => year.toString()); // Convertimos de nuevo a string
+
       const loaded: Filters = {
-        years: data.years,
+        years: filteredYears, // Usamos los años filtrados
         countries: data.countries,
         methods: ["DTTR", "TJUE"],
         funds: data.funds,
         claimStatus: ["EN TRÁMITE", "ENVIADO", "RECUPERADO"],
       };
+
       setInitialFilters(loaded);
       setSelectedFilters(loaded);
     } catch (error) {

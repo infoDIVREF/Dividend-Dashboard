@@ -18,7 +18,7 @@ export default function DashboardHeader({
     >
       <div className={`flex ${!isSidebarOpen ? "gap-5" : ""}`}>
         <div className="flex items-center justify-center">
-          {!isSidebarOpen && pageToShow !== "map" ? (
+          {!isSidebarOpen ? (
             <ToggleDashboardComponent toggleSidebar={toggleSidebar} />
           ) : (
             ""

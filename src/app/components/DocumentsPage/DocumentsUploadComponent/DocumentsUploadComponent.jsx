@@ -33,7 +33,7 @@ export default function DocumentsUploadComponent({ fetchDocumentsData }) {
       {/* Área de Drop */}
       <div
         {...getRootProps()}
-        className="rounded-lg border-[1px] border-blanco-roto p-6 text-center cursor-pointer"
+        className="rounded-lg border-[1px] border-blanco-roto p-[10px] text-center cursor-pointer"
       >
         <input {...getInputProps()} />
         <div>

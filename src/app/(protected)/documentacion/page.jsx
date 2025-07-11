@@ -2,7 +2,7 @@ import DocumentsHeader from "@/app/components/DocumentsPage/DocumentsHeader/Docu
 import DocumentsDashboard from "@/app/components/DocumentsPage/DocumentsDashboard/DocumentsDashboard";
 export default function page() {
   return (
-    <div className="flex flex-col gap-9 py-[53px] px-[53px]">
+    <div className="flex flex-col gap-[1rem] pt-[25px] pb-[25px] px-[53px]">
       <DocumentsHeader />
       <DocumentsDashboard />
     </div>

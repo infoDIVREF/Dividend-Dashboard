@@ -12,11 +12,13 @@ import React from "react";
 
 export default function SideBar({
   toggleSidebar,
+  isSidebarOpen,
 }: {
   pageToShow: string;
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
 }) {
+  console.log("DESDE LA SIDEBAR", isSidebarOpen);
   const {
     initialFilters,
     selectedFilters,
@@ -91,11 +93,13 @@ export default function SideBar({
 
   return (
     <div
-      className="
+      className={`
     flex flex-col h-full justify-between w-full text-[11.5px]
     transition-all duration-300 ease-in-out
-    gap-5 p-3 pt-2 bg-[#f6f7f9] overflow-auto
-  "
+    gap-5 p-3 pt-2 bg-[#f6f7f9] overflow-auto ${
+      isSidebarOpen ? "min-w-[20vw]" : ""
+    }
+  `}
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div className="flex flex-col gap-4 shrink-0">
@@ -134,11 +138,11 @@ export default function SideBar({
           }
           customClassName={`
             grid grid-cols-1 gap-[2px] flex-1 overflow-y-auto
-            ${screenSize === "small" ? "max-h-[150px]" : ""}
-            ${screenSize === "medium" ? "max-h-[209px]" : ""}
-            ${screenSize === "large" ? "max-h-[209px]" : ""}
+            ${screenSize === "small" ? "max-h-[90px]" : ""}
+            ${screenSize === "medium" ? "max-h-[90px]" : ""}
+            ${screenSize === "large" ? "max-h-[90px]" : ""}
           `}
-          wrapperCustomClassName="pb-[0.75rem]"
+          wrapperCustomClassName="pb-[0.5rem]"
         >
           {initialFilters.funds?.map((fund) => {
             const isSelectedFund = selectedFilters?.funds.some(
@@ -176,12 +180,12 @@ export default function SideBar({
           }
             ${screenSize === "medium" ? "max-h-[88px]" : ""}
             ${screenSize === "large" ? "max-h-[88px]" : ""}`} */
-          customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto  ${
+          customClassName={` mr-[11px] grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto  ${
             screenSize === "small" ? "" : ""
           }
               ${screenSize === "medium" ? "" : ""}
               ${screenSize === "large" ? "" : ""}`}
-          wrapperCustomClassName="pb-[0.75rem]"
+          wrapperCustomClassName="pb-[0.5rem]"
         >
           {initialFilters.years?.map((y) => (
             <button
@@ -212,12 +216,12 @@ export default function SideBar({
           }
             ${screenSize === "medium" ? "max-h-[88px]" : ""}
             ${screenSize === "large" ? "max-h-[95px]" : ""}`} */
-          customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto  ${
+          customClassName={`grid grid-cols-2 gap-[2px] flex-1 overflow-y-auto max-h-[93px] ${
             screenSize === "small" ? "" : ""
           }
               ${screenSize === "medium" ? "" : ""}
               ${screenSize === "large" ? "" : ""}`}
-          wrapperCustomClassName="pb-[0.75rem]"
+          wrapperCustomClassName=""
         >
           {initialFilters.countries?.map((country) => {
             const isSelectedCountry = selectedFilters?.countries.some(

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { scaleQuantize } from "@visx/scale";
 import { Mercator } from "@visx/geo";
@@ -5,12 +7,13 @@ import * as topojson from "topojson-client";
 import topology from "./europe-topo.json";
 import { useGetMapData } from "@/hooks/useGetMapData";
 import { useScreenSize } from "@visx/responsive";
+import { useFilters } from "@/contexts/FiltersContext";
 
 const background = "white";
 
 interface FeatureShape {
   type: "Feature";
-  id: string;
+  id: string; // This is the 3-letter ISO code like 'DEU'
   geometry: { coordinates: [number, number][][]; type: "Polygon" };
   properties: { name: string };
 }
@@ -39,6 +42,23 @@ export default function GeoMercatorMap({
     };
   } | null>(null);
   const { mapData } = useGetMapData();
+  const {
+    selectedFilters: { countries: selectedCountries },
+  } = useFilters();
+
+  // --- START OF THE FIX ---
+
+  // 1. Create a Set of the selected ISO codes for efficient O(1) lookups.
+  const selectedCountryCodes = new Set(
+    selectedCountries.map((country) => country.isoCode)
+  );
+
+  // 2. Filter the main mapData to only include countries that are in the Set.
+  const filteredMapData = mapData.filter((dataItem) =>
+    selectedCountryCodes.has(dataItem.isoCode)
+  );
+
+  // --- END OF THE FIX ---
 
   if (width < 10 || height < 10) return null;
 
@@ -50,25 +70,14 @@ export default function GeoMercatorMap({
   const rangePending = ["#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa"];
   const rangeSent = ["#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa"];
 
-  /*  const color = scaleQuantize({
-    domain: [minRecovered, maxRecovered],
-    range: [
-      "#eff6ff",
-      "#dbeafe",
-      "#bfdbfe",
-      "#93c5fd",
-      "#60a5fa",
-      "#3b82f6",
-      "#2563eb",
-      "#1d4ed8",
-    ],
-  }); */
-
-  const valuesRecovered = mapData
+  // 3. Use `filteredMapData` for all subsequent calculations.
+  const valuesRecovered = filteredMapData
     .map((d) => d.totalRecovered)
     .filter((v) => v > 0);
-  const valuesPending = mapData.map((d) => d.totalPending).filter((v) => v > 0);
-  const valuesSent = mapData.map((d) => d.totalSent); // asumimos que siempre hay algo
+  const valuesPending = filteredMapData
+    .map((d) => d.totalPending)
+    .filter((v) => v > 0);
+  const valuesSent = filteredMapData.map((d) => d.totalSent);
 
   const scaleRecovered = scaleQuantize({
     domain: [Math.min(...valuesRecovered), Math.max(...valuesRecovered)],
@@ -86,7 +95,7 @@ export default function GeoMercatorMap({
   });
 
   const translateX = centerX - 90;
-  const translateY = centerY + height * 0.64; // en lugar de +460
+  const translateY = centerY + height * 0.64;
 
   return (
     <>
@@ -108,27 +117,25 @@ export default function GeoMercatorMap({
                 ),
               ].map(({ feature, path }, i) => {
                 const isHovered = hoveredFeature === feature.id;
-                const matchedData = mapData.find(
+
+                // 4. Use `filteredMapData` to find the matching data.
+                const matchedData = filteredMapData.find(
                   (c) => c.isoCode3 === feature.id
                 );
 
                 let colorValue = 0;
                 let fillColor = "#f3f4f6";
-                //    let valueType: "recovered" | "pending" | "sent" | null = null;
 
                 if (matchedData) {
                   if (matchedData.totalRecovered > 0) {
                     colorValue = matchedData.totalRecovered;
                     fillColor = scaleRecovered(colorValue);
-                    // valueType = "recovered";
                   } else if (matchedData.totalPending > 0) {
                     colorValue = matchedData.totalPending;
                     fillColor = scalePending(colorValue);
-                    //   valueType = "pending";
                   } else {
                     colorValue = matchedData.totalSent;
                     fillColor = scaleSent(colorValue);
-                    //    valueType = "sent";
                   }
                 }
                 const isInData = !!matchedData;
@@ -138,6 +145,7 @@ export default function GeoMercatorMap({
                     <path
                       d={path || ""}
                       fill={fillColor}
+                      // ... (rest of your path props)
                       stroke="#ffffff"
                       strokeWidth={2.5}
                       transform={
@@ -152,8 +160,9 @@ export default function GeoMercatorMap({
                         transition: "transform 0.2s ease",
                       }}
                       onMouseEnter={(event) => {
-                        setHoveredFeature(feature.id);
+                        // Only trigger hover effects if there's data for the country
                         if (matchedData) {
+                          setHoveredFeature(feature.id);
                           const { clientX, clientY } = event;
                           setHoverData({
                             x: clientX,
@@ -172,7 +181,7 @@ export default function GeoMercatorMap({
                         setHoverData(null);
                       }}
                       onClick={() => {
-                        if (events) {
+                        if (events && matchedData) {
                           alert(
                             `Clicked: ${feature.properties.name} (${feature.id})`
                           );
@@ -186,6 +195,7 @@ export default function GeoMercatorMap({
           )}
         </Mercator>
       </svg>
+      {/* ... (your Tooltip JSX remains the same) ... */}
       {hoverData && (
         <div
           className="fixed z-50 bg-white shadow-lg border p-4 text-sm"

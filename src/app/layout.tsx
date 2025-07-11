@@ -45,21 +45,11 @@ export default function RootLayout({
         <AuthProvider>
           <InterceptorInitializer />
           <FiltersProvider>
-            {/* <div
-              style={{
-                transform: "scale(0.85)",
-                transformOrigin: "top left",
-                width: "117.6%",
-              }}
-              className="h-screen"
-            > */}
             <NavBar />
             <div className="pt-20 h-full">{children}</div>
             <div className="fixed bottom-10 right-8 z-50">
               <SuggestionButton />
             </div>
-            {/*             </div>
-             */}{" "}
           </FiltersProvider>
         </AuthProvider>
       </body>

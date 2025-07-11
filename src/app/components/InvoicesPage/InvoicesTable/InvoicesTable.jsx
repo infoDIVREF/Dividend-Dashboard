@@ -44,7 +44,7 @@ export default function InvoicesTable() {
       {loader ? (
         <InvoicesTableSkeleton />
       ) : (
-        <div className="min-h-[80vh] max-h-[80vh] bg-white rounded-xl w-full overflow-scroll flex flex-col justify-between shadow-2xl">
+        <div className="h-[69vh] bg-white rounded-xl w-full overflow-scroll flex flex-col justify-between shadow-2xl">
           <table className="min-w-full table-auto rounded-lg">
             <thead className="bg-azul rounded-lg sticky top-0 z-10">
               <tr className="text-white rounded-lg">
