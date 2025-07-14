@@ -54,7 +54,7 @@ export default function ClaimStatusStepper({ isSidebarOpen }) {
       }`}
     >
       {/* Línea inicial que se extiende al principio */}
-      <div className="relative flex items-center h-[2px] w-[25%]">
+      <div className="relative flex items-center h-[2px] w-[21%]">
         <div
           className="w-full h-[2px]"
           style={{

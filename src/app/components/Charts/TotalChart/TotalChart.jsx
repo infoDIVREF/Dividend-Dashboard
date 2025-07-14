@@ -56,7 +56,7 @@ export function TotalChart() {
   const porcentajeRecuperado = Math.round((totalRecuperado / totalSum) * 100);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-full min-h-[486px]">
       <div className="h-80 w-full" style={{ width: 220, height: 220 }}>
         <ResponsiveContainer height={"100%"} width={"100%"}>
           <RePieChart>

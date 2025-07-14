@@ -33,12 +33,12 @@ export default function DocumentsUploadComponent({ fetchDocumentsData }) {
       {/* Área de Drop */}
       <div
         {...getRootProps()}
-        className="rounded-lg border-[1px] border-blanco-roto p-[10px] text-center cursor-pointer"
+        className="rounded-lg border-[1px] border-blanco-roto p-[5px] text-center cursor-pointer"
       >
         <input {...getInputProps()} />
         <div>
           <UploadFileIcon className="mx-auto w-16 h-16 text-negro" />{" "}
-          <p className="mt-4">Subir documentación</p>
+          <p className="mt-[0.5rem]">Subir documentación</p>
           <small>
             (Arrastrar cualquier Documento Pendiente y nuestra IA procederá a
             validarlo)

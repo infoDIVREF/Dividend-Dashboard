@@ -2,16 +2,33 @@
 import Link from "next/link";
 import UserDropdown from "../UserDropdown/UserDropdown";
 import { usePathname } from "next/navigation";
-import { DividendLogo } from "@/app/components/NavBar/Logos/DividendLogo"
+import { DividendLogo } from "@/app/components/NavBar/Logos/DividendLogo";
+import { useScroll } from "@/contexts/ScrollContext";
+// No longer need useState or useEffect here
 
 export default function NavBar() {
   const pathname = usePathname();
+  // 1. Destructure the new state directly from the context
+  const { isNavBarVisible } = useScroll();
+
+  // The local state and useEffect for scroll tracking are GONE!
 
   const hideElements =
     pathname === "/login" || pathname === "/select-collaborator";
 
   return (
-    <div className="h-20 w-full bg-blanco-roto flex flex-row justify-between items-center py-4 px-8 z-20 fixed">
+    <div
+      className={`
+        h-20 w-full bg-blanco-roto flex flex-row justify-between items-center py-4 px-8 
+        z-20 fixed
+        transition-transform duration-300 ease-in-out
+        ${isNavBarVisible ? "translate-y-0" : "-translate-y-full"}
+      `}
+    >
+      {/*  // Note: We removed opacity for simplicity, but you can add it back:
+      // transition-opacity
+      // ${isNavBarVisible ? "opacity-100" : "opacity-0 pointer-events-none"} */}
+
       <div className="flex flex-row items-center gap-24">
         <DividendLogo height={45} width={130} />
         {!hideElements && (
@@ -19,7 +36,9 @@ export default function NavBar() {
             <Link
               href="/dashboard"
               className={`${
-                pathname === "/dashboard" ? "text-[#4e84a6] font-bold" : "text-black"
+                pathname === "/dashboard"
+                  ? "text-[#4e84a6] font-bold"
+                  : "text-black"
               }`}
             >
               Dashboard
@@ -27,7 +46,9 @@ export default function NavBar() {
             <Link
               href="/documentacion"
               className={`${
-                pathname === "/documentacion" ? "text-[#4e84a6] font-bold" : "text-black"
+                pathname === "/documentacion"
+                  ? "text-[#4e84a6] font-bold"
+                  : "text-black"
               }`}
             >
               Documentación
@@ -35,7 +56,9 @@ export default function NavBar() {
             <Link
               href="/facturas"
               className={`${
-                pathname === "/facturas" ? "text-[#4e84a6] font-bold" : "text-black"
+                pathname === "/facturas"
+                  ? "text-[#4e84a6] font-bold"
+                  : "text-black"
               }`}
             >
               Facturas

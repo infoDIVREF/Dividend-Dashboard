@@ -18,7 +18,7 @@ export function AverageRecoveryTimeComponent() {
 
   // --- START OF THE FIX ---
 
-  // 1. Filter data by selected countries first.
+  // Filter data (this part remains the same)
   const selectedCountryCodes = new Set(
     selectedCountries.map((country) => country.isoCode)
   );
@@ -26,24 +26,36 @@ export function AverageRecoveryTimeComponent() {
     selectedCountryCodes.has(item.country)
   );
 
-  // 2. Pre-filter the data for each specific method. Use `|| []` as a safe fallback.
   const dttrData =
     countryFilteredData?.filter((item) => item.method === "DTTR") || [];
   const tjueData =
     countryFilteredData?.filter((item) => item.method === "TJUE") || [];
 
-  // 3. The new visibility logic: A card should only render if its method is selected AND it has data.
   const shouldRenderDTTR =
     selectedMethods.includes("DTTR") && dttrData.length > 0;
   const shouldRenderTJUE =
     selectedMethods.includes("TJUE") && tjueData.length > 0;
 
-  // 4. Update the width calculation to use the new, accurate visibility flags.
-  const bothVisible = shouldRenderDTTR && shouldRenderTJUE;
-  const widthClass = bothVisible ? "w-1/2" : "w-full";
+  // --- NEW: LOGIC FOR SYNCED HEIGHT ---
+
+  // 1. Define the constants for height calculation in the parent.
+  const ROW_HEIGHT = 50; // Controls the space for each country bar.
+  const MARGIN_HEIGHT = 40; // Accounts for top/bottom chart margins.
+
+  // 2. Determine the maximum number of countries that will be displayed in either chart.
+  const dttrCount = shouldRenderDTTR ? dttrData.length : 0;
+  const tjueCount = shouldRenderTJUE ? tjueData.length : 0;
+  const maxItems = Math.max(dttrCount, tjueCount);
+
+  // 3. Calculate the single, shared height for both charts.
+  // Use a fallback height (e.g., 400px) if there's no data.
+  const sharedChartHeight =
+    maxItems > 0 ? maxItems * ROW_HEIGHT + MARGIN_HEIGHT : 400;
 
   // --- END OF THE FIX ---
 
+  const bothVisible = shouldRenderDTTR && shouldRenderTJUE;
+  const widthClass = bothVisible ? "w-1/2" : "w-full";
   return (
     <>
       <div className="flex gap-5 mt-6">
@@ -51,6 +63,7 @@ export function AverageRecoveryTimeComponent() {
         <h3 className="leading-7 text-[1rem]  font-semibold">
           Tiempos de recuperación
         </h3>
+
         <div className="flex gap-5 text-[14px]">
           <div className="flex items-center gap-2">
             <div className="bg-[#3fb1f8] rounded-2xl w-10 h-6" />
@@ -67,39 +80,43 @@ export function AverageRecoveryTimeComponent() {
         </div>
       </div>
 
-      <div className="flex gap-4 mb-1">
+      <div className="flex gap-4 mb-[200px] items-stretch">
         <AnimatePresence mode="wait">
-          {/* 5. Use the new visibility flag here */}
           {shouldRenderDTTR && (
             <motion.div
               key="dttr-card"
               layout
-              // Corrected exit animation: opacity should be 0 to fade out
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className={`bg-white rounded-xl shadow-md p-4 flex flex-col border ${widthClass}`}
             >
               <h3 className="leading-7 text-[1rem] font-semibold mb-4 translate-y-2 translate-x-4">
                 Vía DDTR
               </h3>
-              {/* 6. Pass the pre-filtered data array */}
-              <AverageRecoveryTimeCard method="DTTR" data={dttrData} />
+              {/* 4. Pass the calculated height as a prop */}
+              <AverageRecoveryTimeCard
+                method="DTTR"
+                data={dttrData}
+                chartHeight={sharedChartHeight}
+              />
             </motion.div>
           )}
 
-          {/* Use the new visibility flag here */}
           {shouldRenderTJUE && (
             <motion.div
               key="tjue-card"
               layout
-              // Corrected exit animation: opacity should be 0 to fade out
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className={`bg-white rounded-xl shadow-md p-4 flex flex-col border ${widthClass}`}
             >
               <h3 className="leading-7 text-[1rem] font-semibold mb-4 translate-y-2 translate-x-4">
                 Vía TJUE
               </h3>
-              {/* Pass the pre-filtered data array */}
-              <AverageRecoveryTimeCard method="TJUE" data={tjueData} />
+              {/* 4. Pass the SAME calculated height as a prop */}
+              <AverageRecoveryTimeCard
+                method="TJUE"
+                data={tjueData}
+                chartHeight={sharedChartHeight}
+              />
             </motion.div>
           )}
         </AnimatePresence>

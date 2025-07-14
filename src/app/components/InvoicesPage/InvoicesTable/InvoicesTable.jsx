@@ -44,68 +44,73 @@ export default function InvoicesTable() {
       {loader ? (
         <InvoicesTableSkeleton />
       ) : (
-        <div className="h-[69vh] bg-white rounded-xl w-full overflow-scroll flex flex-col justify-between shadow-2xl">
-          <table className="min-w-full table-auto rounded-lg">
-            <thead className="bg-azul rounded-lg sticky top-0 z-10">
-              <tr className="text-white rounded-lg">
-                <th className="text-center px-4 py-2 pl-5">Año</th>
-                <th className="text-start px-4 py-2">Número factura</th>
-                <th className="text-start px-4 py-2">Concepto</th>
-                <th className="text-start px-4 py-2">Subtotal</th>
-                <th className="text-start px-4 py-2">Total</th>
-                {/*             <th className="text-start px-4 py-2">Pendiente</th>
-                 */}
-                <th className="text-center px-4 py-2">Descargar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoices.map((invoice) => (
-                <tr key={invoice.id}>
-                  <td className="text-center px-4 py-2">
-                    {invoice.year || "N/A"}
-                  </td>
-                  <td
-                    className="text-start px-4 py-2 truncate max-w-[150px]"
-                    title={invoice.billNumber}
-                  >
-                    {invoice.billNumber || "N/A"}
-                  </td>
-                  <td
-                    className="text-start px-4 py-2 truncate max-w-xs"
-                    title={invoice.concept}
-                  >
-                    {invoice.concept || "N/A"}
-                  </td>
-                  <td className="text-start px-4 py-2">
-                    {invoice.subtotal || "N/A"}
-                  </td>
-                  <td className="text-start px-4 py-2">
-                    {invoice.total || "N/A"}
-                  </td>
-                  {/*  Aún no disponemos de status de la factura  */}
-                  {/* <td className="text-start px-4 py-2">
-                {invoice.status || "Pendiente"}
-              </td> */}
-                  <td className="text-center px-4 py-2 flex items-center justify-center">
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_API_URL}/bills/download/${invoice.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=""
-                    >
-                      <FilePdfIcon />
-                    </a>
-                  </td>
+        <div className="h-[69vh] w-full shadow-2xl rounded-xl overflow-hidden bg-white flex flex-col">
+          {/* Table Header */}
+          <div className="pr-2 bg-azul">
+            <table className="min-w-full table-fixed">
+              <thead className="bg-azul text-white">
+                <tr>
+                  <th className="w-[10%] text-center px-4 py-2 pl-5">Año</th>
+                  <th className="w-[20%] text-start px-4 py-2">
+                    Número factura
+                  </th>
+                  <th className="w-[35%] text-start px-4 py-2">Concepto</th>
+                  <th className="w-[10%] text-start px-4 py-2">Subtotal</th>
+                  <th className="w-[10%] text-start px-4 py-2">Total</th>
+                  <th className="w-[15%] text-start py-2">Descargar</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+            </table>
+          </div>
 
-          <div className="w-full bg-white flex items-center justify-between px-6 py-4 sticky bottom-0 z-10 text-sm">
+          {/* Table Body Scrollable */}
+          <div className="flex-1 overflow-y-auto">
+            <table className="min-w-full table-fixed">
+              <tbody>
+                {invoices.map((invoice) => (
+                  <tr key={invoice.id} className="border-t">
+                    <td className="w-[10%] text-center px-4 py-2">
+                      {invoice.year || "N/A"}
+                    </td>
+                    <td
+                      className="w-[20%] text-start px-4 py-2 truncate"
+                      title={invoice.billNumber}
+                    >
+                      {invoice.billNumber || "N/A"}
+                    </td>
+                    <td
+                      className="w-[35%] text-start px-4 py-2 truncate"
+                      title={invoice.concept}
+                    >
+                      {invoice.concept || "N/A"}
+                    </td>
+                    <td className="w-[10%] text-start px-4 py-2">
+                      {invoice.subtotal || "N/A"}
+                    </td>
+                    <td className="w-[10%] text-start px-4 py-2">
+                      {invoice.total || "N/A"}
+                    </td>
+                    <td className="w-[15%] text-center px-4 py-2 flex items-center justify-center">
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_API_URL}/bills/download/${invoice.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FilePdfIcon />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination Footer */}
+          <div className="w-full bg-white flex items-center justify-between px-6 py-4 text-sm">
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
             >
               Anterior
             </button>
@@ -115,7 +120,7 @@ export default function InvoicesTable() {
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 cursor-pointer"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
             >
               Siguiente
             </button>
