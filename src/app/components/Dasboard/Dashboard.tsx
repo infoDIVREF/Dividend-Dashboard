@@ -59,7 +59,7 @@ function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
     >
       <div
         className={`
-          absolute inset-0 transition-opacity duration-300 px-[54px] pt-[8.3rem]
+          absolute inset-0 transition-opacity duration-300 px-[54px] pt-[6rem]
           ${
             pageToShow === "graphics"
               ? "opacity-100"
