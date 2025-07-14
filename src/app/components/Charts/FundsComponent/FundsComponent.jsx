@@ -22,31 +22,25 @@ import { useState } from "react";
 
 // 👉 Lógica para dividir datos en chunks equilibrados
 function splitIntoBalancedChunks(data, maxPerChunk) {
+  // ... (this function remains the same)
   const total = data.length;
   const numChunks = Math.ceil(total / maxPerChunk);
   const baseSize = Math.floor(total / numChunks);
   const remainder = total % numChunks;
-
   const result = [];
   let start = 0;
-
   for (let i = 0; i < numChunks; i++) {
     const size = baseSize + (i < remainder ? 1 : 0);
     result.push(data.slice(start, start + size));
     start += size;
   }
-
   return result;
 }
 
 export function FundsComponent() {
   const [showAll, setShowAll] = useState(false);
   const { data, loading, error, fundsObjectLength } = useGetDataByFund();
-  /* let data = mockFunds15;
-  let data = mockFunds40; */
-  //let data = mockFunds150;
   const { claimStatus } = useFilters();
-  /* const fundsObjectLength = 150; */
 
   if (loading) return <SkeletonChartVertical height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -66,17 +60,42 @@ export function FundsComponent() {
         })
     : [];
 
+  // --- START OF THE FIX ---
+
+  // 1. Determine which statuses are active based on the filter
+  const isEnTramiteActive = claimStatus.includes("EN TRÁMITE");
+  const isEnviadoActive = claimStatus.includes("ENVIADO");
+  const isRecuperadoActive = claimStatus.includes("RECUPERADO");
+
+  // 2. Create a new array containing only the funds that have data for the active statuses.
+  const displayableFunds = fullChartData.filter((fund) => {
+    let fundValue = 0;
+    if (isEnTramiteActive) fundValue += fund.enTramite;
+    if (isEnviadoActive) fundValue += fund.enviado;
+    if (isRecuperadoActive) fundValue += fund.recuperado;
+    return fundValue > 0;
+  });
+
+  // 3. The new count is the length of this filtered array.
+  const totalDisplayableFunds = displayableFunds.length;
+
+  // 4. Create the chart chunks from the `displayableFunds` array.
+  //    This is more efficient and makes the old `visibleCharts` filter redundant.
   const charts =
-    fundsObjectLength > 15 && showAll
-      ? splitIntoBalancedChunks(fullChartData, 15)
-      : [fullChartData.slice(0, 15)];
+    totalDisplayableFunds > 15 && showAll
+      ? splitIntoBalancedChunks(displayableFunds, 15)
+      : [displayableFunds.slice(0, 15)];
+
+  // --- END OF THE FIX ---
 
   return (
     <div className="w-full relative">
+      {/* 3. Map over the newly created `visibleCharts` array */}
       {charts.map((chartData, index) => (
         <div key={index} className="relative h-96 w-full mb-6">
           <ResponsiveContainer debounce={300} width="100%" height="100%">
             <BarChart data={chartData}>
+              {/* ... (The rest of your BarChart implementation remains the same) ... */}
               <XAxis
                 fontSize={12}
                 dataKey="name"
@@ -126,7 +145,7 @@ export function FundsComponent() {
                 formatter={(value) => value.toLocaleString("es-ES")}
               />
               <Legend content={<CustomLegend />} />
-              {claimStatus.includes("EN TRÁMITE") && (
+              {isEnTramiteActive && (
                 <Bar
                   dataKey="enTramite"
                   stackId="a"
@@ -135,18 +154,20 @@ export function FundsComponent() {
                   shape={(props) => (
                     <RoundedBar {...props} dataKey="enTramite" />
                   )}
+                  maxBarSize={80}
                 />
               )}
-              {claimStatus.includes("ENVIADO") && (
+              {isEnviadoActive && (
                 <Bar
                   dataKey="enviado"
                   stackId="a"
                   fill="#4F84A6"
                   name="Enviado"
                   shape={(props) => <RoundedBar {...props} dataKey="enviado" />}
+                  maxBarSize={80}
                 />
               )}
-              {claimStatus.includes("RECUPERADO") && (
+              {isRecuperadoActive && (
                 <Bar
                   dataKey="recuperado"
                   stackId="a"
@@ -155,6 +176,7 @@ export function FundsComponent() {
                   shape={(props) => (
                     <RoundedBar {...props} dataKey="recuperado" />
                   )}
+                  maxBarSize={80}
                 />
               )}
             </BarChart>
@@ -162,7 +184,7 @@ export function FundsComponent() {
         </div>
       ))}
 
-      {fundsObjectLength > 15 && (
+      {totalDisplayableFunds > 15 && (
         <button
           onClick={() => setShowAll(!showAll)}
           className="absolute text-white bottom-[0.2rem] right-3 z-0 bg-[#F86338] px-3 py-1 rounded-full text-normal font-medium flex items-center gap-1 hover:bg-[#d44f2b] transition-colors"

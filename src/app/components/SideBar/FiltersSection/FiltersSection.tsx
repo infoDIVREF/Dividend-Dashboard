@@ -19,7 +19,9 @@ export default function FilterSection({
 
   return (
     <div className={`${wrapperCustomClassName}`}>
-      <h3 className="text-[13px]  font-bricolage font-bold mb-2">{title}</h3>
+      <h3 className="text-[13px]  font-bricolage font-bold mb-[0.3rem]">
+        {title}
+      </h3>
       <div className={`${customClassName} `}>{children}</div>
     </div>
   );

@@ -8,9 +8,9 @@ export default function DocumentsDashboardCard({
 }) {
   return (
     <div className="cursor-pointer" onClick={() => openModal(title)}>
-      <div className="font-bricolage bg-gris-claro-3 rounded-[12px] p-6  flex flex-col gap-3">
+      <div className="font-bricolage bg-gris-claro-3 rounded-[12px] p-4  flex flex-col gap-2">
         <h2 className="text-[18px] font-semibold text-negro">{title}</h2>
-        <div className="mt-3 flex flex-row justify-between">
+        <div className=" flex flex-row justify-between">
           <div className="flex flex-row gap-5 content-center items-center">
             <div className="bg-naranja p-2 rounded-md">
               <ClockIcon />

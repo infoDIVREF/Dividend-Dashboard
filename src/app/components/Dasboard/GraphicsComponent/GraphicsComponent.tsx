@@ -47,7 +47,7 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
         </div>
 
         {/* 🔷 Fila 2: País (si fondo es ancho) + Año (siempre) + Vía + Total */}
-        <div className="flex gap-4 mb-2">
+        <div className="flex gap-4 mb-2 min-h-[486px]">
           {isWideFundsChart && (
             <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
@@ -66,14 +66,14 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
 
           {!isWideFundsChart && (
             <>
-              <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+              <div className="bg-white rounded-xl shadow-md p-4 flex-1 border min-h-[486px]">
                 <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                   Por vía
                 </h3>
                 <MethodsChart />
               </div>
 
-              <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
+              <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border min-h-[486px]">
                 <TotalChart />
               </div>
             </>
@@ -83,7 +83,7 @@ function GraphicsComponent({ isSidebarOpen }: GraphicsComponentProps) {
         {/* 🔷 Fila 3: Vía + Total (solo si fondo es ancho) */}
         {isWideFundsChart && (
           <div className="flex gap-4 mb-2">
-            <div className="bg-white rounded-xl shadow-md p-4 flex-1 border">
+            <div className="bg-white rounded-xl shadow-md p-4 flex-1 border flex flex-col justify-around">
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por vía
               </h3>

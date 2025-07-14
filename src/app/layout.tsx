@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import SuggestionButton from "@/app/components/SuggestionButton/SuggestionButton";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FiltersProvider } from "@/contexts/FiltersContext";
+import { ScrollProvider } from "@/contexts/ScrollContext";
+import { MainContentWrapper } from "./components/MainContentWrapper/MainContentWrapper";
 
 import NavBar from "./components/NavBar/NavBar"; // Asumiendo que tienes un componente NavBar
 import "./globals.css";
@@ -44,23 +46,15 @@ export default function RootLayout({
       >
         <AuthProvider>
           <InterceptorInitializer />
-          <FiltersProvider>
-            {/* <div
-              style={{
-                transform: "scale(0.85)",
-                transformOrigin: "top left",
-                width: "117.6%",
-              }}
-              className="h-screen"
-            > */}
-            <NavBar />
-            <div className="pt-20 h-full">{children}</div>
-            <div className="fixed bottom-10 right-8 z-50">
-              <SuggestionButton />
-            </div>
-            {/*             </div>
-             */}{" "}
-          </FiltersProvider>
+          <ScrollProvider>
+            <FiltersProvider>
+              <NavBar />
+              <MainContentWrapper>{children}</MainContentWrapper>
+              <div className="fixed bottom-10 right-8 z-50">
+                <SuggestionButton />
+              </div>
+            </FiltersProvider>
+          </ScrollProvider>
         </AuthProvider>
       </body>
     </html>

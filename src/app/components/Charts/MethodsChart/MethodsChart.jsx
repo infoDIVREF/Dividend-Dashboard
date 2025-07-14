@@ -20,7 +20,7 @@ export function MethodsChart() {
   const { data, loading, error } = useGetDataByMethod();
   const { claimStatus, updateClaimStatus } = useFilters();
 
-  if (loading) return <SkeletonChartVertical height="h-80" />;
+  if (loading) return <SkeletonChartVertical height="h-[440px]" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
   return (

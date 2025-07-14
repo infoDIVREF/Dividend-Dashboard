@@ -17,11 +17,7 @@ export default function Home() {
           h-full
           transition-all duration-300 ease-in-out
           overflow-hidden
-          ${
-            !isSidebarOpen || pageToShow === "map"
-              ? "w-0 -translate-x-full"
-              : "w-[20vw] translate-x-0"
-          }
+          ${!isSidebarOpen ? "w-0 -translate-x-full" : "w-[20vw] translate-x-0"}
         `}
       >
         <SideBar
@@ -40,9 +36,9 @@ export default function Home() {
       <div
         className={`
           flex flex-col transition-all duration-300 ease-in-out
-          ${!isSidebarOpen || pageToShow === "map" ? "w-full" : "w-[80vw]"}
-          
+          ${isSidebarOpen ? "w-[80vw]" : "w-full"} 
         `}
+        /* ${!isSidebarOpen || pageToShow === "map" ? "w-full" : "w-[80vw]"} */
       >
         <Dashboard pageToShow={pageToShow} isSidebarOpen={isSidebarOpen} />
       </div>
