@@ -8,12 +8,17 @@ type PageToShow = "map" | "graphics";
 interface DashboardProps {
   pageToShow: PageToShow;
   isSidebarOpen: boolean;
+  setPageToShow: (page: PageToShow) => void;
 }
 
 // Define how much space (in pixels) you want to leave at the bottom
 const SCROLL_LIMIT_OFFSET = 200; // Prevents scrolling past the last 200px
 
-function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
+function Dashboard({
+  pageToShow,
+  isSidebarOpen,
+  setPageToShow,
+}: DashboardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { setScrollPosition } = useScroll();
 
@@ -67,7 +72,11 @@ function Dashboard({ pageToShow, isSidebarOpen }: DashboardProps) {
           }
         `}
       >
-        <GraphicsComponent isSidebarOpen={isSidebarOpen} />
+        <GraphicsComponent
+          isSidebarOpen={isSidebarOpen}
+          pageToShow={pageToShow}
+          setPageToShow={setPageToShow}
+        />
       </div>
 
       <div

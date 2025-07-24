@@ -40,7 +40,11 @@ export default function Home() {
         `}
         /* ${!isSidebarOpen || pageToShow === "map" ? "w-full" : "w-[80vw]"} */
       >
-        <Dashboard pageToShow={pageToShow} isSidebarOpen={isSidebarOpen} />
+        <Dashboard
+          pageToShow={pageToShow}
+          setPageToShow={setPageToShow}
+          isSidebarOpen={isSidebarOpen}
+        />
       </div>
     </div>
   );
