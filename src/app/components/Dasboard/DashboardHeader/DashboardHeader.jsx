@@ -12,8 +12,8 @@ export default function DashboardHeader({
     <div
       className={`${
         isSidebarOpen ? "w-[calc(80vw-13px)]" : "w-[calc(100vw-13px)]"
-      }  flex flex-col gap-6 justify-between absolute right-0 items-center h-30 pt-[27px] pb-[27px] px-[54px] z-10 ${
-        pageToShow === "map" ? "" : "bg-blanco"
+      }  flex  gap-6 justify-between absolute right-0 items-center h-30 pt-[27px] pb-[27px] px-[54px] z-10 ${
+        pageToShow === "map" ? "" : "bg-blanco flex-col"
       }`}
       style={{ pointerEvents: "none" }}
     >
