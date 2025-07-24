@@ -184,7 +184,7 @@ export default function SideBar({
           }
             ${screenSize === "medium" ? "max-h-[88px]" : ""}
             ${screenSize === "large" ? "max-h-[88px]" : ""}`} */
-            customClassName={` mr-[11px] grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto  ${
+            customClassName={`grid grid-cols-4 gap-[2px] flex-1 overflow-y-auto  ${
               screenSize === "small" ? "" : ""
             }
               ${screenSize === "medium" ? "" : ""}
