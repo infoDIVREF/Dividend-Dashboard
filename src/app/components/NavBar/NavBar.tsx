@@ -30,7 +30,9 @@ export default function NavBar() {
       // ${isNavBarVisible ? "opacity-100" : "opacity-0 pointer-events-none"} */}
 
       <div className="flex flex-row items-center gap-24">
-        <DividendLogo height={45} width={130} />
+        <Link href="/dashboard">
+          <DividendLogo height={45} width={130} />
+        </Link>
         {!hideElements && (
           <div className="flex flex-row gap-[35px]">
             <Link

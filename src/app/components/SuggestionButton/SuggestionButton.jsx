@@ -76,7 +76,7 @@ export default function SuggestionButton() {
   return (
     <>
       <a
-        className="group flex bg-[#F86338] items-center text-white text-sm font-medium px-4 py-2 rounded-full shadow-md hover:bg-[#d44f2b] transition-colors"
+        className="min-h-[40px] min-w-[40px] group flex bg-[#F86338] items-center justify-center text-white text-sm font-medium px-2 py-2 rounded-full shadow-md hover:bg-[#d44f2b] transition-colors"
         onClick={toggleModal}
       >
         <ChatIcon />
