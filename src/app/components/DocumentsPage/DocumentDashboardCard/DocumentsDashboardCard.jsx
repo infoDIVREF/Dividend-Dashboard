@@ -17,7 +17,6 @@ export default function DocumentsDashboardCard({
           <div className="bg-naranja p-2 rounded-md">
             <ClockIcon />
           </div>
-
           <p className="text-negro text-[16px] font-semibold">Pendientes</p>
         </div>
         <p className="text-naranja text-2xl">{totalPending}</p>
