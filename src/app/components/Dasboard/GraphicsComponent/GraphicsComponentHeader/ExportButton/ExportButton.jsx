@@ -69,17 +69,18 @@ export default function ExportButton() {
       disabled={isLoading}
       // ↓↓↓ KEY CHANGES HERE ↓↓↓
       className={`group bg-exportButton-green flex items-center justify-center px-[0.65rem] py-2 text-white rounded-full transition-all ease-in-out duration-300 pointer-events-auto hover:px-4 ${
-        isLoading ? "opacity-50 cursor-not-allowed" : ""
+        isLoading
+          ? "opacity-50 cursor-not-allowed px-4 py-2 w-[121px] h-[40px]"
+          : ""
       }`}
     >
       {isLoading ? (
-        // This spinner is already centered
         <svg
           className="animate-spin text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          width="32"
-          height="32"
+          width="22"
+          height="22"
           viewBox="0 0 24 24"
         >
           <circle
@@ -97,10 +98,9 @@ export default function ExportButton() {
           ></path>
         </svg>
       ) : (
-        // The SVG and the text are now siblings
         <>
           <svg
-            width="20" // Slightly adjusted size for balance
+            width="20"
             height="20"
             viewBox="0 0 22 22"
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,6 @@ export default function ExportButton() {
               />
             </g>
           </svg>
-          {/* This span will appear on hover */}
           <span className="overflow-hidden max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-2 transition-all duration-300 whitespace-nowrap">
             Exportar
           </span>
