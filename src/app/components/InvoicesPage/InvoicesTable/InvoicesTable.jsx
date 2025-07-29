@@ -38,13 +38,12 @@ export default function InvoicesTable() {
       fetchInvoices();
     }
   }, [collaboratorId, currentPage]);
-
   return (
     <>
       {loader ? (
         <InvoicesTableSkeleton />
       ) : (
-        <div className="h-[69vh] w-full rounded-xl overflow-hidden bg-white flex flex-col">
+        <div className="h-[71vh] w-full rounded-xl overflow-hidden bg-white flex flex-col">
           {/* Table Header */}
           <div className="bg-azul">
             <table className="min-w-full table-fixed">
@@ -106,25 +105,27 @@ export default function InvoicesTable() {
           </div>
 
           {/* Pagination Footer */}
-          <div className="w-full bg-white flex items-center justify-between px-6 py-4 text-sm">
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
-            >
-              Anterior
-            </button>
-            <span>
-              Página {currentPage} de {totalPages}
-            </span>
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
-            >
-              Siguiente
-            </button>
-          </div>
+          {totalPages > 1 && (
+            <div className="w-full bg-white flex items-center justify-between px-6 py-4 text-sm">
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Anterior
+              </button>
+              <span>
+                Página {currentPage} de {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>
