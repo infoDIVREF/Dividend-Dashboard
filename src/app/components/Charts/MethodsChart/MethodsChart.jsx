@@ -15,6 +15,7 @@ import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
 import SkeletonChartVertical from "../SkeletonChartVertical";
 import { useFilters } from "@/contexts/FiltersContext";
+import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 
 export function MethodsChart() {
   const { data, loading, error } = useGetDataByMethod();
@@ -41,7 +42,7 @@ export function MethodsChart() {
           />
           <Tooltip
             cursor={{ fill: "transparent" }}
-            formatter={(value) => value.toLocaleString("es-ES")}
+            content={<CustomTooltip />}
           />
           <Legend
             content={<CustomLegend />}

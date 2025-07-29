@@ -9,9 +9,9 @@ import {
   Legend,
 } from "recharts";
 import { useGetTotalChartData } from "@/hooks/useGetTotalChartData";
-import { CustomLegend } from "../CustomLegend";
 import SkeletonChartCircle from "../YearsChart/SkeletonChartCircle";
 import { useFilters } from "@/contexts/FiltersContext";
+import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 const COLORS = {
   pendiente: "#c9c9c9",
   enviado: "#5b83a3",
@@ -105,10 +105,7 @@ export function TotalChart() {
                 return pie;
               });
             })()}
-            <Tooltip
-              formatter={(value) => value.toLocaleString("es-ES")}
-              wrapperStyle={{ fontSize: "0.875rem" }}
-            />
+            <Tooltip content={<CustomTooltip />} />
           </RePieChart>
         </ResponsiveContainer>
       </div>

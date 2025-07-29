@@ -14,6 +14,7 @@ import { RoundedBar } from "../RoundedBar";
 import SkeletonChartVertical from "../SkeletonChartVertical";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useState } from "react";
+import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 
 function splitIntoBalancedChunks(data, maxPerChunk) {
   const total = data.length;
@@ -129,7 +130,7 @@ export function FundsComponent() {
               />
               <Tooltip
                 cursor={{ fill: "transparent" }}
-                formatter={(value) => value.toLocaleString("es-ES")}
+                content={<CustomTooltip />}
               />
               <Legend content={<CustomLegend />} />
               {isEnTramiteActive && (
