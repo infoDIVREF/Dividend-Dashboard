@@ -19,7 +19,7 @@ export default function NavBar() {
   return (
     <div
       className={`
-        h-20 w-full bg-blanco-roto flex flex-row justify-between items-center py-4 px-8 
+        h-20 w-full bg-blanco-roto flex flex-row justify-between items-center py-4 px-8 pr-[54px] 
         z-20 fixed
         transition-transform duration-300 ease-in-out
         ${isNavBarVisible ? "translate-y-0" : "-translate-y-full"}
