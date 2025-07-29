@@ -50,7 +50,7 @@ export default function RootLayout({
             <FiltersProvider>
               <NavBar />
               <MainContentWrapper>{children}</MainContentWrapper>
-              <div className="fixed bottom-10 right-8 z-50">
+              <div className="fixed bottom-10 right-[54px] z-50">
                 <SuggestionButton />
               </div>
             </FiltersProvider>

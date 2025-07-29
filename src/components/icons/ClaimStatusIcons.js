@@ -110,9 +110,9 @@ export const RecoveredIcon = ({
 export const ChatIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="23"
-    viewBox="0 0 24 23"
+    width="19"
+    height="19"
+    viewBox="0 0 25 25"
     fill="none"
   >
     <path

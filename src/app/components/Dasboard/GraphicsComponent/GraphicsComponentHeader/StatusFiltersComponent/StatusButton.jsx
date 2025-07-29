@@ -39,7 +39,9 @@ export default function StatusButton({
       </span>
       <div className="flex gap-1 items-center">
         <span>{icon}</span>
-        <span className="tracking-wide">{capitalizeFirstLetter(label)}</span>
+        <span className="tracking-wide font-[500]">
+          {capitalizeFirstLetter(label)}
+        </span>
       </div>
     </button>
   );
