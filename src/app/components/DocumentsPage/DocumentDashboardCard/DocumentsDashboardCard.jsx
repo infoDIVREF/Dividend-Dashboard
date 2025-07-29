@@ -8,27 +8,29 @@ export default function DocumentsDashboardCard({
 }) {
   return (
     <div
-      className="cursor-pointer font-bricolage bg-gris-claro-3 rounded-[12px] p-4  flex flex-col gap-2 hover:bg-[#ebecf0]"
+      className="cursor-pointer font-bricolage bg-gris-claro-3 rounded-[12px] p-6  flex flex-col gap-3 hover:bg-[#ebecf0]"
       onClick={() => openModal(title)}
     >
-      <h2 className="text-[18px] font-semibold text-negro">{title}</h2>
-      <div className=" flex flex-row justify-between">
-        <div className="flex flex-row gap-5 content-center items-center">
-          <div className="bg-naranja p-2 rounded-md">
-            <ClockIcon />
+      <h2 className="text-[17px] font-normal text-negro">{title}</h2>
+      <div className="flex flex-col gap-[0.7rem]">
+        <div className=" flex flex-row justify-between">
+          <div className="flex flex-row gap-5 content-center items-center">
+            <div className="bg-naranja p-2 rounded-full">
+              <ClockIcon />
+            </div>
+            <p className="text-naranja text-[16px] font-normal">Pendientes</p>
           </div>
-          <p className="text-negro text-[16px] font-semibold">Pendientes</p>
+          <p className="text-naranja text-2xl font-[300]">{totalPending}</p>
         </div>
-        <p className="text-naranja text-2xl">{totalPending}</p>
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row gap-5 content-center items-center">
-          <div className="bg-azul p-2 rounded-md">
-            <EyeIcon />
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-row gap-5 content-center items-center">
+            <div className="bg-azul p-2 rounded-full">
+              <EyeIcon />
+            </div>
+            <p className="text-azul text-[16px] font-normal">Recibidos</p>
           </div>
-          <p className="text-negro text-[16px] font-semibold">Recibidos</p>
+          <p className="text-azul text-2xl font-[300]">{totalReceived}</p>
         </div>
-        <p className="text-azul text-2xl">{totalReceived}</p>
       </div>
     </div>
   );

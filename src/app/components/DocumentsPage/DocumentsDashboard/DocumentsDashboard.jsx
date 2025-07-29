@@ -6,6 +6,7 @@ import DocumentsDashboardCard from "@/app/components/DocumentsPage/DocumentDashb
 import DocumentsUploadComponent from "@/app/components/DocumentsPage/DocumentsUploadComponent/DocumentsUploadComponent";
 import axiosInstance from "@/lib/axiosInstance";
 import DocumentsDashboardCardSkeleton from "../DocumentDashboardCard/DocumentsDashboardCardSkeleton";
+import { formatCategoryTitle } from "../../../../functions/formatCategoryTitle";
 
 export default function DocumentsDashboard() {
   const { token, collaboratorId } = useAuth();
@@ -58,7 +59,7 @@ export default function DocumentsDashboard() {
           : documents.map(({ category, pending, received }) => (
               <DocumentsDashboardCard
                 key={category}
-                title={category}
+                title={formatCategoryTitle(category)}
                 totalPending={pending}
                 totalReceived={received}
                 openModal={openModal}
