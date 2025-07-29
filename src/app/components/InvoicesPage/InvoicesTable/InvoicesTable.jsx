@@ -44,9 +44,9 @@ export default function InvoicesTable() {
       {loader ? (
         <InvoicesTableSkeleton />
       ) : (
-        <div className="h-[69vh] w-full shadow-2xl rounded-xl overflow-hidden bg-white flex flex-col">
+        <div className="h-[69vh] w-full rounded-xl overflow-hidden bg-white flex flex-col">
           {/* Table Header */}
-          <div className="pr-2 bg-azul">
+          <div className="bg-azul">
             <table className="min-w-full table-fixed">
               <thead className="bg-azul text-white">
                 <tr>

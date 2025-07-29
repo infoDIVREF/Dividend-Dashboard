@@ -13,16 +13,9 @@ import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
 import SkeletonChartVertical from "../SkeletonChartVertical";
 import { useFilters } from "@/contexts/FiltersContext";
-import {
-  mockFunds15,
-  mockFunds40,
-  mockFunds150,
-} from "@/../mockups/funds-mockups";
 import { useState } from "react";
 
-// 👉 Lógica para dividir datos en chunks equilibrados
 function splitIntoBalancedChunks(data, maxPerChunk) {
-  // ... (this function remains the same)
   const total = data.length;
   const numChunks = Math.ceil(total / maxPerChunk);
   const baseSize = Math.floor(total / numChunks);
@@ -60,8 +53,6 @@ export function FundsComponent() {
         })
     : [];
 
-  // --- START OF THE FIX ---
-
   // 1. Determine which statuses are active based on the filter
   const isEnTramiteActive = claimStatus.includes("EN TRÁMITE");
   const isEnviadoActive = claimStatus.includes("ENVIADO");
@@ -86,16 +77,12 @@ export function FundsComponent() {
       ? splitIntoBalancedChunks(displayableFunds, 15)
       : [displayableFunds.slice(0, 15)];
 
-  // --- END OF THE FIX ---
-
   return (
     <div className="w-full relative">
-      {/* 3. Map over the newly created `visibleCharts` array */}
       {charts.map((chartData, index) => (
         <div key={index} className="relative h-96 w-full mb-6">
           <ResponsiveContainer debounce={300} width="100%" height="100%">
             <BarChart data={chartData}>
-              {/* ... (The rest of your BarChart implementation remains the same) ... */}
               <XAxis
                 fontSize={12}
                 dataKey="name"
