@@ -58,16 +58,16 @@ export default function UserDropdown() {
           <path
             d="M10 13.375C13.3137 13.375 16 10.6887 16 7.375C16 4.06129 13.3137 1.375 10 1.375C6.68629 1.375 4 4.06129 4 7.375C4 10.6887 6.68629 13.375 10 13.375Z"
             stroke="#E1E4EB"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M1 18.625C2.81594 15.4872 6.11406 13.375 10 13.375C13.8859 13.375 17.1841 15.4872 19 18.625"
             stroke="#E1E4EB"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>

@@ -14,6 +14,7 @@ import { useGetDataByCountry } from "@/hooks/useGetDataByCountry";
 import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
 import { useFilters } from "@/contexts/FiltersContext";
+import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 import SkeletonChartHorizontal from "../SkeletonChartHorizontal";
 const isoToName = {
   AL: "Albania",
@@ -145,7 +146,7 @@ export function CountriesChart() {
           />
           <Tooltip
             cursor={{ fill: "transparent" }}
-            formatter={(value) => value.toLocaleString("es-ES")}
+            content={<CustomTooltip />}
           />
           <Legend
             wrapperStyle={{ paddingTop: 30 }}

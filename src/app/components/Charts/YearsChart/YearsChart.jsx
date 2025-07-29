@@ -15,6 +15,7 @@ import { CustomLegend } from "../CustomLegend";
 import { RoundedBar } from "../RoundedBar";
 import SkeletonChartVertical from "../SkeletonChartVertical";
 import { useFilters } from "@/contexts/FiltersContext";
+import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 
 // Inline shape personalizado para aplicar border-radius solo si es la barra superior
 
@@ -38,7 +39,7 @@ export function YearsChart() {
           />
           <Tooltip
             cursor={{ fill: "transparent" }}
-            formatter={(value) => value.toLocaleString("es-ES")}
+            content={<CustomTooltip />}
           />
           <Legend
             content={<CustomLegend />}
