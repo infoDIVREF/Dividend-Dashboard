@@ -6,16 +6,16 @@ export default function StatusButton({
   numValue,
 }) {
   const colors = {
-    "EN TRÁMITE": "#C9C9C9",
+    "EN TRÁMITE": "#AFAFAF",
     ENVIADO: "#4F84A6",
     RECUPERADO: "#244A76",
   };
 
   const color = colors[label] || "#D1D5DB"; // Default color
-  const bgColor = selected ? "#FBFBFB" : "#E1E4EB";
-  const numBgColor = selected ? color : "#AFAFAF";
-  const numTextColor = "#FFFFFF";
-  const textColor = selected ? "#2A2A2A" : "#AFAFAF";
+  const bgColor = selected ? color : "#E1E4EB";
+  const numBgColor = "#FAFBFE";
+  const numTextColor = selected ? color : "";
+  const textColor = selected ? "#FAFBFE" : "#AFAFAF";
 
   const capitalizeFirstLetter = (str) => {
     if (!str) return "";
@@ -26,10 +26,10 @@ export default function StatusButton({
     <button
       onClick={onClick}
       style={{ backgroundColor: bgColor, color: textColor }}
-      className="px-4 text-[12px] leading-5 font-bold h-10 flex items-center justify-start gap-2 rounded-xl shadow-[3px_3px_4.7px_rgba(0,0,0,0.08)]"
+      className="px-4 min-w-[177.655px] min-h-[41.801px] leading-5 font-bold h-10 flex items-center justify-center gap-2 rounded-xl shadow-[3px_3px_4.7px_rgba(0,0,0,0.08)]"
     >
       <span
-        className="font-bricolage w-6 h-6 rounded-full flex items-center justify-center text-sm"
+        className="font-bricolage w-[30px] h-[30px] rounded-full flex items-center justify-center text-[15.675px]"
         style={{
           backgroundColor: numBgColor,
           color: numTextColor,
@@ -38,8 +38,12 @@ export default function StatusButton({
         {numValue}
       </span>
       <div className="flex gap-1 items-center">
+        {/* ICON COLORS ARE COMING FROM PARENT COMPONENT
+        StatusFilterComponent.jsx */}
         <span>{icon}</span>
-        <span className="font-[500]">{capitalizeFirstLetter(label)}</span>
+        <span className="font-[500] text-[14.63px]">
+          {capitalizeFirstLetter(label)}
+        </span>
       </div>
     </button>
   );
