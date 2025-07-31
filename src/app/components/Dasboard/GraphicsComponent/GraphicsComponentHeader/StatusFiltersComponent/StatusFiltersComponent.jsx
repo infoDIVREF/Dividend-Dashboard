@@ -13,7 +13,7 @@ const statuses = [
     icon: (isSelected) => (
       <InProgressIcon
         selected={isSelected}
-        selectedColor={"#2A2A2A"}
+        selectedColor={"#FAFBFE"}
         unselectedColor={"#AFAFAF"}
       />
     ),
@@ -24,7 +24,7 @@ const statuses = [
     icon: (isSelected) => (
       <SentIcon
         selected={isSelected}
-        selectedColor={"#2A2A2A"}
+        selectedColor={"#FAFBFE"}
         unselectedColor={"#AFAFAF"}
       />
     ),
@@ -35,7 +35,7 @@ const statuses = [
     icon: (isSelected) => (
       <RecoveredIcon
         selected={isSelected}
-        selectedColor={"#2A2A2A"}
+        selectedColor={"#FAFBFE"}
         unselectedColor={"#AFAFAF"}
       />
     ),

@@ -58,7 +58,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
         />
       )}
 
-      <div id="dashboard-capture" className="flex flex-col gap-4 mt-8">
+      <div id="dashboard-capture" className="flex flex-col gap-4 mt-[2.5rem]">
         {/* 🔷 Fila 1: Por fondo (siempre) */}
         <div className="flex gap-4">
           <div
