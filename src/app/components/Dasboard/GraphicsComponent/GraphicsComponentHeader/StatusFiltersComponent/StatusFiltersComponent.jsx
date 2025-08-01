@@ -6,6 +6,7 @@ import {
   RecoveredIcon,
 } from "@/components/icons/ClaimStatusIcons";
 import StatusButton from "./StatusButton";
+import { ChevronRightIcon } from "@/components/icons/ClaimStatusIcons";
 
 const statuses = [
   {
@@ -50,7 +51,7 @@ export default function ClaimStatusStepper({ isSidebarOpen, pageToShow }) {
 
   return (
     <div
-      className={`flex items-center transition-all gap-[14px] duration-300 w-full pointer-events-auto ${
+      className={`flex items-center transition-all  duration-300 w-full pointer-events-auto ${
         isSidebarOpen ? "pl-0 justify-start" : " justify-start"
       } ${pageToShow === "map" ? "hidden" : ""}`}
     >
@@ -64,6 +65,11 @@ export default function ClaimStatusStepper({ isSidebarOpen, pageToShow }) {
             selected={isSelected(step.label)}
             onClick={() => updateClaimStatus(step.label)}
           />
+          {index < statuses.length - 1 && (
+            <span className="px-[3px]">
+              <ChevronRightIcon />
+            </span>
+          )}
         </div>
       ))}
     </div>
