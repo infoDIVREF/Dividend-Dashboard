@@ -26,9 +26,9 @@ export default function StatusButton({
     <button
       onClick={onClick}
       style={{ backgroundColor: bgColor, color: textColor }}
-      className="px-4 min-w-[177.655px] min-h-[41.801px] leading-5 font-bold h-10 flex items-center justify-center gap-2 rounded-xl shadow-[3px_3px_4.7px_rgba(0,0,0,0.08)]"
+      className="px-4 min-w-[177.655px] min-h-[42px] leading-5 font-bold h-10 flex items-center justify-center gap-2 rounded-xl shadow-[3px_3px_4.7px_rgba(0,0,0,0.08)]"
     >
-      <span
+      {/* <span
         className="font-bricolage w-[30px] h-[30px] rounded-full flex items-center justify-center text-[15.675px]"
         style={{
           backgroundColor: numBgColor,
@@ -36,14 +36,12 @@ export default function StatusButton({
         }}
       >
         {numValue}
-      </span>
+      </span> */}
       <div className="flex gap-1 items-center">
         {/* ICON COLORS ARE COMING FROM PARENT COMPONENT
         StatusFilterComponent.jsx */}
         <span>{icon}</span>
-        <span className="font-[500] text-[14.63px]">
-          {capitalizeFirstLetter(label)}
-        </span>
+        <span className="font-[500] text-[20px]">{label}</span>
       </div>
     </button>
   );

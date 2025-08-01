@@ -138,3 +138,53 @@ export const ChatIcon = () => (
     />
   </svg>
 );
+
+export const DotsIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="220"
+    height="8"
+    viewBox="0 0 220 8"
+    fill="none"
+  >
+    <circle cx="3.29032" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="29.8714" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="56.4515" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="83.0325" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="109.613" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="136.194" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="162.774" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="189.355" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+    <circle cx="215.936" cy="4.00004" r="3.29032" fill="#E1E4EB" />
+  </svg>
+);
+
+export const ChevronRightIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="33"
+    height="32"
+    viewBox="0 0 33 32"
+    fill="none"
+  >
+    <g clip-path="url(#clip0_4640_16766)">
+      <path
+        d="M12.2256 6L22.2256 16L12.2256 26"
+        stroke="#AFAFAF"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_4640_16766">
+        <rect
+          width="32"
+          height="32"
+          fill="white"
+          transform="translate(0.225586)"
+        />
+      </clipPath>
+    </defs>
+  </svg>
+);
