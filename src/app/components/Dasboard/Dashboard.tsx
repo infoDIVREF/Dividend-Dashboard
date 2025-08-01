@@ -64,7 +64,7 @@ function Dashboard({
     >
       <div
         className={`
-          absolute inset-0 transition-opacity duration-300 px-[54px] pt-[7rem]
+          absolute inset-0 transition-opacity duration-300 px-[54px] pt-[6.45rem]
           ${
             pageToShow === "graphics"
               ? "opacity-100"

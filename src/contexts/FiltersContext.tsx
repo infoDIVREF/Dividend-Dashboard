@@ -306,10 +306,22 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
 
   // Función específica para actualizar el claimStatus
   const updateClaimStatus = (value: string) => {
+    // Guard clause: Prevents deselecting the last item. (Keep this)
     if (claimStatus.length === 1 && claimStatus.includes(value)) {
-      console.warn("No claim status available to update.");
+      console.warn("Cannot deselect the last remaining status.");
       return;
     }
+
+    // --- NEW LOGIC ---
+    // Check for the special case: all 3 are selected and the user clicks 'RECUPERADO'
+    if (claimStatus.length === 3 && value === "RECUPERADO") {
+      // Override the normal toggle and set the status to ONLY 'RECUPERADO'
+      setClaimStatus(["RECUPERADO"]);
+      return; // <-- Important: Exit the function here
+    }
+    // --- END OF NEW LOGIC ---
+
+    console.log("UPDATE CLAIM STATUS (Standard Toggle)");
     const current = new Set<string>(claimStatus);
     if (current.has(value)) {
       current.delete(value);

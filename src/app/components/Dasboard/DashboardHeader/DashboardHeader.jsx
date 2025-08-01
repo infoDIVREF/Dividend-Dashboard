@@ -12,7 +12,7 @@ export default function DashboardHeader({
     <div
       className={`${
         isSidebarOpen ? "w-[calc(80vw-13px)]" : "w-[calc(100vw-13px)]"
-      }  flex  gap-6 justify-between absolute flex-col right-0 items-center h-30 pt-[23px] pb-[23px] pr-[54px] pl-[44px] z-10 ${
+      }  flex  gap-6 justify-between absolute flex-col right-0 items-center h-30 pt-[14px] pb-[23px] pr-[54px] pl-[42px] z-10 ${
         pageToShow === "map" ? "" : "bg-blanco"
       }`}
       style={{ pointerEvents: "none" }}
