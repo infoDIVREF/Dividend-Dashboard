@@ -41,7 +41,7 @@ export default function StatusButton({
         {/* ICON COLORS ARE COMING FROM PARENT COMPONENT
         StatusFilterComponent.jsx */}
         <span>{icon}</span>
-        <span className="font-[500] text-[20px]">{label}</span>
+        <span className="font-[500] text-[15px]">{label}</span>
       </div>
     </button>
   );
