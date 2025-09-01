@@ -56,7 +56,10 @@ export default function ClaimStatusStepper({ isSidebarOpen, pageToShow }) {
       } ${pageToShow === "map" ? "hidden" : ""}`}
     >
       {statuses.map((step, index) => (
-        <div key={step.label} className="flex items-center">
+        <div
+          key={step.label}
+          className="flex items-center hover-reduce-opacity"
+        >
           <StatusButton
             key={index + 1}
             numValue={index + 1}

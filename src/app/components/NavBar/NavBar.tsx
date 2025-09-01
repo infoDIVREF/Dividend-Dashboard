@@ -37,7 +37,7 @@ export default function NavBar() {
           <div className="flex flex-row gap-[35px]">
             <Link
               href="/dashboard"
-              className={`${
+              className={`hover-reduce-opacity ${
                 pathname === "/dashboard"
                   ? "text-[#4e84a6] font-bold"
                   : "text-black"
@@ -47,7 +47,7 @@ export default function NavBar() {
             </Link>
             <Link
               href="/documentacion"
-              className={`${
+              className={`hover-reduce-opacity ${
                 pathname === "/documentacion"
                   ? "text-[#4e84a6] font-bold"
                   : "text-black"
@@ -57,7 +57,7 @@ export default function NavBar() {
             </Link>
             <Link
               href="/facturas"
-              className={`${
+              className={`hover-reduce-opacity ${
                 pathname === "/facturas"
                   ? "text-[#4e84a6] font-bold"
                   : "text-black"
