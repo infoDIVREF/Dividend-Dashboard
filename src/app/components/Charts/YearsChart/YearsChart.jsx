@@ -8,7 +8,6 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  CartesianGrid,
 } from "recharts";
 import { useGetDataByYear } from "@/hooks/useGetDataByYear";
 import { CustomLegend } from "../CustomLegend";
