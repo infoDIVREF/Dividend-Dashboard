@@ -8,7 +8,11 @@ export default function DocumentsDashboardCard({
 }) {
   return (
     <div
-      className="cursor-pointer font-bricolage bg-gris-claro-3 rounded-[12px] p-6  flex flex-col gap-3 hover:bg-[#ebecf0]"
+      className={`${
+        totalPending === 0 &&
+        totalReceived === 0 &&
+        "pointer-events-none opacity-60"
+      } cursor-pointer font-bricolage bg-gris-claro-3 rounded-[12px] p-6  flex flex-col gap-3 hover:bg-[#ebecf0]`}
       onClick={() => openModal(title)}
     >
       <h2 className="text-[17px] font-normal text-negro">{title}</h2>

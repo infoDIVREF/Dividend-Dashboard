@@ -7,6 +7,7 @@ import InvoicesTableSkeleton from "./InvoiceTableSkeleton";
 
 export default function InvoicesTable() {
   const [invoices, setInvoices] = useState([]);
+  console.log(invoices);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { token, collaboratorId } = useAuth();
@@ -38,10 +39,18 @@ export default function InvoicesTable() {
       fetchInvoices();
     }
   }, [collaboratorId, currentPage]);
+
   return (
     <>
       {loader ? (
         <InvoicesTableSkeleton />
+      ) : invoices.length === 0 ? (
+        // AÑADIDO: Vista para cuando no hay facturas
+        <div className="h-[71vh] w-full rounded-xl bg-white flex items-center justify-center">
+          <p className="text-gray-500 text-lg">
+            📄 Aún no tienes facturas para mostrar.
+          </p>
+        </div>
       ) : (
         <div className="h-[71vh] w-full rounded-xl overflow-hidden bg-white flex flex-col">
           {/* Table Header */}

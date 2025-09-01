@@ -128,7 +128,7 @@ export default function SideBar({
                 <div className="flex items-center justify-between">
                   <button
                     onClick={handleClearFilters}
-                    className="text-gray-600 border-[1px] border-gray-600 py-0.5 px-2 rounded-sm no-wrap"
+                    className="text-gray-600 border-[1px] border-gray-600 py-0.5 px-2 rounded-sm no-wrap hover-reduce-opacity"
                   >
                     Seleccionar todo
                   </button>
@@ -158,7 +158,7 @@ export default function SideBar({
                   key={fund.id}
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onClick={() => updateSelectedFilter("funds", fund as any)}
-                  className={`mt-0! border py-1 rounded h-7 ${
+                  className={`mt-0! border py-1 rounded h-7 hover-reduce-opacity ${
                     isSelectedFund
                       ? "bg-azul text-white"
                       : "text-gris-claro-2 border border-gris-oscuro"
@@ -174,7 +174,7 @@ export default function SideBar({
             title={
               <div className="flex items-center justify-between">
                 <p>Año dividendo</p>
-                <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque]">
+                <p className="text-[#6B686B] text-[11px] leading-[16px] font-normal font-[Bricolage Grotesque] ">
                   Total: {initialFilters?.years.length} años
                 </p>
               </div>
@@ -197,7 +197,7 @@ export default function SideBar({
                 onClick={() => updateSelectedFilter("years", y)}
                 className={`mt-0! border py-1 rounded  ${
                   selectedFilters?.years.includes(y)
-                    ? "bg-azul text-white"
+                    ? "bg-azul text-white hover-reduce-opacity"
                     : "text-gris-claro-2 border border-gris-oscuro"
                 }`}
               >
@@ -241,10 +241,10 @@ export default function SideBar({
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     updateSelectedFilter("countries", country as any)
                   }
-                  className={`mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
+                  className={`hover-reduce-opacity mt-0! border pl-2 py-1 rounded flex items-center gap-2 ${
                     isSelectedCountry
                       ? "bg-azul text-white"
-                      : "text-gris-claro-2 border border-gris-oscuro"
+                      : "text-gris-claro-2 border border-gris-oscuro "
                   }`}
                 >
                   <div className="relative w-7 h-5 overflow-hidden rounded">
@@ -274,7 +274,7 @@ export default function SideBar({
               onClick={() => updateSelectedFilter("methods", method)}
               className={`mt-0!  py-1 rounded border ${
                 selectedFilters?.methods.includes(method)
-                  ? "bg-azul text-white"
+                  ? "bg-azul text-white hover-reduce-opacity"
                   : "text-gris-claro-2 border border-gris-oscuro"
               }`}
             >
@@ -290,7 +290,7 @@ export default function SideBar({
               <button
                 key={label}
                 onClick={() => updateClaimStatus(label)}
-                className={`flex items-center justify-center gap-2 rounded border px-3 py-2 transition-all
+                className={`flex items-center justify-center gap-2 rounded border px-3 py-2 transition-all hover-reduce-opacity
                   ${
                     isSelected ? "text-white" : "text-black border border-black"
                   }`}

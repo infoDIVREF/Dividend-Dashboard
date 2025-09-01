@@ -167,13 +167,13 @@ export const ChevronRightIcon = () => (
     viewBox="0 0 33 32"
     fill="none"
   >
-    <g clip-path="url(#clip0_4640_16766)">
+    <g clipPath="url(#clip0_4640_16766)">
       <path
         d="M12.2256 6L22.2256 16L12.2256 26"
         stroke="#AFAFAF"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </g>
     <defs>

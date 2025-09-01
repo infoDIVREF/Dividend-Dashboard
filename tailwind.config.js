@@ -1,5 +1,8 @@
-/**  @type {import('tailwindcss').Config} */
-module.exports = {
+import plugin from "tailwindcss/plugin";
+import tailwindcssAnimate from "tailwindcss-animate";
+
+/** @type {import('tailwindcss').Config} */
+const config = {
   darkMode: ["class"],
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx}",
@@ -14,7 +17,6 @@ module.exports = {
         blanco: "#FAFBFE",
         azul: "#4F84A6",
         "azul-oscuro": "#244A76",
-        naranja: "#F37021",
         gris: "#928F90",
         "gris-claro": "#C9C9C9",
         "gris-claro-2": "#8a8a8b",
@@ -70,10 +72,20 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        // Añadimos la fuente personalizada Bricolage Grotesque
         bricolage: ["Bricolage Grotesque", "sans-serif"],
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    tailwindcssAnimate,
+    // AÑADIDO: Plugin para la utilidad de opacidad en hover
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".hover-reduce-opacity:hover": {
+          opacity: "0.7",
+        },
+      });
+    }),
+  ],
 };
+export default config;

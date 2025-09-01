@@ -67,8 +67,7 @@ export default function ExportButton() {
     <button
       onClick={handleExport}
       disabled={isLoading}
-      // ↓↓↓ KEY CHANGES HERE ↓↓↓
-      className={`group text-[14px] bg-exportButton-green flex items-center justify-center px-[0.65rem] py-2 text-white rounded-full transition-all ease-in-out duration-300 pointer-events-auto hover:px-4 ${
+      className={`hover-reduce-opacity group text-[14px] bg-exportButton-green flex items-center justify-center px-[0.65rem] py-2 text-white rounded-full transition-all ease-in-out duration-300 pointer-events-auto hover:px-4 ${
         isLoading
           ? "opacity-50 cursor-not-allowed px-4 py-2 w-[121px] h-[40px]"
           : ""

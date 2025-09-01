@@ -45,7 +45,7 @@ export default function UserDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-[32px] h-[32px] flex items-center justify-center bg-azul rounded-full"
+        className="w-[32px] h-[32px] flex items-center justify-center bg-azul rounded-full hover-reduce-opacity"
       >
         {/* Aquí puedes usar el <svg> directamente o importar un ícono */}
         <svg
