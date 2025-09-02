@@ -1,18 +1,15 @@
 import StatusFiltersComponent from "./StatusFiltersComponent/StatusFiltersComponent";
 import { DotsIcon } from "@/components/icons/ClaimStatusIcons";
 
-export default function GraphicsComponentHeader({
-  isSidebarOpen,
-  pageToShow,
-  setPageToShow,
-}) {
+export default function GraphicsComponentHeader({ isSidebarOpen, pageToShow }) {
+  console.log(pageToShow);
   return (
     <div
       className={`flex  items-center w-full gap-[21px] ${
         pageToShow === "map" ? "justify-end" : "justify-between"
       }`}
     >
-      <DotsIcon />
+      {pageToShow === "graphics" && <DotsIcon />}
 
       <StatusFiltersComponent
         pageToShow={pageToShow}
