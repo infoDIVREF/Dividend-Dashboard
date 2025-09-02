@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"Dashboard-Recupera Feedback" <${process.env.EMAIL_USER}>`,
-      to: "equipo@attomo.digital",
+      to: process.env.EMAIL_TARGET,
       subject: subject || "Sugerencia de mejora",
       text: message,
     });
