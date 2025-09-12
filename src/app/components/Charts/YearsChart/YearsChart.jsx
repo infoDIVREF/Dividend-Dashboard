@@ -26,7 +26,7 @@ export function YearsChart() {
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
   return (
-    <div className="h-96 w-full mb-6">
+    <div className="absolute top-0 left-0 h-[93%] w-full">
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
           <XAxis fontSize={12} dataKey="name" />

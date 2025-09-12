@@ -31,7 +31,7 @@ function splitIntoBalancedChunks(data, maxPerChunk) {
   return result;
 }
 
-export function FundsComponent() {
+export function FundsComponent({ isWideFundsChart }) {
   const [showAll, setShowAll] = useState(false);
   const { data, loading, error, fundsObjectLength } = useGetDataByFund();
   const { claimStatus } = useFilters();
@@ -79,9 +79,14 @@ export function FundsComponent() {
       : [displayableFunds.slice(0, 15)];
 
   return (
-    <div className="w-full relative">
+    <div className={`w-full ${isWideFundsChart ? "relative" : "h-full"}`}>
       {charts.map((chartData, index) => (
-        <div key={index} className="relative h-96 w-full mb-6">
+        <div
+          key={index}
+          className={`${
+            isWideFundsChart ? "relative h-96" : "absolute top-0 left-0 h-[93%]"
+          } w-full mb-6`}
+        >
           <ResponsiveContainer debounce={300} width="100%" height="100%">
             <BarChart data={chartData}>
               <XAxis

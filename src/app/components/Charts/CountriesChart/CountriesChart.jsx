@@ -73,7 +73,7 @@ const isoToName = {
 
 export function CountriesChart() {
   const { data, loading, error } = useGetDataByCountry();
-  const { claimStatus, updateClaimStatus } = useFilters();
+  const { claimStatus } = useFilters();
 
   if (loading) return <SkeletonChartHorizontal height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -84,8 +84,18 @@ export function CountriesChart() {
     return totalB - totalA; // orden descendente
   });
 
+  // 💡 1. Definimos constantes para la altura
+  const HEIGHT_PER_COUNTRY = 45; // Altura en píxeles para cada país (barra + espaciado)
+  const MIN_CHART_HEIGHT = 384; // Equivalente a h-96, para que no sea demasiado pequeño
+
+  // 💡 2. Calculamos la altura final
+  const calculatedHeight = sortedData.length * HEIGHT_PER_COUNTRY;
+  const chartHeight = Math.max(MIN_CHART_HEIGHT, calculatedHeight);
+
+  console.log(sortedData);
+
   return (
-    <div className="h-96 w-full">
+    <div style={{ height: `${chartHeight}px` }}>
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart
           data={sortedData}
@@ -107,6 +117,7 @@ export function CountriesChart() {
             tickFormatter={(iso) => isoToName[iso] || iso}
             axisLine={false}
             tickLine={false}
+            interval={0}
             tick={({ x, y, payload }) => {
               const iso = payload.value;
               const countryName = isoToName[iso] || iso;
@@ -133,7 +144,7 @@ export function CountriesChart() {
                         style={{
                           fontSize: 12,
                           fontFamily: "Bricolage Grotesque, sans-serif",
-                          color: "#374151" /* gray-700 */,
+                          color: "#374151",
                         }}
                       >
                         {countryName}

@@ -22,7 +22,6 @@ type GraphicsComponentProps = {
 function GraphicsComponent({}: GraphicsComponentProps) {
   const { fundsObjectLength } = useGetDataByFund();
   const isWideFundsChart = fundsObjectLength > 7;
-
   const { claimStatus } = useFilters();
 
   const [isBooming, setIsBooming] = useState(false);
@@ -69,7 +68,9 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             <h3 className="leading-7 text-[1rem] font-semibold mb-4">
               Por fondo
             </h3>
-            <FundsComponent />
+            <div className="flex-1 h-full relative w-full">
+              <FundsComponent isWideFundsChart={isWideFundsChart} />
+            </div>
           </div>
 
           {!isWideFundsChart && (
@@ -97,7 +98,9 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             <h3 className="leading-7 text-[1rem] font-semibold mb-4">
               Por año
             </h3>
-            <YearsChart />
+            <div className="flex-1 h-full relative w-full">
+              <YearsChart />
+            </div>{" "}
           </div>
 
           {!isWideFundsChart && (
