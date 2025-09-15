@@ -51,7 +51,7 @@ const isoToName = {
   MD: "Moldavia",
   MC: "Mónaco",
   ME: "Montenegro",
-  NL: "Países Bajos",
+  NL: "Holanda",
   MK: "Macedonia del Norte",
   NO: "Noruega",
   PL: "Polonia",
@@ -71,7 +71,7 @@ const isoToName = {
   VA: "Ciudad del Vaticano",
 };
 
-export function CountriesChart() {
+export function CountriesChart({ setCalculatedHeight }) {
   const { data, loading, error } = useGetDataByCountry();
   const { claimStatus } = useFilters();
 
@@ -91,8 +91,7 @@ export function CountriesChart() {
   // 💡 2. Calculamos la altura final
   const calculatedHeight = sortedData.length * HEIGHT_PER_COUNTRY;
   const chartHeight = Math.max(MIN_CHART_HEIGHT, calculatedHeight);
-
-  console.log(sortedData);
+  setCalculatedHeight(chartHeight);
 
   return (
     <div style={{ height: `${chartHeight}px` }}>

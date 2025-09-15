@@ -24,6 +24,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
   const isWideFundsChart = fundsObjectLength > 7;
   const { claimStatus } = useFilters();
 
+  const [calculatedHeight, setCalculatedHeight] = useState(null);
   const [isBooming, setIsBooming] = useState(false);
 
   useEffect(() => {
@@ -78,7 +79,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por país
               </h3>
-              <CountriesChart />
+              <CountriesChart setCalculatedHeight={setCalculatedHeight} />
             </div>
           )}
         </div>
@@ -90,7 +91,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por país
               </h3>
-              <CountriesChart />
+              <CountriesChart setCalculatedHeight={setCalculatedHeight} />
             </div>
           )}
 
@@ -99,7 +100,10 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               Por año
             </h3>
             <div className="flex-1 h-full relative w-full">
-              <YearsChart />
+              <YearsChart
+                calculatedHeight={calculatedHeight}
+                isWideFundsChart={isWideFundsChart}
+              />
             </div>{" "}
           </div>
 
