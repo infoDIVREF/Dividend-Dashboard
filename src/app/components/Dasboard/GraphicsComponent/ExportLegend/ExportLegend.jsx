@@ -1,8 +1,8 @@
 const CustomExportLegend = ({}) => {
   const items = [
-    { color: "#d1d5db", label: "En trámite" },
-    { color: "#6082a3", label: "Enviado" },
-    { color: "#2c3e50", label: "Recuperado" },
+    { color: "#AFAFAF", label: "En trámite" },
+    { color: "#4F84A6", label: "Enviado" },
+    { color: "#244A76", label: "Recuperado" },
   ];
 
   return (

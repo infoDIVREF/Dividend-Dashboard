@@ -15,11 +15,7 @@ import { RoundedBarStart } from "./RoundedBarStart";
 import { RoundedBarMiddle } from "./RoundedBarMiddle";
 import { RoundedBarEnd } from "./RoundedBarEnd";
 
-// --- START OF THE FIX ---
-// 1. Accept `chartHeight` as a prop.
 export function AverageRecoveryTimeCard({ method, data, chartHeight }) {
-  // --- END OF THE FIX ---
-
   const barSize = Math.max(8, 20 - (data?.length || 0));
 
   const maxValue = Math.max(
