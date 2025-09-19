@@ -17,18 +17,31 @@ import { useFilters } from "@/contexts/FiltersContext";
 import { CustomTooltip } from "../CustomTooltip/CustomTooltip";
 
 // Inline shape personalizado para aplicar border-radius solo si es la barra superior
-
-export function YearsChart() {
+export function YearsChart({ calculatedHeight, isWideFundsChart }) {
   const { data, loading, error } = useGetDataByYear();
   const { claimStatus } = useFilters();
 
   if (loading) return <SkeletonChartVertical height="h-80" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
 
+  // Objeto de estilos dinámicos
+  const dynamicStyles = {
+    // Si la condición se cumple, usa la altura calculada en píxeles.
+    // Si no, el estilo 'height' no se aplica y la clase de Tailwind tomará el control.
+    height:
+      calculatedHeight && isWideFundsChart
+        ? `${calculatedHeight}px`
+        : undefined,
+  };
+
   return (
-    <div className="h-96 w-full mb-6">
+    <div
+      className="absolute top-0 left-0 w-full h-[90%]" // Dejamos un 'height' por defecto
+      style={dynamicStyles}
+    >
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart data={data}>
+          {/* ... el resto de tu componente ... */}
           <XAxis fontSize={12} dataKey="name" />
           <YAxis
             fontSize={12}

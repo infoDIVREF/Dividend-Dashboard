@@ -33,7 +33,7 @@ export const isoToName = {
   MD: "Moldavia",
   MC: "Mónaco",
   ME: "Montenegro",
-  NL: "Países Bajos",
+  NL: "Holanda",
   MK: "Macedonia del Norte",
   NO: "Noruega",
   PL: "Polonia",

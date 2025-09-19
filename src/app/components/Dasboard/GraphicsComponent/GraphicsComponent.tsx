@@ -9,6 +9,7 @@ import { AverageRecoveryTimeComponent } from "@/app/components/Charts/AverageRec
 import { useGetDataByFund } from "@/hooks/useGetDataByFund";
 import React, { useEffect, useState } from "react";
 import { useFilters } from "@/contexts/FiltersContext";
+import ExportLegend from "./ExportLegend/ExportLegend";
 import ConfettiBoom from "react-confetti-boom";
 
 type PageToShow = "map" | "graphics";
@@ -22,9 +23,9 @@ type GraphicsComponentProps = {
 function GraphicsComponent({}: GraphicsComponentProps) {
   const { fundsObjectLength } = useGetDataByFund();
   const isWideFundsChart = fundsObjectLength > 7;
-
   const { claimStatus } = useFilters();
 
+  const [calculatedHeight, setCalculatedHeight] = useState(null);
   const [isBooming, setIsBooming] = useState(false);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
 
       <div id="dashboard-capture" className="flex flex-col gap-4 mt-[2.5rem]">
         {/* 🔷 Fila 1: Por fondo (siempre) */}
+        <ExportLegend />
         <div className="flex gap-4">
           <div
             className={`bg-white rounded-xl shadow-md p-4 border ${
@@ -69,7 +71,9 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             <h3 className="leading-7 text-[1rem] font-semibold mb-4">
               Por fondo
             </h3>
-            <FundsComponent />
+            <div className="flex-1 h-full relative w-full">
+              <FundsComponent isWideFundsChart={isWideFundsChart} />
+            </div>
           </div>
 
           {!isWideFundsChart && (
@@ -77,11 +81,10 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por país
               </h3>
-              <CountriesChart />
+              <CountriesChart setCalculatedHeight={setCalculatedHeight} />
             </div>
           )}
         </div>
-
         {/* 🔷 Fila 2: País (si fondo es ancho) + Año (siempre) + Vía + Total */}
         <div className="flex gap-4 mb-2 min-h-[486px]">
           {isWideFundsChart && (
@@ -89,7 +92,7 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por país
               </h3>
-              <CountriesChart />
+              <CountriesChart setCalculatedHeight={setCalculatedHeight} />
             </div>
           )}
 
@@ -97,7 +100,12 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             <h3 className="leading-7 text-[1rem] font-semibold mb-4">
               Por año
             </h3>
-            <YearsChart />
+            <div className="flex-1 h-full relative w-full">
+              <YearsChart
+                calculatedHeight={calculatedHeight}
+                isWideFundsChart={isWideFundsChart}
+              />
+            </div>{" "}
           </div>
 
           {!isWideFundsChart && (
@@ -106,7 +114,12 @@ function GraphicsComponent({}: GraphicsComponentProps) {
                 <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                   Por vía
                 </h3>
-                <MethodsChart />
+                <div className="flex-1 h-full relative w-full">
+                  <MethodsChart
+                    calculatedHeight={calculatedHeight}
+                    isWideFundsChart={isWideFundsChart}
+                  />
+                </div>
               </div>
 
               <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border min-h-[486px]">
@@ -115,7 +128,6 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             </>
           )}
         </div>
-
         {/* 🔷 Fila 3: Vía + Total (solo si fondo es ancho) */}
         {isWideFundsChart && (
           <div className="flex gap-4 mb-2">
@@ -123,7 +135,12 @@ function GraphicsComponent({}: GraphicsComponentProps) {
               <h3 className="leading-7 text-[1rem] font-semibold mb-4">
                 Por vía
               </h3>
-              <MethodsChart />
+              <div className="flex-1 h-full relative w-full">
+                <MethodsChart
+                  calculatedHeight={calculatedHeight}
+                  isWideFundsChart={isWideFundsChart}
+                />
+              </div>
             </div>
 
             <div className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center flex-1 border">
@@ -131,7 +148,6 @@ function GraphicsComponent({}: GraphicsComponentProps) {
             </div>
           </div>
         )}
-
         {/* 🔷 Fila final: tiempos de recuperación */}
         <AverageRecoveryTimeComponent />
       </div>

@@ -321,7 +321,6 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
     }
     // --- END OF NEW LOGIC ---
 
-    console.log("UPDATE CLAIM STATUS (Standard Toggle)");
     const current = new Set<string>(claimStatus);
     if (current.has(value)) {
       current.delete(value);

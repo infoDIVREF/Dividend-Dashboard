@@ -7,7 +7,6 @@ import InvoicesTableSkeleton from "./InvoiceTableSkeleton";
 
 export default function InvoicesTable() {
   const [invoices, setInvoices] = useState([]);
-  console.log(invoices);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { token, collaboratorId } = useAuth();

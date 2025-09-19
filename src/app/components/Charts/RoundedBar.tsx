@@ -1,4 +1,5 @@
 import { BarProps } from "recharts";
+import { useFilters } from "@/contexts/FiltersContext";
 
 type RoundedBarProps = BarProps & {
   x: number;
@@ -8,10 +9,11 @@ type RoundedBarProps = BarProps & {
   fill: string;
   dataKey: string;
   payload: Record<string, number>;
-  horizontal?: boolean; // ← clave aquí
+  horizontal?: boolean;
 };
-const THRESHOLD = 0.005; // 0.5% del total como mínimo para considerarse visible
-const MIN_PIXEL_WIDTH = 2; // puedes ajustar a 1, 2, 3...
+
+const THRESHOLD = 0.005;
+const MIN_PIXEL_WIDTH = 2;
 
 export const RoundedBar = ({
   x,
@@ -23,17 +25,31 @@ export const RoundedBar = ({
   dataKey,
   horizontal = false,
 }: RoundedBarProps) => {
-  const keys = ["enTramite", "enviado", "recuperado"];
-  const index = keys.indexOf(dataKey);
+  const { claimStatus } = useFilters();
 
-  const total = keys.reduce((sum, key) => sum + (payload[key] || 0), 0);
-  const hasRightBar = keys
+  // ✨ CAMBIO 1: Crear una lista dinámica de las barras que están visibles
+  const allKeys = ["enTramite", "enviado", "recuperado"] as const;
+  const statusMap = {
+    enTramite: "EN TRÁMITE",
+    enviado: "ENVIADO",
+    recuperado: "RECUPERADO",
+  };
+
+  const visibleKeys = allKeys.filter((key) =>
+    claimStatus.includes(statusMap[key])
+  );
+
+  // ✨ CAMBIO 2: Usar la lista de claves visibles para toda la lógica
+  const index = visibleKeys.indexOf(dataKey as (typeof allKeys)[number]);
+
+  const total = allKeys.reduce((sum, key) => sum + (payload[key] || 0), 0);
+
+  const hasBarOnTop = visibleKeys
     .slice(index + 1)
     .some((key) => (payload[key] || 0) / total > THRESHOLD);
 
-  const isTopBar = !hasRightBar;
+  const isTopBar = !hasBarOnTop;
 
-  // 🔒 Ocultar si el ancho es muy pequeño (ej. 1px)
   if (width < MIN_PIXEL_WIDTH) {
     return null;
   }

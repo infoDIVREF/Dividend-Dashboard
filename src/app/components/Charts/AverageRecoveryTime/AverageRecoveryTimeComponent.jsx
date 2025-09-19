@@ -67,15 +67,15 @@ export function AverageRecoveryTimeComponent() {
         <div className="flex gap-5 text-[14px]">
           <div className="flex items-center gap-2">
             <div className="bg-[#3fb1f8] rounded-2xl w-10 h-6" />
-            <span>Mínimos</span>
+            <span className="averageText">Mínimos</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="bg-[#244a76] rounded-2xl w-10 h-6" />
-            <span>Medios</span>
+            <span className="averageText">Medios</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="bg-[#8ed3e4] rounded-2xl w-10 h-6" />
-            <span>Máximos</span>
+            <span className="averageText">Máximos</span>
           </div>
         </div>
       </div>

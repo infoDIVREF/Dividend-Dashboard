@@ -51,7 +51,7 @@ const isoToName = {
   MD: "Moldavia",
   MC: "Mónaco",
   ME: "Montenegro",
-  NL: "Países Bajos",
+  NL: "Holanda",
   MK: "Macedonia del Norte",
   NO: "Noruega",
   PL: "Polonia",
@@ -71,9 +71,9 @@ const isoToName = {
   VA: "Ciudad del Vaticano",
 };
 
-export function CountriesChart() {
+export function CountriesChart({ setCalculatedHeight }) {
   const { data, loading, error } = useGetDataByCountry();
-  const { claimStatus, updateClaimStatus } = useFilters();
+  const { claimStatus } = useFilters();
 
   if (loading) return <SkeletonChartHorizontal height="h-96" />;
   if (error) return <p className="text-sm text-red-500">Error: {error}</p>;
@@ -84,8 +84,17 @@ export function CountriesChart() {
     return totalB - totalA; // orden descendente
   });
 
+  // 💡 1. Definimos constantes para la altura
+  const HEIGHT_PER_COUNTRY = 45; // Altura en píxeles para cada país (barra + espaciado)
+  const MIN_CHART_HEIGHT = 384; // Equivalente a h-96, para que no sea demasiado pequeño
+
+  // 💡 2. Calculamos la altura final
+  const calculatedHeight = sortedData.length * HEIGHT_PER_COUNTRY;
+  const chartHeight = Math.max(MIN_CHART_HEIGHT, calculatedHeight);
+  setCalculatedHeight(chartHeight);
+
   return (
-    <div className="h-96 w-full">
+    <div style={{ height: `${chartHeight}px` }}>
       <ResponsiveContainer debounce={300} width="100%" height="100%">
         <BarChart
           data={sortedData}
@@ -107,6 +116,7 @@ export function CountriesChart() {
             tickFormatter={(iso) => isoToName[iso] || iso}
             axisLine={false}
             tickLine={false}
+            interval={0}
             tick={({ x, y, payload }) => {
               const iso = payload.value;
               const countryName = isoToName[iso] || iso;
@@ -117,13 +127,14 @@ export function CountriesChart() {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 6 }}
                     >
-                      <div className="relative w-7 h-5 overflow-hidden rounded">
+                      <div className="relative w-[28px] h-[20px] overflow-hidden rounded">
                         <Flag
                           code={iso}
                           style={{
-                            width: "100%",
-                            height: "100%",
+                            width: "28px",
+                            height: "20px",
                             objectFit: "cover",
+                            borderRadius: "4px",
                           }}
                           className="flag-image"
                         />
@@ -133,7 +144,7 @@ export function CountriesChart() {
                         style={{
                           fontSize: 12,
                           fontFamily: "Bricolage Grotesque, sans-serif",
-                          color: "#374151" /* gray-700 */,
+                          color: "#374151",
                         }}
                       >
                         {countryName}

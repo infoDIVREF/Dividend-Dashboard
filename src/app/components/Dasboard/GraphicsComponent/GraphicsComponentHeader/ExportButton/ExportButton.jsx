@@ -9,7 +9,10 @@ export default function ExportButton() {
     setIsLoading(true);
 
     const element = document.getElementById("dashboard-capture");
-    if (!element) return;
+    if (!element) {
+      setIsLoading(false);
+      return;
+    }
 
     await document.fonts.ready;
 
@@ -18,18 +21,49 @@ export default function ExportButton() {
     wrapper.style.padding = "20px";
     wrapper.style.backgroundColor = "white";
 
+    // --- SOLUTION ---
+    // 1. Get the computed width of the original dashboard element.
+    const originalWidth = element.offsetWidth;
+    const originalHeight = element.offsetHeight;
+    // 2. Apply this width to the wrapper to give the clone a layout context.
+    wrapper.style.width = `${originalWidth}px`;
+    wrapper.style.height = `${originalHeight}px`;
+    // --- END SOLUTION ---
+
     // Clone the dashboard
     const cloned = element.cloneNode(true);
 
-    // Replace flags with gray squares
-    cloned.querySelectorAll(".flag-image").forEach((el) => {
-      const placeholder = document.createElement("div");
-      placeholder.style.width = "28px";
-      placeholder.style.height = "20px";
-      placeholder.style.backgroundColor = "#FFFFFF";
-      placeholder.style.borderRadius = "4px";
+    // Selecciona TODOS los spans de texto dentro de la leyenda
+    /*  const legendTexts = cloned.querySelectorAll(
+      ".recharts-legend-wrapper li span.truncate"
+    ); */
+    const legendWrapper = cloned.querySelectorAll(".recharts-legend-wrapper");
+    const exportLegend = cloned.querySelectorAll(".export-legend");
+    const exportLegendText = cloned.querySelectorAll(".export-legend-text");
+    const exportButtons = cloned.querySelectorAll(".see-more-button");
+    const recoveryTimeTexts = cloned.querySelectorAll(".averageText");
 
-      el.parentNode?.replaceChild(placeholder, el);
+    legendWrapper.forEach((legendItem) => {
+      legendItem.style.display = "none";
+    });
+
+    exportButtons.forEach((button) => {
+      // Cast to HTMLElement to access the style property
+      button.style.display = "none";
+    });
+
+    exportLegend.forEach((wrapper) => {
+      wrapper.style.display = "flex";
+    });
+
+    exportLegendText.forEach((text) => {
+      text.style.position = "relative";
+      text.style.bottom = "8px";
+    });
+
+    recoveryTimeTexts.forEach((textSpan) => {
+      textSpan.style.position = "relative";
+      textSpan.style.bottom = "5px"; // Puedes ajustar este valor si es necesario
     });
 
     wrapper.appendChild(cloned);
@@ -56,7 +90,7 @@ export default function ExportButton() {
       link.download = filename;
       link.click();
     } catch (error) {
-      console.error("Error exportando el dashboard:", error);
+      console.error("Error exporting the dashboard:", error);
     } finally {
       document.body.removeChild(wrapper);
       setIsLoading(false);
