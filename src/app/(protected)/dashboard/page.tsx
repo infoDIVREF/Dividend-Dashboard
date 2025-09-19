@@ -6,8 +6,7 @@ import { PageToShow } from "@/types/dashboard";
 import DashboardHeader from "@/app/components/Dasboard/DashboardHeader/DashboardHeader";
 
 export default function Home() {
-  /*   const [pageToShow, setPageToShow] = useState<PageToShow>("map");
-   */ const [pageToShow, setPageToShow] = useState<PageToShow>("graphics");
+  const [pageToShow, setPageToShow] = useState<PageToShow>("graphics");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   return (
     <div className="w-full h-full flex overflow-hidden">

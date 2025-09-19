@@ -35,7 +35,6 @@ export function YearsChart({ calculatedHeight, isWideFundsChart }) {
   };
 
   return (
-    // Aplicamos las clases estáticas y el estilo dinámico
     <div
       className="absolute top-0 left-0 w-full h-[90%]" // Dejamos un 'height' por defecto
       style={dynamicStyles}

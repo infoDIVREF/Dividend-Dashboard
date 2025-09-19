@@ -180,7 +180,7 @@ export function FundsComponent({ isWideFundsChart }) {
       {totalDisplayableFunds > 15 && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="absolute text-white bottom-[0.2rem] right-3 z-0 bg-[#F86338] px-3 py-1 rounded-full text-normal font-medium flex items-center gap-1 hover:bg-[#d44f2b] transition-colors"
+          className="see-more-button absolute text-white bottom-[0.2rem] right-3 z-0 bg-[#F86338] px-3 py-1 rounded-full text-normal font-medium flex items-center gap-1 hover:bg-[#d44f2b] transition-colors"
         >
           <span>{showAll ? "Ver menos" : "Ver más"}</span>
           <svg

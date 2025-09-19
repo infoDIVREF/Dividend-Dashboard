@@ -127,13 +127,14 @@ export function CountriesChart({ setCalculatedHeight }) {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 6 }}
                     >
-                      <div className="relative w-7 h-5 overflow-hidden rounded">
+                      <div className="relative w-[28px] h-[20px] overflow-hidden rounded">
                         <Flag
                           code={iso}
                           style={{
-                            width: "100%",
-                            height: "100%",
+                            width: "28px",
+                            height: "20px",
                             objectFit: "cover",
+                            borderRadius: "4px",
                           }}
                           className="flag-image"
                         />

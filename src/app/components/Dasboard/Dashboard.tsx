@@ -78,7 +78,6 @@ function Dashboard({
           setPageToShow={setPageToShow}
         />
       </div>
-
       <div
         className={`
           absolute inset-0 transition-opacity duration-300
