@@ -51,7 +51,7 @@ const isoToName = {
   MD: "Moldavia",
   MC: "Mónaco",
   ME: "Montenegro",
-  NL: "Holanda",
+  NL: "Países bajos",
   MK: "Macedonia del Norte",
   NO: "Noruega",
   PL: "Polonia",
@@ -112,7 +112,7 @@ export function CountriesChart({ setCalculatedHeight }) {
             fontSize={12}
             dataKey="name"
             type="category"
-            width={100}
+            width={130} // 1. AUMENTADO: De 100 a 130 para dar más espacio
             tickFormatter={(iso) => isoToName[iso] || iso}
             axisLine={false}
             tickLine={false}
@@ -121,9 +121,16 @@ export function CountriesChart({ setCalculatedHeight }) {
               const iso = payload.value;
               const countryName = isoToName[iso] || iso;
 
+              // El valor de translación se ajusta. Un buen punto de partida
+              // es restarle un poco menos que el nuevo 'width'.
+              // Por ejemplo, width - 15 (130 - 15 = 115)
               return (
-                <g transform={`translate(${x - 85},${y + 0})`}>
-                  <foreignObject x={0} y={-12} width={100} height={24}>
+                <g transform={`translate(${x - 115},${y})`}>
+                  {" "}
+                  {/* 3. AJUSTADO: El valor de translación en X */}
+                  <foreignObject x={0} y={-12} width={130} height={24}>
+                    {" "}
+                    {/* 2. AUMENTADO: El ancho del foreignObject */}
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 6 }}
                     >
