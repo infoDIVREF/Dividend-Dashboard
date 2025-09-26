@@ -91,14 +91,25 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
         .slice(0, 8) // Los 4 últimos años
         .map((year: number) => year.toString()); // Convertimos de nuevo a string
 
+      const transformedCountries = data.countries.map(
+        (country: { name: string; isoCode: string }) => {
+          if (country.name === "Holanda") {
+            // Si el país es "Holanda", retornamos un nuevo objeto con el nombre cambiado
+            return { ...country, name: "Países Bajos" };
+          }
+          // Para cualquier otro país, lo retornamos sin cambios
+          return country;
+        }
+      );
+
       const loaded: Filters = {
         years: filteredYears, // Usamos los años filtrados
-        countries: data.countries,
+        countries: transformedCountries,
         methods: ["DTTR", "TJUE"],
         funds: data.funds,
         claimStatus: ["EN TRÁMITE", "ENVIADO", "RECUPERADO"],
       };
-
+      console.log("Filtros de backend", loaded);
       setInitialFilters(loaded);
       setSelectedFilters(loaded);
     } catch (error) {

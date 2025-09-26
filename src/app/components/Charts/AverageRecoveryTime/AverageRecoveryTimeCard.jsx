@@ -81,7 +81,7 @@ export function AverageRecoveryTimeCard({ method, data, chartHeight }) {
           <YAxis
             type="category"
             dataKey="country"
-            width={110}
+            width={130}
             axisLine={false}
             tickLine={false}
             interval={0} // This remains crucial for showing all labels
@@ -89,8 +89,8 @@ export function AverageRecoveryTimeCard({ method, data, chartHeight }) {
               const isoCode = payload.value;
               const name = isoToName[isoCode] || isoCode;
               return (
-                <g transform={`translate(${x - 90},${y - 12})`}>
-                  <foreignObject x={0} y={0} width={100} height={24}>
+                <g transform={`translate(${x - 115},${y - 12})`}>
+                  <foreignObject x={0} y={0} width={130} height={24}>
                     <div
                       style={{
                         display: "flex",
